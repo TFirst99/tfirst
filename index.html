@@ -16,37 +16,35 @@
             overflow: hidden;
         }
         #terminal {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 20px);
-            grid-template-rows: repeat(auto-fill, 20px);
+            display: flex;
+            flex-direction: column;
             height: 100vh;
             width: 100vw;
             box-sizing: border-box;
+            padding: 20px;
         }
-        #weather {
-            grid-column: 2 / span 10;
-            grid-row: 1 / span 6;
-            white-space: pre;
+        #top-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-        #time {
-            grid-column: -12 / span 10;
-            grid-row: 1 / span 6;
+        #weather, #time {
             white-space: pre;
-            justify-self: end;
         }
         #weather-art {
-            grid-column: 11 / -11;
-            grid-row: 5 / span 10;
             white-space: pre;
-            place-self: center;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .shortcuts {
-            grid-column: 1 / -1;
-            grid-row: -3 / span 2;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
         a {
             color: #ffffff;
@@ -68,12 +66,45 @@
             position: absolute;
             color: #ffffff;
         }
+
+        @media (min-width: 768px) {
+            #terminal {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 20px);
+                grid-template-rows: repeat(auto-fill, 20px);
+                padding: 0;
+            }
+            #top-row {
+                display: contents;
+            }
+            #weather {
+                grid-column: 2 / span 10;
+                grid-row: 1 / span 6;
+            }
+            #time {
+                grid-column: -12 / span 10;
+                grid-row: 1 / span 6;
+                justify-self: end;
+            }
+            #weather-art {
+                grid-column: 11 / -11;
+                grid-row: 5 / span 10;
+                place-self: center;
+            }
+            .shortcuts {
+                grid-column: 1 / -1;
+                grid-row: -3 / span 2;
+                margin-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="terminal">
-        <div id="weather"></div>
-        <div id="time"></div>
+        <div id="top-row">
+            <div id="weather"></div>
+            <div id="time"></div>
+        </div>
         <div id="weather-art"></div>
         <div class="shortcuts">
             [<a href="https://www.youtube.com/feed/subscriptions" target="_blank" rel="noopener noreferrer">YOUTUBE</a>]
