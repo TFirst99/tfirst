@@ -18,31 +18,31 @@
         #terminal {
             display: grid;
             grid-template-columns: repeat(auto-fill, 16.8px);
-            grid-template-rows: repeat(auto-fill, 28px);
+            grid-template-rows: repeat(auto-fill, 16.5px);
             height: 100vh;
             width: 100vw;
             box-sizing: border-box;
         }
         #weather {
-            grid-column: 3 / span 10;
+            grid-column: 3 / span 11;
             grid-row: 1 / span 6;
             white-space: pre;
         }
         #time {
-            grid-column: -12 / span 10;
+            grid-column: -13 / span 11;
             grid-row: 1 / span 6;
             white-space: pre;
             justify-self: end;
         }
         #weather-art {
             grid-column: 11 / -11;
-            grid-row: 6 / span 10;
+            grid-row: 6 / span 22;
             white-space: pre;
             place-self: center;
         }
         .shortcuts {
             grid-column: 1 / -1;
-            grid-row: -3 / span 2;
+            grid-row: -3 / span 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -81,7 +81,7 @@
                 display: none;
             }
             .shortcuts {
-                margin-top: 10px;
+                display: none;
             }
         }
     </style>
