@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tfirst</title>
     <style>
-                body, html {
+        body, html {
             font-family: 'Courier New', monospace;
             font-size: 14px;
             background-color: #2c2c2c;
@@ -15,60 +15,45 @@
             height: 100%;
             overflow: hidden;
         }
-
         #terminal {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 16.8px);
-            grid-template-rows: repeat(auto-fill, 28px);
+            display: flex;
+            flex-direction: column;
             height: 100vh;
             width: 100vw;
             box-sizing: border-box;
-            padding: 0;
+            padding: 20px;
         }
-
         #top-row {
-            display: contents;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-
-        #weather {
-            grid-column: 2 / span 10;
-            grid-row: 1 / span 6;
+        #weather, #time {
             white-space: pre;
         }
-
-        #time {
-            grid-column: -12 / span 10;
-            grid-row: 1 / span 6;
-            justify-self: end;
-            white-space: pre;
-        }
-
         #weather-art {
-            grid-column: 11 / -11;
-            grid-row: 6 / span 10;
-            place-self: center;
             white-space: pre;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
         .shortcuts {
-            grid-column: 1 / -1;
-            grid-row: -3 / span 2;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
-
         a {
             color: #ffffff;
             text-decoration: none;
             margin: 0 10px;
         }
-
         a:hover {
             text-decoration: underline;
         }
-
         #prompts {
             position: absolute;
             top: 0;
@@ -77,31 +62,39 @@
             bottom: 0;
             pointer-events: none;
         }
-
         .prompt {
             position: absolute;
             color: #ffffff;
         }
 
-        @media (max-width: 508px) {
-            body, html {
-                font-size: 12px;
-            }
-
+        @media (min-width: 768px) {
             #terminal {
-                grid-template-columns: repeat(auto-fill, 14.4px);
-                grid-template-rows: repeat(auto-fill, 24px);
-            }
-        }
-
-        @media (max-width: 450px) {
-            body, html {
-                font-size: 10px;
-            }
-
-            #terminal {
-                grid-template-columns: repeat(auto-fill, 12px);
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 20px);
                 grid-template-rows: repeat(auto-fill, 20px);
+                padding: 0;
+            }
+            #top-row {
+                display: contents;
+            }
+            #weather {
+                grid-column: 2 / span 10;
+                grid-row: 1 / span 6;
+            }
+            #time {
+                grid-column: -12 / span 10;
+                grid-row: 1 / span 6;
+                justify-self: end;
+            }
+            #weather-art {
+                grid-column: 11 / -11;
+                grid-row: 5 / span 10;
+                place-self: center;
+            }
+            .shortcuts {
+                grid-column: 1 / -1;
+                grid-row: -3 / span 2;
+                margin-top: 0;
             }
         }
     </style>
@@ -1000,7 +993,7 @@ drizzle: [
                 });
                 const timeHtml = `
 +-------------------+
-|       TIME        |
+|      TIME         |
 |    ${this.padRight(timeString, 11)}    |
 |     ${this.padRight(dateString, 10)}    |
 +-------------------+`;
