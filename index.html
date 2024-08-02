@@ -69,15 +69,22 @@
             color: #ffffff;
         }
         @media (max-width: 405px) {
-            #terminal {
-                display: flex;
-                flex-direction: column;
-                padding: 10px;
-            }
-            #weather, #time {
-                margin-bottom: 10px;
-                text-align: center;
-            }
+        #weather {
+            grid-column: 1 / -1;
+            grid-row: 2 / span 6;
+            white-space: pre-wrap;
+            word-break: break-all;
+            justify-self: center;
+            text-align: center;
+        }
+        #time {
+            grid-column: 1 / -1;
+            grid-row: 9 / span 6;
+            white-space: pre-wrap;
+            word-break: break-all;
+            justify-self: center;
+            text-align: center;
+        }
             #weather-art {
                 display: none;
             }
