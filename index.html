@@ -43,7 +43,7 @@
         .shortcuts {
             grid-column: 1 / -1;
             grid-row: -3 / span 1;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
@@ -68,7 +68,7 @@
             position: absolute;
             color: #ffffff;
         }
-        @media (max-width: 350px) {
+        @media (max-width: 405px) {
             #terminal {
                 display: flex;
                 flex-direction: column;
@@ -76,6 +76,7 @@
             }
             #weather, #time {
                 margin-bottom: 10px;
+                text-align: center;
             }
             #weather-art {
                 display: none;
@@ -100,8 +101,6 @@
         </div>
     </div>
     <div id="prompts"></div>
-</body>
-</html>
 
     <script>
         class WeatherManager {
@@ -1011,6 +1010,7 @@ drizzle: [
 ]
         };
     }
+
             init() {
                 this.fetchWeather();
                 this.startWeatherAnimation();
@@ -1084,6 +1084,59 @@ drizzle: [
                 return str + padChar.repeat(Math.max(0, length - str.length));
             }
         }
+
+        const shortcuts = document.querySelector('.shortcuts');
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cookieName = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
+                while (cookie.charAt(0) === ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        function showShortcuts() {
+            shortcuts.style.display = 'flex';
+            setCookie('shortcutsVisible', 'true', 30);
+        }
+
+        function hideShortcuts() {
+            shortcuts.style.display = 'none';
+            setCookie('shortcutsVisible', 'false', 30);
+        }
+
+        // Check cookie on page load
+        if (getCookie('shortcutsVisible') === 'true') {
+            showShortcuts();
+        }
+
+        // Override console.log to listen for commands
+        const originalLog = console.log;
+        console.log = function() {
+            if (arguments[0] === 'showShortcuts') {
+                showShortcuts();
+                console.log('Shortcuts revealed!');
+            } else if (arguments[0] === 'hideShortcuts') {
+                hideShortcuts();
+                console.log('Shortcuts hidden!');
+            }
+            originalLog.apply(console, arguments);
+        };
 
         class TimeManager {
             constructor() {
