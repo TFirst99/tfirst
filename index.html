@@ -1355,14 +1355,14 @@ drizzle: [
                     const artistName = data.item.artists.map(artist => artist.name).join(', ');
                     this.widgetElement.innerHTML = this.createWidgetHTML(`${trackName} - ${artistName}`);
                 } else {
-                    this.widgetElement.innerHTML = this.createWidgetHTML('No track playing');
+                    this.widgetElement.innerHTML = this.createWidgetHTML('     unknown');
                 }
             }
 
             createWidgetHTML(content) {
                 return `
 +-------------------+
-|    NOW PLAYING    |
+|   LISTENING TO:   |
 | ${this.padRight(content, 17)} |
 +-------------------+`;
             }
