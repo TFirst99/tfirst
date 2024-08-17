@@ -1324,6 +1324,7 @@ drizzle: [
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
                 this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
+                console.log('API URL:', this.apiUrl); // Log the API URL
             }
 
             init() {
@@ -1331,17 +1332,18 @@ drizzle: [
             }
 
             async updateNowPlaying() {
+                console.log('Fetching Spotify data...'); // Log before fetch
                 try {
                     const response = await fetch(this.apiUrl, {
                         method: 'GET',
-                        mode: 'cors',
-                        credentials: 'include',
                         headers: {
                             'Content-Type': 'application/json',
                         }
                     });
+                    console.log('Response status:', response.status); // Log response status
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const data = await response.json();
+                    console.log('Spotify data:', data); // Log the received data
                     this.updateWidget(data);
                 } catch (error) {
                     console.error('Error fetching Spotify data:', error);
