@@ -39,6 +39,20 @@
             grid-row: 7 / span 6;
             white-space: pre;
             justify-self: end;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .spotify-ascii {
+            margin: 0;
+            padding: 0;
+        }
+
+        .scrolling-content {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
         }
         #weather-art {
             grid-column: 11 / -11;
@@ -92,6 +106,9 @@
             text-align: center;
         }
             #weather-art {
+                display: none;
+            }
+            #spotify-widget {
                 display: none;
             }
             .shortcuts {
@@ -1324,53 +1341,104 @@ drizzle: [
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
                 this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
-                console.log('API URL:', this.apiUrl); // Log the API URL
+                this.secretKey = '__SHARED_SECRET_KEY__'; 
+                this.contentWidth = 17; 
+                this.scrollPosition = 0;
+                this.scrollInterval = null;
             }
 
             init() {
                 this.updateNowPlaying();
+                setInterval(() => this.updateNowPlaying(), 60000); // Update every 60 seconds
             }
 
             async updateNowPlaying() {
-                console.log('Fetching Spotify data...'); // Log before fetch
                 try {
+                    const timestamp = Date.now().toString();
+                    const signature = await this.generateSignature(timestamp);
+                    
                     const response = await fetch(this.apiUrl, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
+                            'X-Timestamp': timestamp,
+                            'X-Signature': signature
                         }
                     });
-                    console.log('Response status:', response.status); // Log response status
+
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const data = await response.json();
-                    console.log('Spotify data:', data); // Log the received data
                     this.updateWidget(data);
                 } catch (error) {
                     console.error('Error fetching Spotify data:', error);
-                    this.widgetElement.innerHTML = this.createWidgetHTML('Unknown');
+                    this.updateWidget(null);
                 }
             }
 
+            async generateSignature(timestamp) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(timestamp);
+                const key = await crypto.subtle.importKey(
+                    'raw',
+                    encoder.encode(this.secretKey),
+                    { name: 'HMAC', hash: 'SHA-256' },
+                    false,
+                    ['sign']
+                );
+                const signature = await crypto.subtle.sign('HMAC', key, data);
+                return Array.from(new Uint8Array(signature))
+                    .map(b => b.toString(16).padStart(2, '0'))
+                    .join('');
+            }
+
             updateWidget(data) {
+                let content = 'Unknown';
                 if (data && data.item) {
                     const trackName = data.item.name;
                     const artistName = data.item.artists.map(artist => artist.name).join(', ');
-                    this.widgetElement.innerHTML = this.createWidgetHTML(`${trackName} - ${artistName}`);
-                } else {
-                    this.widgetElement.innerHTML = this.createWidgetHTML('     unknown');
+                    content = `${trackName} - ${artistName}`;
                 }
+                this.widgetElement.innerHTML = this.createWidgetHTML(content);
+                this.startScrolling(content);
             }
 
             createWidgetHTML(content) {
                 return `
-+-------------------+
-|   LISTENING TO:   |
-| ${this.padRight(content, 17)} |
-+-------------------+`;
+        <pre class="spotify-ascii">
+        +-------------------+
+        |   LISTENING TO:   |
+        | <span class="scrolling-content">${this.padRight(content, this.contentWidth)}</span> |
+        +-------------------+
+        </pre>`;
             }
 
             padRight(str, length, padChar = ' ') {
-                return (str.length > length) ? str.slice(0, length) : str + padChar.repeat(Math.max(0, length - str.length));
+                return (str.length > length) ? str : str + padChar.repeat(Math.max(0, length - str.length));
+            }
+
+            startScrolling(content) {
+                if (this.scrollInterval) {
+                    clearInterval(this.scrollInterval);
+                }
+                
+                const scrollingContent = document.querySelector('.scrolling-content');
+                if (!scrollingContent) return;
+
+                this.scrollPosition = 0;
+                const fullContent = content + '   ';  // adds some space at the end
+
+                if (fullContent.length <= this.contentWidth) {
+                    scrollingContent.textContent = this.padRight(fullContent, this.contentWidth);
+                    return;
+                }
+
+                this.scrollInterval = setInterval(() => {
+                    let visibleContent = fullContent.substring(this.scrollPosition) + fullContent.substring(0, this.scrollPosition);
+                    visibleContent = visibleContent.substring(0, this.contentWidth);
+                    scrollingContent.textContent = this.padRight(visibleContent, this.contentWidth);
+                    
+                    this.scrollPosition = (this.scrollPosition + 1) % fullContent.length;
+                }, 300);  // scroll speed
             }
 
             toggle() {
