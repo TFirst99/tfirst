@@ -34,6 +34,12 @@
             white-space: pre;
             justify-self: end;
         }
+        #spotify-widget {
+            grid-column: -13 / span 11;
+            grid-row: 7 / span 6;
+            white-space: pre;
+            justify-self: end;
+        }
         #weather-art {
             grid-column: 11 / -11;
             grid-row: 6 / span 22;
@@ -99,6 +105,7 @@
         <div id="weather"></div>
         <div id="time"></div>
         <div id="weather-art"></div>
+        <div id="spotify-widget"></div>
         <div class="shortcuts">
             [<a href="https://www.youtube.com/feed/subscriptions" target="_blank" rel="noopener noreferrer">YOUTUBE</a>]
             [<a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">TWITTER</a>]
@@ -1227,20 +1234,22 @@ drizzle: [
 
         (function() {
             const shortcuts = document.querySelector('.shortcuts');
+            const spotifyWidget = document.getElementById('spotify-widget');
             const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
             let codeIndex = 0;
 
-            function toggleShortcuts() {
-                const isVisible = localStorage.getItem('shortcutsVisible') === 'true';
+            function toggleElements() {
+                const isVisible = localStorage.getItem('elementsVisible') === 'true';
                 shortcuts.style.display = isVisible ? 'none' : 'flex';
-                localStorage.setItem('shortcutsVisible', (!isVisible).toString());
-                console.log(`shortcuts ${isVisible ? 'hidden' : 'revealed'}`);
+                localStorage.setItem('elementsVisible', (!isVisible).toString());
+                console.log(`Elements ${isVisible ? 'hidden' : 'revealed'}`);
             }
+
             document.addEventListener('keydown', function(e) {
                 if (e.key === code[codeIndex]) {
                     codeIndex++;
                     if (codeIndex === code.length) {
-                        toggleShortcuts();
+                        toggleElements();
                         codeIndex = 0;
                     }
                 } else {
@@ -1248,7 +1257,7 @@ drizzle: [
                 }
             });
 
-            if (localStorage.getItem('shortcutsVisible') === 'true') {
+            if (localStorage.getItem('elementsVisible') === 'true') {
                 shortcuts.style.display = 'flex';
             }
         })();
@@ -1312,22 +1321,83 @@ drizzle: [
             }
         }
 
+        class SpotifyManager {
+            constructor() {
+                this.widgetElement = document.getElementById('spotify-widget');
+                this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
+            }
+
+            init() {
+                this.updateNowPlaying();
+                this.widgetElement.innerHTML = this.createWidgetHTML('');
+                this.updateWidget();
+            }
+
+            async updateNowPlaying() {
+                try {
+                    const response = await fetch(this.apiUrl, {
+                        method: 'GET',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    this.updateWidget(data);
+                } catch (error) {
+                    console.error('Error fetching Spotify data:', error);
+                    this.widgetElement.innerHTML = this.createWidgetHTML('Unknown');
+                }
+            }
+
+            updateWidget(data) {
+                if (data && data.item) {
+                    const trackName = data.item.name;
+                    const artistName = data.item.artists.map(artist => artist.name).join(', ');
+                    this.widgetElement.innerHTML = this.createWidgetHTML(`${trackName} - ${artistName}`);
+                } else {
+                    this.widgetElement.innerHTML = this.createWidgetHTML('No track playing');
+                }
+            }
+
+            createWidgetHTML(content) {
+                return `
++-------------------+
+|    NOW PLAYING    |
+| ${this.padRight(content, 17)} |
++-------------------+`;
+            }
+
+            padRight(str, length, padChar = ' ') {
+                return (str.length > length) ? str.slice(0, length) : str + padChar.repeat(Math.max(0, length - str.length));
+            }
+
+            toggle() {
+                this.widgetElement.style.display = this.widgetElement.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
         class App {
             constructor() {
                 this.weatherManager = new WeatherManager();
                 this.timeManager = new TimeManager();
                 this.promptManager = new PromptManager();
+                this.spotifyManager = new SpotifyManager();
             }
 
             init() {
                 this.promptManager.init();
                 this.timeManager.init();
                 this.weatherManager.init();
+                this.spotifyManager.init();
             }
         }
 
         const app = new App();
         app.init();
+
     </script>
 </body>
 </html>
