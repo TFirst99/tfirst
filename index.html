@@ -40,15 +40,15 @@
             white-space: pre;
             justify-self: end;
         }
-
-        .spotify-ascii {
-            margin: 0;
-            padding: 0;
-        }
-        .scrolling-content {
+        #spotify-widget .content-wrapper {
             display: inline-block;
-            white-space: nowrap;
+            width: 19ch;
             overflow: hidden;
+            vertical-align: top;
+        }
+
+        #spotify-widget .scrolling-content {
+            display: inline-block;
         }
         #weather-art {
             grid-column: 11 / -11;
@@ -1400,12 +1400,10 @@ drizzle: [
 
             createWidgetHTML(content) {
                 return `
-        <pre class="spotify-ascii">
-        +-------------------+
-        |   LISTENING TO:   |
-        | <span class="scrolling-content">${this.padRight(content, this.contentWidth)}</span> |
-        +-------------------+
-        </pre>`;
++-------------------+
+|   LISTENING TO:   |
+|<div class="content-wrapper"><span class="scrolling-content">${this.padRight(content, 17)}</span></div>|
++-------------------+`;
             }
 
             padRight(str, length, padChar = ' ') {
@@ -1417,21 +1415,21 @@ drizzle: [
                     clearInterval(this.scrollInterval);
                 }
                 
-                const scrollingContent = document.querySelector('.scrolling-content');
+                const scrollingContent = this.widgetElement.querySelector('.scrolling-content');
                 if (!scrollingContent) return;
 
                 this.scrollPosition = 0;
                 const fullContent = content + '   ';  // adds some space at the end
 
-                if (fullContent.length <= this.contentWidth) {
-                    scrollingContent.textContent = this.padRight(fullContent, this.contentWidth);
+                if (fullContent.length <= 17) {
+                    scrollingContent.textContent = this.padRight(fullContent, 17);
                     return;
                 }
 
                 this.scrollInterval = setInterval(() => {
                     let visibleContent = fullContent.substring(this.scrollPosition) + fullContent.substring(0, this.scrollPosition);
-                    visibleContent = visibleContent.substring(0, this.contentWidth);
-                    scrollingContent.textContent = this.padRight(visibleContent, this.contentWidth);
+                    visibleContent = visibleContent.substring(0, 17);
+                    scrollingContent.textContent = this.padRight(visibleContent, 17);
                     
                     this.scrollPosition = (this.scrollPosition + 1) % fullContent.length;
                 }, 300);  // scroll speed
