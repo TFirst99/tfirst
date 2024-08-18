@@ -1337,9 +1337,9 @@ drizzle: [
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
                 this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
-                this.contentWidth = 19; 
-                this.scrollPosition = 0;
-                this.scrollInterval = null;
+                this.contentWidth = 19;
+                this.scrollPositions = [0, 0];
+                this.scrollIntervals = [null, null];
             }
 
             init() {
@@ -1350,7 +1350,6 @@ drizzle: [
             async updateNowPlaying() {
                 try {
                     const response = await fetch(this.apiUrl);
-
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
@@ -1363,49 +1362,56 @@ drizzle: [
             }
 
             updateWidget(data) {
-                let content = '   Not playing';
+                let trackName = '   Not playing';
+                let artistName = '';
                 if (data && data.trackName) {
-                    content = `${data.trackName} - ${data.artistName}`;
+                    trackName = data.trackName;
+                    artistName = data.artistName;
                 }
-                this.widgetElement.innerHTML = this.createWidgetHTML(content);
-                this.startScrolling(content);
+                this.widgetElement.innerHTML = this.createWidgetHTML(trackName, artistName);
+                this.startScrolling(trackName, artistName);
             }
 
-            createWidgetHTML(content) {
+            createWidgetHTML(trackName, artistName) {
                 return `
-+-------------------+
-|      SPOTIFY      |
-|<div class="content-wrapper"><span class="scrolling-content">${this.padRight(content, 19)}</span></div>|
-+-------------------+`;
+        +-------------------+
+        |      SPOTIFY      |
+        |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(trackName, 19)}</span></div>|
+        |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(artistName, 19)}</span></div>|
+        +-------------------+`;
             }
 
             padRight(str, length, padChar = ' ') {
                 return (str.length > length) ? str : str + padChar.repeat(Math.max(0, length - str.length));
             }
 
-            startScrolling(content) {
-                if (this.scrollInterval) {
-                    clearInterval(this.scrollInterval);
-                }
+            startScrolling(trackName, artistName) {
+                const contents = [trackName, artistName];
                 
-                const scrollingContent = this.widgetElement.querySelector('.scrolling-content');
-                if (!scrollingContent) return;
-
-                this.scrollPosition = 0;
-                const fullContent = content + '   ';
-
-                if (fullContent.length <= 19) {
-                    scrollingContent.textContent = this.padRight(fullContent, 19);
-                    return;
-                }
-
-                this.scrollInterval = setInterval(() => {
-                    let visibleContent = fullContent.substring(this.scrollPosition) + fullContent.substring(0, this.scrollPosition);
-                    visibleContent = visibleContent.substring(0, 19);
-                    scrollingContent.textContent = this.padRight(visibleContent, 19);
+                for (let i = 0; i < 2; i++) {
+                    if (this.scrollIntervals[i]) {
+                        clearInterval(this.scrollIntervals[i]);
+                    }
                     
-                    this.scrollPosition = (this.scrollPosition + 1) % fullContent.length;
-                }, 300);  // scroll speed
+                    const scrollingContent = this.widgetElement.querySelector(`.scrolling-content[data-line="${i}"]`);
+                    if (!scrollingContent) continue;
+                    
+                    this.scrollPositions[i] = 0;
+                    const fullContent = contents[i] + '   ';
+                    
+                    if (fullContent.length <= 19) {
+                        scrollingContent.textContent = this.padRight(fullContent, 19);
+                        continue;
+                    }
+                    
+                    this.scrollIntervals[i] = setInterval(() => {
+                        let visibleContent = fullContent.substring(this.scrollPositions[i]) + fullContent.substring(0, this.scrollPositions[i]);
+                        visibleContent = visibleContent.substring(0, 19);
+                        scrollingContent.textContent = this.padRight(visibleContent, 19);
+                        
+                        this.scrollPositions[i] = (this.scrollPositions[i] + 1) % fullContent.length;
+                    }, 300);  // scroll speed
+                }
             }
 
             toggle() {
