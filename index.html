@@ -1388,11 +1388,9 @@ drizzle: [
             }
 
             updateWidget(data) {
-                let content = 'Unknown';
-                if (data && data.item) {
-                    const trackName = data.item.name;
-                    const artistName = data.item.artists.map(artist => artist.name).join(', ');
-                    content = `${trackName} - ${artistName}`;
+                let content = 'Not playing';
+                if (data && data.trackName) {
+                    content = `${data.trackName} - ${data.artistName}`;
                 }
                 this.widgetElement.innerHTML = this.createWidgetHTML(content);
                 this.startScrolling(content);
