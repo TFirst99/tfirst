@@ -1337,7 +1337,6 @@ drizzle: [
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
                 this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
-                this.secretKey = '__SHARED_SECRET_KEY__'; 
                 this.contentWidth = 17; 
                 this.scrollPosition = 0;
                 this.scrollInterval = null;
@@ -1350,41 +1349,17 @@ drizzle: [
 
             async updateNowPlaying() {
                 try {
-                    const timestamp = Date.now().toString();
-                    const signature = await this.generateSignature(timestamp);
-                    
-                    const response = await fetch(this.apiUrl, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Timestamp': timestamp,
-                            'X-Signature': signature
-                        }
-                    });
+                    const response = await fetch(this.apiUrl);
 
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
                     const data = await response.json();
                     this.updateWidget(data);
                 } catch (error) {
                     console.error('Error fetching Spotify data:', error);
                     this.updateWidget(null);
                 }
-            }
-
-            async generateSignature(timestamp) {
-                const encoder = new TextEncoder();
-                const data = encoder.encode(timestamp);
-                const key = await crypto.subtle.importKey(
-                    'raw',
-                    encoder.encode(this.secretKey),
-                    { name: 'HMAC', hash: 'SHA-256' },
-                    false,
-                    ['sign']
-                );
-                const signature = await crypto.subtle.sign('HMAC', key, data);
-                return Array.from(new Uint8Array(signature))
-                    .map(b => b.toString(16).padStart(2, '0'))
-                    .join('');
             }
 
             updateWidget(data) {
@@ -1417,7 +1392,7 @@ drizzle: [
                 if (!scrollingContent) return;
 
                 this.scrollPosition = 0;
-                const fullContent = content + '   ';  // adds some space at the end
+                const fullContent = content + '   ';
 
                 if (fullContent.length <= 17) {
                     scrollingContent.textContent = this.padRight(fullContent, 17);
@@ -1437,6 +1412,7 @@ drizzle: [
                 this.widgetElement.style.display = this.widgetElement.style.display === 'none' ? 'block' : 'none';
             }
         }
+
 
         class App {
             constructor() {
