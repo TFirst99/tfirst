@@ -1337,7 +1337,7 @@ drizzle: [
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
                 this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
-                this.contentWidth = 17; 
+                this.contentWidth = 19; 
                 this.scrollPosition = 0;
                 this.scrollInterval = null;
             }
@@ -1363,7 +1363,7 @@ drizzle: [
             }
 
             updateWidget(data) {
-                let content = 'Not playing';
+                let content = '     Not playing';
                 if (data && data.trackName) {
                     content = `${data.trackName} - ${data.artistName}`;
                 }
@@ -1375,7 +1375,7 @@ drizzle: [
                 return `
 +-------------------+
 |      SPOTIFY:     |
-|<div class="content-wrapper"><span class="scrolling-content">${this.padRight(content, 17)}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content">${this.padRight(content, 19)}</span></div>|
 +-------------------+`;
             }
 
@@ -1394,15 +1394,15 @@ drizzle: [
                 this.scrollPosition = 0;
                 const fullContent = content + '   ';
 
-                if (fullContent.length <= 17) {
-                    scrollingContent.textContent = this.padRight(fullContent, 17);
+                if (fullContent.length <= 19) {
+                    scrollingContent.textContent = this.padRight(fullContent, 19);
                     return;
                 }
 
                 this.scrollInterval = setInterval(() => {
                     let visibleContent = fullContent.substring(this.scrollPosition) + fullContent.substring(0, this.scrollPosition);
-                    visibleContent = visibleContent.substring(0, 17);
-                    scrollingContent.textContent = this.padRight(visibleContent, 17);
+                    visibleContent = visibleContent.substring(0, 19);
+                    scrollingContent.textContent = this.padRight(visibleContent, 19);
                     
                     this.scrollPosition = (this.scrollPosition + 1) % fullContent.length;
                 }, 300);  // scroll speed
