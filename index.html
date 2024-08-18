@@ -1340,6 +1340,7 @@ drizzle: [
                 this.contentWidth = 19;
                 this.scrollPositions = [0, 0];
                 this.scrollIntervals = [null, null];
+                this.indentSpaces = 4;
             }
 
             init() {
@@ -1362,7 +1363,7 @@ drizzle: [
             }
 
             updateWidget(data) {
-                let trackName = '   Not playing';
+                let trackName = 'Not playing';
                 let artistName = '';
                 if (data && data.trackName) {
                     trackName = data.trackName;
@@ -1373,12 +1374,21 @@ drizzle: [
             }
 
             createWidgetHTML(trackName, artistName) {
+                const indentedTrack = this.smartIndent(trackName);
+                const indentedArtist = this.smartIndent(artistName);
                 return `
         +-------------------+
         |      SPOTIFY      |
-        |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(trackName, 19)}</span></div>|
-        |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(artistName, 19)}</span></div>|
+        |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(indentedTrack, 19)}</span></div>|
+        |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(indentedArtist, 19)}</span></div>|
         +-------------------+`;
+            }
+
+            smartIndent(text) {
+                if (text.length <= this.contentWidth - this.indentSpaces) {
+                    return ' '.repeat(this.indentSpaces) + text;
+                }
+                return text;
             }
 
             padRight(str, length, padChar = ' ') {
@@ -1386,7 +1396,7 @@ drizzle: [
             }
 
             startScrolling(trackName, artistName) {
-                const contents = [trackName, artistName];
+                const contents = [this.smartIndent(trackName), this.smartIndent(artistName)];
                 
                 for (let i = 0; i < 2; i++) {
                     if (this.scrollIntervals[i]) {
@@ -1397,17 +1407,17 @@ drizzle: [
                     if (!scrollingContent) continue;
                     
                     this.scrollPositions[i] = 0;
-                    const fullContent = contents[i] + '     ';
+                    const fullContent = contents[i] + '   ';
                     
-                    if (fullContent.length <= 19) {
-                        scrollingContent.textContent = this.padRight(fullContent, 19);
+                    if (fullContent.length <= this.contentWidth) {
+                        scrollingContent.textContent = this.padRight(fullContent, this.contentWidth);
                         continue;
                     }
                     
                     this.scrollIntervals[i] = setInterval(() => {
                         let visibleContent = fullContent.substring(this.scrollPositions[i]) + fullContent.substring(0, this.scrollPositions[i]);
-                        visibleContent = visibleContent.substring(0, 19);
-                        scrollingContent.textContent = this.padRight(visibleContent, 19);
+                        visibleContent = visibleContent.substring(0, this.contentWidth);
+                        scrollingContent.textContent = this.padRight(visibleContent, this.contentWidth);
                         
                         this.scrollPositions[i] = (this.scrollPositions[i] + 1) % fullContent.length;
                     }, 300);  // scroll speed
