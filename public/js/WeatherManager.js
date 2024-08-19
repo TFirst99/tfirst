@@ -1,31 +1,18 @@
+import { fetchWeather } from '/functions/api/weatherapi.js';
+
 export class WeatherManager {
     constructor() {
         this.weatherElement = document.getElementById('weather');
         this.weatherArtElement = document.getElementById('weather-art');
         this.currentWeatherType = 'clear';
         this.animationFrame = 0;
-        this.weatherConditions = {
-            0: 'clear',
-            1: 'clouds', 2: 'clouds', 3: 'clouds',
-            45: 'mist', 48: 'mist',
-            51: 'drizzle', 53: 'drizzle', 55: 'drizzle',
-            56: 'drizzle', 57: 'drizzle',
-            61: 'rain', 63: 'rain', 65: 'rain',
-            66: 'rain', 67: 'rain',
-            71: 'snow', 73: 'snow', 75: 'snow',
-            77: 'snow',
-            80: 'rain', 81: 'rain', 82: 'rain',
-            85: 'snow', 86: 'snow',
-            95: 'thunderstorm', 96: 'thunderstorm', 99: 'thunderstorm'
-        };
 
-const now = new Date();
-const yearString = now.toLocaleDateString('en-US', {year: 'numeric'});
+    const now = new Date();
+    const yearString = now.toLocaleDateString('en-US', {year: 'numeric'});
 
-this.weatherArt = {
+        this.weatherArt = {
 thunderstorm: [
-`
-           _                                      
+`           _                                      
          (\`  ).          _.-._    _               
         (     ),      _.(.--. ) (\`  )\`.           
        _(       '\`-.(        '-)_ .    )          
@@ -48,9 +35,7 @@ thunderstorm: [
              .:;.      .:.   ::.     '::.         
 `,
 
-
-`
-           _                                      
+`           _                                      
          (\`  ).          _.-._    _               
         (     ),      _.(.--. ) (\`  )\`.           
        _(       '\`-.(        '-)_ .    )          
@@ -73,8 +58,7 @@ thunderstorm: [
              .;:.      .:.   ::.     ';:.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).          _.-._    _               
         (     ),      _.(.--. ) (\`  )\`.           
        _(       '\`-.(        '-)_ .    )          
@@ -97,8 +81,7 @@ thunderstorm: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).          _.-._    _               
         (     ),      _.(.--. ) (\`  )\`.           
        _(       '\`-.(        '-)_ .    )          
@@ -145,8 +128,7 @@ thunderstorm: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).          _.-._    _               
         (     ),      _.(.--. ) (\`  )\`.           
        _(       '\`-.(        '-)_ .    )          
@@ -171,8 +153,7 @@ thunderstorm: [
 ],
 
 clear: [
-`
-                         '                        
+`                         '                        
                   .      \`      .                 
             ,      ,     :     ,      ,           
              \`.        ______       .\`            
@@ -195,8 +176,7 @@ clear: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-                         '                        
+`                         '                        
                   .      \`      .                 
             ,      ,     :     ,      ,           
              \`.        ______       .\`            
@@ -219,8 +199,7 @@ clear: [
              .;:.      .:.   ::.     ';:.         
 `,
 
-`
-                         '                        
+`                         '                        
                   .      \`      .                 
             ,      ,     :     ,      ,           
              \`.        ______       .\`            
@@ -243,8 +222,7 @@ clear: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-                         '                        
+`                         '                        
                   .      '      .                 
             .      .     ;     .      .           
              '.        ______       .'            
@@ -267,8 +245,7 @@ clear: [
              .;:.      .:.   ::.     ';:.         
 `,
 
-`
-                         '                        
+`                         '                        
                   .      '      .                 
             .      .     ;     .      .           
              '.        ______       .'            
@@ -291,8 +268,7 @@ clear: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-                         '                        
+`                         '                        
                   .      '      .                 
             .      .     ;     .      .           
              '.        ______       .'            
@@ -317,8 +293,7 @@ clear: [
 ],
 
 clouds  : [
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -341,8 +316,7 @@ clouds  : [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -364,8 +338,7 @@ clouds  : [
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
 `,
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -388,8 +361,7 @@ clouds  : [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`,           
        _(       '\`.          ;(   .    )          
@@ -411,8 +383,7 @@ clouds  : [
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
 `,
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -435,8 +406,7 @@ clouds  : [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .;(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -461,8 +431,7 @@ clouds  : [
 ],
 
 rain: [
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -485,8 +454,7 @@ rain: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -509,8 +477,7 @@ rain: [
              .;:.      .:.   ::.     ';:.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -533,8 +500,7 @@ rain: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`,           
        _(       '\`.          ;(   .    )          
@@ -557,8 +523,7 @@ rain: [
              .;:.      .:.   ::.     ';:.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -581,8 +546,7 @@ rain: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .;(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -607,8 +571,7 @@ rain: [
 ],
 
 snow: [
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -630,8 +593,7 @@ snow: [
             jgs \`'-._|_|;:;_.-'\` '::.  \`"-        
              .:;.      .:.   ::.     '::.         
 `,
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -652,9 +614,8 @@ snow: [
             - __ |_________|_.-'|_X-X##.          
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
- `,
- `
-           _                                      
+`,
+`           _                                      
          (\`  ),                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -675,9 +636,8 @@ snow: [
             - __ |_________|_.-'|_X-X##.          
             jgs \`'-._|_|;:;_.-'\` '::.  \`"-        
              .:;.      .:.   ::.     '::.         
- `,
- `
-           _                                      
+`,
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`,           
        _(       '\`.          ;(   .    )          
@@ -698,9 +658,8 @@ snow: [
             - __ |_________|_.-'|_X-X##.          
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
- `,
- `
-           _                                      
+`,
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -721,8 +680,8 @@ snow: [
             - __ |_________|_.-'|_X-X##.          
             jgs \`'-._|_|;:;_.-'\` '::.  \`"-        
              .:;.      .:.   ::.     '::.         
- `,
- `
+`,
+`
            _                                      
          (\`  ),                   _               
         (     ).              .;(\`  )\`.           
@@ -744,12 +703,11 @@ snow: [
             - __ |_________|_.-'|_X-X##.          
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
- `,
+`,
 ],
 
 mist: [
-`
-             ________             ._______        
+`             ________             ._______        
          -----         ______,--._                
           ----,____.---           ---   _______.  
     ._____       ____     -,_____.-----.          
@@ -772,8 +730,7 @@ mist: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-              ________             ._______       
+`              ________             ._______       
          -----         ______,--._                
           ----.___,----           ---   _______.  
    ._____       ____     -._____,-----.           
@@ -795,8 +752,7 @@ mist: [
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
 `,
-`
-              ________             ._______       
+`              ________             ._______       
           -----         ______,--._               
           ----.___,----           ---   _______.  
     ._____        .__     -._____,-----.          
@@ -819,8 +775,7 @@ mist: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-                                                  
+`                                                  
               ,_______             ._______       
          __---         ______,--._                
            _---.___,----           ---   _______. 
@@ -842,8 +797,7 @@ mist: [
             jgs \`'-._|_|:;:_.-'\` '::.  \`"-        
              .;:.      .:.   ::.     ';:.         
 `,
-`
-                                                  
+`                                                  
               ________             ._______       
         -----         ______,--._                 
           ----.___,----           ---   _______,  
@@ -866,8 +820,7 @@ mist: [
              .:;.      .:.   ::.     '::.         
 `,
 
-`
-                                                  
+`                                                  
               ________             ,_______       
           -----         ______,--._               
           ----.___,----           ---   _______.  
@@ -892,8 +845,7 @@ mist: [
 ],
 
 drizzle: [
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -916,8 +868,7 @@ drizzle: [
              .:;.      .:.   ::.     '::.jgs      
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -940,8 +891,7 @@ drizzle: [
              .;:.      .:.   ::.     ';:.jgs      
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -964,8 +914,7 @@ drizzle: [
              .:;.      .:.   ::.     '::.jgs      
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ),              .:(\`  )\`,           
        _(       '\`.          ;(   .    )          
@@ -988,8 +937,7 @@ drizzle: [
              .;:.      .:.   ::.     ';:.jgs      
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ).                   _               
         (     ).              .:(\`  )\`.           
        _(       '\`,          :(   .    )          
@@ -1012,8 +960,7 @@ drizzle: [
              .:;.      .:.   ::.     '::.jgs      
 `,
 
-`
-           _                                      
+`           _                                      
          (\`  ),                   _               
         (     ).              .;(\`  )\`.           
        _(       '\`.          :(   .    )          
@@ -1036,55 +983,51 @@ drizzle: [
              .;:.      .:.   ::.     ';:.jgs      
 `,
 ]
-};
-}
-
-    init() {
-        this.fetchWeather();
-        this.startWeatherAnimation();
-        setInterval(() => this.fetchWeather(), 300000); // update every 5 minutes
+        };
     }
 
-    async fetchWeather() {
+    async init() {
+        await this.updateWeather();
+        this.startWeatherAnimation();
+        setInterval(() => this.updateWeather(), 300000); // update every 5 minutes
+    }
+
+    async updateWeather() {
         try {
             const cachedWeather = localStorage.getItem('cachedWeather');
             const cachedTime = localStorage.getItem('cachedWeatherTime');
-            
+
             if (cachedWeather && cachedTime && (Date.now() - parseInt(cachedTime)) < 600000) {
-                this.updateWeather(JSON.parse(cachedWeather));
+                this.processWeatherData(JSON.parse(cachedWeather));
                 return;
             }
 
             const position = await this.getLocation();
             const { latitude, longitude } = position.coords;
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+            const weatherData = await fetchWeather(latitude, longitude);
 
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            localStorage.setItem('cachedWeather', JSON.stringify(data));
+            localStorage.setItem('cachedWeather', JSON.stringify(weatherData));
             localStorage.setItem('cachedWeatherTime', Date.now().toString());
 
-            this.updateWeather(data);
+            this.processWeatherData(weatherData);
         } catch (error) {
-            console.error('Error fetching weather:', error);
+            console.error('Error updating weather:', error);
             this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
             this.weatherArtElement.textContent = '';
         }
     }
 
-    updateWeather(data) {
-        const { temperature: temp, weathercode: weatherCode } = data.current_weather;
-        this.currentWeatherType = this.weatherConditions[weatherCode] || 'clear';
-        this.weatherElement.innerHTML = this.createWeatherHTML(this.currentWeatherType, temp);
+    processWeatherData(data) {
+        const { temperature, weatherType } = data;
+        this.currentWeatherType = weatherType;
+        this.weatherElement.innerHTML = this.createWeatherHTML(weatherType, temperature);
     }
 
     createWeatherHTML(type, temp) {
-        return `
-+-------------------+
-|     WEATHER       |
-|     ${this.padRight(type, 12)}  |
-|     ${this.padRight(temp + '°C', 12)}  |
+        return `+-------------------+
+|      WEATHER      |
+|      ${this.padRight(type, 12)} |
+|      ${this.padRight(temp + '°C', 12)} |
 +-------------------+`;
     }
 
