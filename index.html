@@ -128,7 +128,6 @@
         </div>
     </div>
     <div id="prompts"></div>
-
     <script>
         class WeatherManager {
             constructor() {
@@ -1343,6 +1342,11 @@ drizzle: [
                 this.indentSpaces = 4;
             }
 
+            init() {
+                this.updateNowPlaying();
+                setInterval(() => this.updateNowPlaying(), 60000); // Update every 60 seconds
+            }
+
             async updateNowPlaying() {
                 try {
                     const response = await fetch(this.apiUrl);
@@ -1376,11 +1380,11 @@ drizzle: [
                 const indentedTrack = this.smartIndent(trackName);
                 const indentedArtist = this.smartIndent(artistName);
                 return `
-        +-------------------+
-        |      SPOTIFY      |
-        |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(indentedTrack, 19)}</span></div>|
-        |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(indentedArtist, 19)}</span></div>|
-        +-------------------+`;
++-------------------+
+|      SPOTIFY      |
+|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(indentedTrack, 19)}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(indentedArtist, 19)}</span></div>|
++-------------------+`;
             }
 
             smartIndent(text) {

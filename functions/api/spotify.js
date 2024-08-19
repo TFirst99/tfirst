@@ -1,5 +1,4 @@
-export async function onRequest(context) {
-  // You can access KV, Durable Objects, and other Cloudflare features via context.env
+async function onRequest(context) {
   const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN } = context.env;
 
   async function getAccessToken() {
@@ -59,3 +58,5 @@ export async function onRequest(context) {
     });
   }
 }
+
+module.exports = { onRequest };
