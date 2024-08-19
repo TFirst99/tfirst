@@ -1,4 +1,4 @@
-import { ShortcutsManager } from './ShortcutsManager,js';
+import { ShortcutsManager } from './ShortcutsManager.js';
 import { SpotifyManager } from './SpotifyManager.js';
 import { WeatherManager } from './WeatherManager.js';
 import { TimeManager } from './TimeManager.js';
