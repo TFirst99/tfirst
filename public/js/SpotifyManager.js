@@ -55,7 +55,7 @@ export class SpotifyManager {
             const rightPadding = totalPadding - leftPadding;
             return ' '.repeat(leftPadding) + text + ' '.repeat(rightPadding);
         }
-        return text;
+        return text.padEnd(this.contentWidth);
     }
 
     startScrolling(trackName, artistName) {
@@ -73,7 +73,7 @@ export class SpotifyManager {
             const fullContent = contents[i] + '     ';
             
             if (fullContent.length <= this.contentWidth) {
-                scrollingContent.textContent = this.centerText(fullContent);
+                scrollingContent.textContent = this.centerText(fullContent.trim());
                 continue;
             }
             
