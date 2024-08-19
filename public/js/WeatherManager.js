@@ -2,7 +2,7 @@ export class WeatherManager {
     constructor() {
         this.weatherElement = document.getElementById('weather');
         this.weatherArtElement = document.getElementById('weather-art');
-        this.currentWeatherType = '';
+        this.currentWeatherType = 'clear';
         this.animationFrame = 0;
         this.weatherConditions = {
             0: 'clear',
@@ -1034,8 +1034,11 @@ drizzle: [
 
     updateWeather(data) {
         const { temperature: temp, weathercode: weatherCode } = data.current_weather;
+        console.log('Weather code:', weatherCode);
         this.currentWeatherType = this.weatherConditions[weatherCode] || 'clear';
+        console.log('Current weather type:', this.currentWeatherType);
         this.weatherElement.innerHTML = this.createWeatherHTML(this.currentWeatherType, temp);
+        this.startWeatherAnimation();
     }
 
     createWeatherHTML(type, temp) {
