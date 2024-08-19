@@ -26,12 +26,12 @@ export async function onRequest(context) {
     }
 
     const data = await response.json();
-    
+
     if (data.refresh_token) {
       SPOTIFY_REFRESH_TOKEN = data.refresh_token;
       await context.env.SPOTIFY_KV.put("REFRESH_TOKEN", SPOTIFY_REFRESH_TOKEN);
     }
-    
+
     return data.access_token;
   }
 
@@ -47,20 +47,44 @@ export async function onRequest(context) {
     if (!response.ok) {
       throw new Error(`Failed to get current track: ${response.status} ${response.statusText}`);
     }
-
     const data = await response.json();
-    return data.item ? {
-      trackName: data.item.name,
-      artistName: data.item.artists[0].name,
-      albumName: data.item.album.name,
-      albumArt: data.item.album.images[0].url,
-      isPlaying: data.is_playing
-    } : null;
+    return data.item ? formatTrackData(data.item, data.is_playing) : null;
+  }
+
+  async function getRecentlyPlayedTrack(accessToken) {
+    const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=1', {
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to get recently played track: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data.items && data.items.length > 0 ? formatTrackData(data.items[0].track, false) : null;
+  }
+
+  function formatTrackData(item, isPlaying) {
+    return {
+      trackName: item.name,
+      artistName: item.artists[0].name,
+      albumName: item.album.name,
+      albumArt: item.album.images[0].url,
+      isPlaying: isPlaying
+    };
   }
 
   try {
     const accessToken = await getAccessToken();
-    const trackData = await getCurrentTrack(accessToken);
+    let trackData = await getCurrentTrack(accessToken);
+    
+    if (!trackData) {
+      trackData = await getRecentlyPlayedTrack(accessToken);
+    }
+    
+    if (!trackData) {
+      return new Response(JSON.stringify({ message: 'No track currently playing or recently played' }), {
+        status: 204,
+      });
+    }
     
     return new Response(JSON.stringify(trackData), {
       headers: { 'Content-Type': 'application/json' }
