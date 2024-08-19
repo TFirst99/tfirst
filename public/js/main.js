@@ -1,6 +1,25 @@
 import { SpotifyManager } from './SpotifyManager.js';
+import { WeatherManager } from './WeatherManager.js';
+import { TimeManager } from './TimeManager.js';
+import { PromptManager } from './PromptManager.js';
+
+class App {
+    constructor() {
+        this.spotifyManager = new SpotifyManager();
+        this.weatherManager = new WeatherManager();
+        this.timeManager = new TimeManager();
+        this.promptManager = new PromptManager();
+    }
+
+    init() {
+        this.spotifyManager.init();
+        this.weatherManager.init();
+        this.timeManager.init();
+        this.promptManager.init();
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    const spotifyManager = new SpotifyManager();
-    spotifyManager.init();
+    const app = new App();
+    app.init();
 });
