@@ -12,11 +12,18 @@ export async function onRequestGet(context) {
       });
     }
 
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weathercode&timezone=auto`;
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    return new Response(JSON.stringify(data), {
+    const restructuredData = {
+      current_weather: {
+        temperature: data.current.temperature_2m,
+        weathercode: data.current.weathercode
+      }
+    };
+
+    return new Response(JSON.stringify(restructuredData), {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
