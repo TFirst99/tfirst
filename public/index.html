@@ -4,115 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tfirst</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
     <script type="module" src="/js/main.js"></script>
-    <style>
-        body, html {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            background-color: #2c2c2c;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        #terminal {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 16.8px);
-            grid-template-rows: repeat(auto-fill, 16.5px);
-            height: 100vh;
-            width: 100vw;
-            box-sizing: border-box;
-        }
-        #weather {
-            grid-column: 3 / span 11;
-            grid-row: 1 / span 6;
-            white-space: pre;
-        }
-        #time {
-            grid-column: -13 / span 11;
-            grid-row: 1 / span 6;
-            white-space: pre;
-            justify-self: end;
-        }
-        #spotify-widget {
-            grid-column: -13 / span 11;
-            grid-row: 7 / span 6;
-            white-space: pre;
-            justify-self: end;
-        }
-        #spotify-widget .content-wrapper {
-            display: inline-block;
-            width: 19ch;
-            overflow: hidden;
-            vertical-align: top;
-        }
-
-        #spotify-widget .scrolling-content {
-            display: inline-block;
-        }
-        #weather-art {
-            grid-column: 11 / -11;
-            grid-row: 6 / span 22;
-            white-space: pre;
-            place-self: center;
-        }
-        .shortcuts {
-            grid-column: 1 / -1;
-            grid-row: -3 / span 1;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        #prompts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-        }
-        .prompt {
-            position: absolute;
-            color: #ffffff;
-        }
-        @media (max-width: 405px) {
-        #weather {
-            grid-column: 1 / -1;
-            grid-row: 2 / span 6;
-            white-space: pre-wrap;
-            word-break: break-all;
-            justify-self: center;
-            text-align: center;
-        }
-        #time {
-            grid-column: 1 / -1;
-            grid-row: 9 / span 6;
-            white-space: pre-wrap;
-            word-break: break-all;
-            justify-self: center;
-            text-align: center;
-        }
-            #weather-art {
-                display: none;
-            }
-            #spotify-widget {
-                display: none;
-            }
-            .shortcuts {
-                display: none;
-            }
-        }
-    </style>
 </head>
 <body>
     <div id="terminal">
@@ -121,15 +14,8 @@
         <div id="weather-art"></div>
         <div id="spotify-widget"></div>
         
-        <div class="shortcuts">
-            <a href="https://www.youtube.com/feed/subscriptions" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
-            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">TWITTER</a>
-            <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">GITHUB</a>
-            <a href="https://www.claude.ai" target="_blank" rel="noopener noreferrer">CLAUDE</a>
-            <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">CHATGPT</a>
-        </div>
-    </div>
+        <div class="shortcuts">[ <a href="https://www.youtube.com/feed/subscriptions" target="_blank" rel="noopener noreferrer">YOUTUBE</a> ] [ <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">TWITTER</a> ] [ <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">GITHUB</a> ] [ <a href="https://www.claude.ai" target="_blank" rel="noopener noreferrer">CLAUDE</a> ] [ <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">CHATGPT</a> ]</div>
 
-    <div id="prompts"></div>
+    <div id="console-ticks"></div>
 </body>
 </html>
