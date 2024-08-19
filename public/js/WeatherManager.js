@@ -995,6 +995,7 @@ drizzle: [
         try {
             const cachedWeather = localStorage.getItem('cachedWeather');
             const cachedTime = localStorage.getItem('cachedWeatherTime');
+            
             if (cachedWeather && cachedTime && (Date.now() - parseInt(cachedTime)) < 600000) {
                 this.processWeatherData(JSON.parse(cachedWeather));
                 return;
@@ -1010,14 +1011,8 @@ drizzle: [
 
             const weatherData = await response.json();
 
-            if (weatherData.error) {
-                throw new Error(weatherData.error);
-            }
-
             localStorage.setItem('cachedWeather', JSON.stringify(weatherData));
             localStorage.setItem('cachedWeatherTime', Date.now().toString());
-
-            this.processWeatherData(weatherData);
         } catch (error) {
             console.error('Error updating weather:', error);
             this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
