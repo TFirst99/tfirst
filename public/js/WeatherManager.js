@@ -1016,7 +1016,7 @@ drizzle: [
 
             const position = await this.getLocation();
             const { latitude, longitude } = position.coords;
-            const url = `/api/fetchWeatherData?latitude=${latitude}&longitude=${longitude}`;
+            const url = `/api/weatherapi?latitude=${latitude}&longitude=${longitude}`;
 
             const response = await fetch(url);
             const data = await response.json();
