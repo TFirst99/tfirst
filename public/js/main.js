@@ -1,3 +1,4 @@
+import { ShortcutsManager } from './ShortcutsManager,js';
 import { SpotifyManager } from './SpotifyManager.js';
 import { WeatherManager } from './WeatherManager.js';
 import { TimeManager } from './TimeManager.js';
@@ -5,6 +6,7 @@ import { PromptManager } from './PromptManager.js';
 
 class App {
     constructor() {
+        this.shortcutsManager = new ShortcutsManager();
         this.spotifyManager = new SpotifyManager();
         this.weatherManager = new WeatherManager();
         this.timeManager = new TimeManager();
@@ -12,6 +14,7 @@ class App {
     }
 
     init() {
+        this.shortcutsManager.init();
         this.spotifyManager.init();
         this.weatherManager.init();
         this.timeManager.init();
