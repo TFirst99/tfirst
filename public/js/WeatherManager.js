@@ -998,39 +998,27 @@ drizzle: [
 };
 }
 
-    init() {
-        this.fetchWeather();
-        this.startWeatherAnimation();
-        setInterval(() => this.fetchWeather(), 300000); // update every 5 minutes
+init() {
+    this.fetchWeather();
+    this.startWeatherAnimation();
+    setInterval(() => this.fetchWeather(), 300000); 
+}
+
+async fetchWeather() {
+    try {
+        const position = await this.getLocation();
+        const { latitude, longitude } = position.coords;
+        const url = `/api/weatherapi?latitude=${latitude}&longitude=${longitude}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        this.updateWeather(data);
+    } catch (error) {
+        console.error('Error fetching weather:', error);
+        this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
+        this.weatherArtElement.textContent = '';
     }
-
-    async fetchWeather() {
-        try {
-            const cachedWeather = localStorage.getItem('cachedWeather');
-            const cachedTime = localStorage.getItem('cachedWeatherTime');
-            
-            if (cachedWeather && cachedTime && (Date.now() - parseInt(cachedTime)) < 300000) {
-                this.updateWeather(JSON.parse(cachedWeather));
-                return;
-            }
-
-            const position = await this.getLocation();
-            const { latitude, longitude } = position.coords;
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            localStorage.setItem('cachedWeather', JSON.stringify(data));
-            localStorage.setItem('cachedWeatherTime', Date.now().toString());
-
-            this.updateWeather(data);
-        } catch (error) {
-            console.error('Error fetching weather:', error);
-            this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
-            this.weatherArtElement.textContent = '';
-        }
-    }
+}
 
     updateWeather(data) {
         const { temperature: temp, weathercode: weatherCode } = data.current_weather;
