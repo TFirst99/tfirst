@@ -39,29 +39,28 @@ export class SpotifyManager {
     }
 
     createWidgetHTML(trackName, artistName) {
-        const indentedTrack = this.smartIndent(trackName);
-        const indentedArtist = this.smartIndent(artistName);
+        const centeredTrack = this.centerText(trackName);
+        const centeredArtist = this.centerText(artistName);
         return `
 +-------------------+
 |      SPOTIFY      |
-|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.padRight(indentedTrack, 19)}</span></div>|
-|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.padRight(indentedArtist, 19)}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${centeredTrack}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${centeredArtist}</span></div>|
 +-------------------+`;
     }
 
-    smartIndent(text) {
-        if (text.length <= this.contentWidth - this.indentSpaces) {
-            return ' '.repeat(this.indentSpaces) + text;
+    centerText(text) {
+        if (text.length <= this.contentWidth) {
+            const totalPadding = this.contentWidth - text.length;
+            const leftPadding = Math.floor(totalPadding / 2);
+            const rightPadding = totalPadding - leftPadding;
+            return ' '.repeat(leftPadding) + text + ' '.repeat(rightPadding);
         }
         return text;
     }
 
-    padRight(str, length, padChar = ' ') {
-        return (str.length > length) ? str : str + padChar.repeat(Math.max(0, length - str.length));
-    }
-
     startScrolling(trackName, artistName) {
-        const contents = [this.smartIndent(trackName), this.smartIndent(artistName)];
+        const contents = [trackName, artistName];
         
         for (let i = 0; i < 2; i++) {
             if (this.scrollIntervals[i]) {
@@ -75,14 +74,14 @@ export class SpotifyManager {
             const fullContent = contents[i] + '     ';
             
             if (fullContent.length <= this.contentWidth) {
-                scrollingContent.textContent = this.padRight(fullContent, this.contentWidth);
+                scrollingContent.textContent = this.centerText(fullContent);
                 continue;
             }
             
             this.scrollIntervals[i] = setInterval(() => {
                 let visibleContent = fullContent.substring(this.scrollPositions[i]) + fullContent.substring(0, this.scrollPositions[i]);
                 visibleContent = visibleContent.substring(0, this.contentWidth);
-                scrollingContent.textContent = this.padRight(visibleContent, this.contentWidth);
+                scrollingContent.textContent = visibleContent;
                 
                 this.scrollPositions[i] = (this.scrollPositions[i] + 1) % fullContent.length;
             }, 300);  // scroll speed
