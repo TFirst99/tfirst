@@ -1,14 +1,13 @@
-import { fetchWeather } from '/api/weatherapi.js';
-
 export class WeatherManager {
     constructor() {
         this.weatherElement = document.getElementById('weather');
         this.weatherArtElement = document.getElementById('weather-art');
         this.currentWeatherType = 'clear';
         this.animationFrame = 0;
+        this.apiUrl = '/api/weather';
 
-    const now = new Date();
-    const yearString = now.toLocaleDateString('en-US', {year: 'numeric'});
+        const now = new Date();
+        const yearString = now.toLocaleDateString('en-US', {year: 'numeric'});
 
         this.weatherArt = {
 thunderstorm: [
@@ -1004,7 +1003,13 @@ drizzle: [
 
             const position = await this.getLocation();
             const { latitude, longitude } = position.coords;
-            const weatherData = await fetchWeather(latitude, longitude);
+            const response = await fetch(`${this.apiUrl}?lat=${latitude}&lon=${longitude}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const weatherData = await response.json();
 
             localStorage.setItem('cachedWeather', JSON.stringify(weatherData));
             localStorage.setItem('cachedWeatherTime', Date.now().toString());
@@ -1023,6 +1028,16 @@ drizzle: [
         this.weatherElement.innerHTML = this.createWeatherHTML(weatherType, temperature);
     }
 
+    getLocation() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(resolve, reject);
+            } else {
+                reject(new Error("Geolocation is not supported by this browser."));
+            }
+        });
+    }
+
     createWeatherHTML(type, temp) {
         return `+-------------------+
 |      WEATHER      |
@@ -1039,16 +1054,6 @@ drizzle: [
         const currentArt = this.weatherArt[this.currentWeatherType][this.animationFrame % this.weatherArt[this.currentWeatherType].length];
         this.weatherArtElement.textContent = currentArt;
         this.animationFrame++;
-    }
-
-    getLocation() {
-        return new Promise((resolve, reject) => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(resolve, reject);
-            } else {
-                reject(new Error("Geolocation is not supported by this browser."));
-            }
-        });
     }
 
     padRight(str, length, padChar = ' ') {
