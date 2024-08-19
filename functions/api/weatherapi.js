@@ -1,14 +1,26 @@
 export async function onRequestGet(context) {
     const url = new URL(context.request.url);
-    const latitude = url.searchParams.get('lat') || '40.7128'; // Default to New York
-    const longitude = url.searchParams.get('lon') || '-74.0060';
+    const latitude = url.searchParams.get('lat'); 
+    const longitude = url.searchParams.get('lon');
+
+    if (!latitude || !longitude) {
+        return new Response(JSON.stringify({ error: 'Latitude and longitude are required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
 
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-
+    
     try {
         const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+            throw new Error(`Open-Meteo API responded with status: ${response.status}`);
+        }
+        
         const data = await response.json();
-
+        
         const weatherConditions = {
             0: 'clear', 1: 'clouds', 2: 'clouds', 3: 'clouds',
             45: 'mist', 48: 'mist',
@@ -27,7 +39,8 @@ export async function onRequestGet(context) {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        return new Response(JSON.stringify({ error: 'Failed to fetch weather data' }), {
+        console.error('Error in weather function:', error);
+        return new Response(JSON.stringify({ error: 'Failed to fetch weather data', details: error.message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });
