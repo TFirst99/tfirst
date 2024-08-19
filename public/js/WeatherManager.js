@@ -1016,7 +1016,7 @@ drizzle: [
 
             const position = await this.getLocation();
             const { latitude, longitude } = position.coords;
-            const url = `/api/weatherapi?latitude=${latitude}&longitude=${longitude}`;
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
 
             const response = await fetch(url);
             const data = await response.json();
