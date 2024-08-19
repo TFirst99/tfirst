@@ -1,4 +1,4 @@
-import { fetchWeather } from '/functions/api/weatherapi.js';
+import { fetchWeather } from '/api/weatherapi.js';
 
 export class WeatherManager {
     constructor() {
