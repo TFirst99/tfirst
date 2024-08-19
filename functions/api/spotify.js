@@ -1,4 +1,4 @@
-async function onRequest(context) {
+export async function onRequest(context) {
   const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN } = context.env;
 
   async function getAccessToken() {
@@ -13,7 +13,6 @@ async function onRequest(context) {
         refresh_token: SPOTIFY_REFRESH_TOKEN
       })
     });
-
     const data = await response.json();
     return data.access_token;
   }
@@ -22,11 +21,9 @@ async function onRequest(context) {
     const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
       headers: { 'Authorization': `Bearer ${accessToken}` }
     });
-
     if (response.status === 204) {
       return null;
     }
-
     const data = await response.json();
     return data.item ? {
       trackName: data.item.name,
@@ -40,7 +37,6 @@ async function onRequest(context) {
   try {
     const accessToken = await getAccessToken();
     const trackData = await getCurrentTrack(accessToken);
-
     if (trackData) {
       return new Response(JSON.stringify(trackData), {
         headers: { 'Content-Type': 'application/json' }
@@ -58,5 +54,3 @@ async function onRequest(context) {
     });
   }
 }
-
-module.exports = { onRequest };
