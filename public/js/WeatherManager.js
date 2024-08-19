@@ -1001,13 +1001,14 @@ drizzle: [
     init() {
         this.fetchWeather();
         this.startWeatherAnimation();
+        setInterval(() => this.fetchWeather(), 300000); // update every 5 minutes
     }
 
     async fetchWeather() {
         try {
             const cachedWeather = localStorage.getItem('cachedWeather');
             const cachedTime = localStorage.getItem('cachedWeatherTime');
-      
+            
             if (cachedWeather && cachedTime && (Date.now() - parseInt(cachedTime)) < 300000) {
                 this.updateWeather(JSON.parse(cachedWeather));
                 return;
@@ -1015,13 +1016,14 @@ drizzle: [
 
             const position = await this.getLocation();
             const { latitude, longitude } = position.coords;
-      
-            const url = `/api/weatherapi?latitude=${latitude}&longitude=${longitude}`;
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+
             const response = await fetch(url);
             const data = await response.json();
-      
+            
             localStorage.setItem('cachedWeather', JSON.stringify(data));
             localStorage.setItem('cachedWeatherTime', Date.now().toString());
+
             this.updateWeather(data);
         } catch (error) {
             console.error('Error fetching weather:', error);
