@@ -1,4 +1,4 @@
-export class TimeManager {
+export class TimeWidgetManager {
     constructor() {
         this.timeElement = document.getElementById('time');
     }
@@ -16,8 +16,7 @@ export class TimeManager {
             month: '2-digit',
             day: '2-digit'
         });
-        const timeHtml = `
-+-------------------+
+        const timeHtml = `+-------------------+
 |      TIME         |
 |    ${this.padRight(timeString, 11)}    |
 |     ${this.padRight(dateString, 10)}    |

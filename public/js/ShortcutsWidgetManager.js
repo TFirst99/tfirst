@@ -1,4 +1,4 @@
-export class ShortcutsManager {
+export class ShortcutsWidgetManager {
     constructor() {
         this.shortcuts = document.querySelector('.shortcuts');
         this.code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];

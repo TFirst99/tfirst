@@ -1,4 +1,4 @@
-export class SpotifyManager {
+export class SpotifyWidgetManager {
     constructor() {
         this.widgetElement = document.getElementById('spotify-widget');
         this.apiUrl = '/api/spotify';
@@ -28,8 +28,7 @@ export class SpotifyManager {
     }
 
     createWidgetHTML(trackName, artistName) {
-        return `
-+-------------------+
+        return `+-------------------+
 |     SPOTIFY       |
 |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(trackName)}</span></div>|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(artistName)}</span></div>|

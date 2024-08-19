@@ -1,6 +1,6 @@
-export class PromptManager {
+export class ConsoleTicksManager {
     constructor() {
-        this.promptsContainer = document.getElementById('prompts');
+        this.promptsContainer = document.getElementById('console-ticks');
     }
 
     init() {
@@ -10,12 +10,12 @@ export class PromptManager {
 
     updatePrompts() {
         this.promptsContainer.innerHTML = '';
-        const lineHeight = 16.5;
+        const lineHeight = 16;
         const lines = Math.floor(window.innerHeight / lineHeight);
         
         for (let i = 0; i < lines; i++) {
             const promptElement = document.createElement('div');
-            promptElement.className = 'prompt';
+            promptElement.className = 'console-tick';
             promptElement.style.position = 'absolute';
             promptElement.style.top = `${i * lineHeight}px`;
             promptElement.textContent = '>';

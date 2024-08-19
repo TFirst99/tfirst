@@ -1,24 +1,24 @@
-import { ShortcutsManager } from './ShortcutsManager.js';
-import { SpotifyManager } from './SpotifyManager.js';
+import { ShortcutsWidgetManager } from './ShortcutsWidgetManager.js';
+import { SpotifyWidgetManager } from './SpotifyWidgetManager.js';
 import { WeatherManager } from './WeatherManager.js';
-import { TimeManager } from './TimeManager.js';
-import { PromptManager } from './PromptManager.js';
+import { TimeWidgetManager } from './TimeWidgetManager.js';
+import { ConsoleTicksManager } from './ConsoleTicksManager.js';
 
 class App {
     constructor() {
-        this.shortcutsManager = new ShortcutsManager();
-        this.spotifyManager = new SpotifyManager();
+        this.shortcutsWidgetManager = new ShortcutsWidgetManager();
+        this.spotifyWidgetManager = new SpotifyWidgetManager();
         this.weatherManager = new WeatherManager();
-        this.timeManager = new TimeManager();
-        this.promptManager = new PromptManager();
+        this.timeWidgetManager = new TimeWidgetManager();
+        this.consoleTicksManager = new ConsoleTicksManager();
     }
 
     init() {
-        this.shortcutsManager.init();
-        this.spotifyManager.init();
+        this.shortcutsWidgetManager.init();
+        this.spotifyWidgetManager.init();
         this.weatherManager.init();
-        this.timeManager.init();
-        this.promptManager.init();
+        this.timeWidgetManager.init();
+        this.consoleTicksManager.init();
     }
 }
 
