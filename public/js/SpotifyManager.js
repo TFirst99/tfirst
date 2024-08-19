@@ -3,7 +3,6 @@ export class SpotifyManager {
         this.widgetElement = document.getElementById('spotify-widget');
         this.apiUrl = '/api/spotify';
         this.contentWidth = 19;
-        this.scrollPositions = [0, 0];
         this.scrollIntervals = [null, null];
     }
 
@@ -22,69 +21,62 @@ export class SpotifyManager {
     }
 
     updateWidget(data) {
-        let trackName = 'Not playing';
-        let artistName = '';
-        if (data && data.trackName) {
-            trackName = data.trackName;
-            artistName = data.artistName;
-        }
+        const trackName = data?.trackName || 'Not playing';
+        const artistName = data?.artistName || '';
         this.widgetElement.innerHTML = this.createWidgetHTML(trackName, artistName);
-        this.startScrolling(trackName, artistName);
+        this.setupScrolling(trackName, artistName);
+    }
+
+    createWidgetHTML(trackName, artistName) {
+        return `
++-------------------+
+|      SPOTIFY      |
+|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(trackName)}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(artistName)}</span></div>|
++-------------------+`;
+    }
+
+    formatContent(text) {
+        return text.length <= this.contentWidth ? this.centerText(text) : text.padEnd(this.contentWidth);
+    }
+
+    centerText(text) {
+        const totalPadding = this.contentWidth - text.length;
+        const leftPadding = Math.floor(totalPadding / 2);
+        const rightPadding = totalPadding - leftPadding;
+        return ' '.repeat(leftPadding) + text + ' '.repeat(rightPadding);
+    }
+
+    setupScrolling(trackName, artistName) {
+        [trackName, artistName].forEach((content, index) => {
+            this.stopScrolling(index);
+            const element = this.widgetElement.querySelector(`.scrolling-content[data-line="${index}"]`);
+            if (!element) return;
+
+            if (content.length <= this.contentWidth) {
+                element.textContent = this.formatContent(content);
+            } else {
+                this.startScrolling(element, content);
+            }
+        });
+    }
+
+    startScrolling(element, content) {
+        let position = 0;
+        const paddedContent = content + '     ' + content;
+        this.scrollIntervals[element.dataset.line] = setInterval(() => {
+            element.textContent = paddedContent.substr(position, this.contentWidth);
+            position = (position + 1) % content.length;
+        }, 300);
+    }
+
+    stopScrolling(index) {
+        clearInterval(this.scrollIntervals[index]);
     }
 
     init() {
         this.updateNowPlaying();
         setInterval(() => this.updateNowPlaying(), 60000); // Update every 60 seconds
-    }
-
-    createWidgetHTML(trackName, artistName) {
-        const centeredTrack = this.centerText(trackName);
-        const centeredArtist = this.centerText(artistName);
-        return `
-+-------------------+
-|      SPOTIFY      |
-|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${centeredTrack}</span></div>|
-|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${centeredArtist}</span></div>|
-+-------------------+`;
-    }
-
-    centerText(text) {
-        if (text.length <= this.contentWidth) {
-            const totalPadding = this.contentWidth - text.length;
-            const leftPadding = Math.floor(totalPadding / 2);
-            const rightPadding = totalPadding - leftPadding;
-            return ' '.repeat(leftPadding) + text + ' '.repeat(rightPadding);
-        }
-        return text.padEnd(this.contentWidth);
-    }
-
-    startScrolling(trackName, artistName) {
-        const contents = [trackName, artistName];
-        
-        for (let i = 0; i < 2; i++) {
-            if (this.scrollIntervals[i]) {
-                clearInterval(this.scrollIntervals[i]);
-            }
-            
-            const scrollingContent = this.widgetElement.querySelector(`.scrolling-content[data-line="${i}"]`);
-            if (!scrollingContent) continue;
-            
-            this.scrollPositions[i] = 0;
-            const fullContent = contents[i] + '     ';
-            
-            if (fullContent.length <= this.contentWidth) {
-                scrollingContent.textContent = this.centerText(fullContent.trim());
-                continue;
-            }
-            
-            this.scrollIntervals[i] = setInterval(() => {
-                let visibleContent = fullContent.substring(this.scrollPositions[i]) + fullContent.substring(0, this.scrollPositions[i]);
-                visibleContent = visibleContent.substring(0, this.contentWidth);
-                scrollingContent.textContent = visibleContent;
-                
-                this.scrollPositions[i] = (this.scrollPositions[i] + 1) % fullContent.length;
-            }, 300);  // scroll speed
-        }
     }
 
     toggle() {
