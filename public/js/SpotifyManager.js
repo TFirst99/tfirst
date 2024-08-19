@@ -5,7 +5,6 @@ export class SpotifyManager {
         this.contentWidth = 19;
         this.scrollPositions = [0, 0];
         this.scrollIntervals = [null, null];
-        this.indentSpaces = 4;
     }
 
     async updateNowPlaying() {
