@@ -30,7 +30,7 @@ export class SpotifyManager {
     createWidgetHTML(trackName, artistName) {
         return `
 +-------------------+
-|      SPOTIFY      |
+|     SPOTIFY       |
 |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(trackName)}</span></div>|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(artistName)}</span></div>|
 +-------------------+`;
