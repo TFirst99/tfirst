@@ -1336,22 +1336,21 @@ drizzle: [
         class SpotifyManager {
             constructor() {
                 this.widgetElement = document.getElementById('spotify-widget');
-                this.apiUrl = '__SPOTIFY_API_GATEWAY_URL__';
+                this.apiUrl = '/api/spotify';
                 this.contentWidth = 19;
                 this.scrollPositions = [0, 0];
                 this.scrollIntervals = [null, null];
                 this.indentSpaces = 4;
             }
 
-            init() {
-                this.updateNowPlaying();
-                setInterval(() => this.updateNowPlaying(), 60000); // Update every 60 seconds
-            }
-
             async updateNowPlaying() {
                 try {
                     const response = await fetch(this.apiUrl);
                     if (!response.ok) {
+                        if (response.status === 204) {
+                            this.updateWidget(null);
+                            return;
+                        }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const data = await response.json();
