@@ -2,7 +2,7 @@ export class WeatherManager {
     constructor() {
         this.weatherElement = document.getElementById('weather');
         this.weatherArtElement = document.getElementById('weather-art');
-        this.currentWeatherType = 'clear';
+        this.currentWeatherType = '';
         this.animationFrame = 0;
         this.weatherConditions = {
             0: 'clear',
@@ -998,27 +998,39 @@ drizzle: [
 };
 }
 
-init() {
-    this.fetchWeather();
-    this.startWeatherAnimation();
-    setInterval(() => this.fetchWeather(), 300000); 
-}
-
-async fetchWeather() {
-    try {
-        const position = await this.getLocation();
-        const { latitude, longitude } = position.coords;
-        const url = `/api/weatherapi?latitude=${latitude}&longitude=${longitude}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        this.updateWeather(data);
-    } catch (error) {
-        console.error('Error fetching weather:', error);
-        this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
-        this.weatherArtElement.textContent = '';
+    init() {
+        this.fetchWeather();
+        this.startWeatherAnimation();
+        setInterval(() => this.fetchWeather(), 300000);
     }
-}
+
+    async fetchWeather() {
+        try {
+            const cachedWeather = localStorage.getItem('cachedWeather');
+            const cachedTime = localStorage.getItem('cachedWeatherTime');
+            
+            if (cachedWeather && cachedTime && (Date.now() - parseInt(cachedTime)) < 300000) {
+                this.updateWeather(JSON.parse(cachedWeather));
+                return;
+            }
+
+            const position = await this.getLocation();
+            const { latitude, longitude } = position.coords;
+            const url = `/api/fetchWeatherData?latitude=${latitude}&longitude=${longitude}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            localStorage.setItem('cachedWeather', JSON.stringify(data));
+            localStorage.setItem('cachedWeatherTime', Date.now().toString());
+
+            this.updateWeather(data);
+        } catch (error) {
+            console.error('Error fetching weather:', error);
+            this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
+            this.weatherArtElement.textContent = '';
+        }
+    }
 
     updateWeather(data) {
         const { temperature: temp, weathercode: weatherCode } = data.current_weather;
