@@ -21,10 +21,8 @@ export class WeatherManager {
             95: 'thunderstorm', 96: 'thunderstorm', 99: 'thunderstorm'
         };
 
-        const now = new Date();
-        const yearString = now.toLocaleDateString('en-US', {year: 'numeric'});
-
-        this.weatherArt = weatherArt;
+        const currentYear = new Date().getFullYear().toString();
+        this.weatherArt = weatherArt(currentYear);
     }
 
     init() {
