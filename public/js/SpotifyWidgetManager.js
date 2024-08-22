@@ -1,18 +1,19 @@
 export class SpotifyWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("spotify-widget");
+    this.apiUrl = "/api/spotify";
     this.contentWidth = 19;
     this.scrollIntervals = [null, null];
   }
 
   async updateNowPlaying() {
     try {
-      const spotifyData = await SPOTIFY_KV.get("current_track", "json");
-      if (spotifyData) {
-        this.updateWidget(spotifyData);
-      } else {
-        throw new Error("No data available");
+      const response = await fetch(this.apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const data = await response.json();
+      this.updateWidget(data);
     } catch (error) {
       console.error("Error fetching Spotify data:", error);
       this.updateWidget(null);
