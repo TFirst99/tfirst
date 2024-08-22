@@ -12,7 +12,7 @@ export class ShortcutsWidgetManager {
 
     toggleElements() {
         const isVisible = localStorage.getItem('elementsVisible') === 'true';
-        this.shortcuts.style.display = isVisible ? 'none' : 'flex';
+        this.shortcuts.style.display = isVisible ? 'none' : 'grid';
         localStorage.setItem('elementsVisible', (!isVisible).toString());
         console.log(`Elements ${isVisible ? 'hidden' : 'revealed'}`);
     }
@@ -33,7 +33,7 @@ export class ShortcutsWidgetManager {
 
     checkInitialVisibility() {
         if (localStorage.getItem('elementsVisible') === 'true') {
-            this.shortcuts.style.display = 'flex';
+            this.shortcuts.style.display = 'grid';
         }
     }
 }

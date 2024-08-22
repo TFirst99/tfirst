@@ -35,7 +35,6 @@ html body{
     overflow: hidden;
     vertical-align: top;
 }
-
 #spotify-widget .scrolling-content {
     display: inline-block;
 }
@@ -49,6 +48,7 @@ html body{
     grid-row: -3 / span 1;
     justify-self: center;
     overflow: hidden;
+    display: none;
 }
 a {
     color: #ffffff;
