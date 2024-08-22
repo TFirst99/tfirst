@@ -1040,9 +1040,9 @@ drizzle: [
 
     createWeatherHTML(type, temp) {
         return `+-------------------+
-|     WEATHER       |
-|     ${this.padRight(type, 12)}  |
-|     ${this.padRight(temp + '°C', 12)}  |
+|      WEATHER      |
+|      ${this.padRight(type, 12)} |
+|      ${this.padRight(temp + '°C', 12)} |
 +-------------------+`;
     }
 
