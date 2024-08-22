@@ -17,7 +17,7 @@ export class TimeWidgetManager {
             day: '2-digit'
         });
         const timeHtml = `+-------------------+
-|      TIME         |
+|       TIME        |
 |    ${this.padRight(timeString, 11)}    |
 |     ${this.padRight(dateString, 10)}    |
 +-------------------+`;
