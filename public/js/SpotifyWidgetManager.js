@@ -25,7 +25,7 @@ export class SpotifyWidgetManager {
     if (data && data.trackName !== "Not playing") {
       const status = data.isPlaying ? "LISTENING" : "LAST PLAYED";
       this.widgetElement.innerHTML = `+-------------------+
-|     ${this.centerText(status)}     |
+|${this.centerText(status)}|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(data.trackName)}</span></div>|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(data.artistName)}</span></div>|
 +-------------------+
