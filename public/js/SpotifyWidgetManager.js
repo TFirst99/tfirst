@@ -4,16 +4,17 @@ export class SpotifyWidgetManager {
     this.apiUrl = "/api/spotify";
     this.contentWidth = 19;
     this.scrollIntervals = [null, null];
+    this.updateInterval = 60000; // Update every 60 seconds
   }
 
   async updateNowPlaying() {
     try {
       const response = await fetch(this.apiUrl);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error("Failed to fetch Spotify data");
       }
-      const data = await response.json();
-      this.updateWidget(data);
+      const spotifyData = await response.json();
+      this.updateWidget(spotifyData);
     } catch (error) {
       console.error("Error fetching Spotify data:", error);
       this.updateWidget(null);
@@ -21,20 +22,24 @@ export class SpotifyWidgetManager {
   }
 
   updateWidget(data) {
-    const trackName = data?.trackName || "Not playing";
-    const artistName = data?.artistName || "";
-    this.widgetElement.innerHTML = this.createWidgetHTML(trackName, artistName);
-    this.setupScrolling(trackName, artistName);
+    if (data && data.trackName !== "Not playing") {
+      const status = data.isPlaying ? "LISTENING" : "LAST PLAYED";
+      this.widgetElement.innerHTML = `+-------------------+
+|     ${this.centerText(status)}     |
+|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(data.trackName)}</span></div>|
+|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(data.artistName)}</span></div>|
++-------------------+
+      `;
+      this.setupScrolling(data.trackName, data.artistName);
+    } else {
+      this.widgetElement.innerHTML = `+-------------------+
+|    NOT PLAYING    |
+|                   |
+|                   |
++-------------------+
+      `;
+    }
   }
-
-  createWidgetHTML(trackName, artistName) {
-    return `+-------------------+
-|     SPOTIFY       |
-|<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(trackName)}</span></div>|
-|<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(artistName)}</span></div>|
-+-------------------+`;
-  }
-
   formatContent(text) {
     return text.length <= this.contentWidth
       ? this.centerText(text)
@@ -55,7 +60,6 @@ export class SpotifyWidgetManager {
         `.scrolling-content[data-line="${index}"]`,
       );
       if (!element) return;
-
       if (content.length <= this.contentWidth) {
         element.textContent = this.formatContent(content);
       } else {
@@ -79,7 +83,7 @@ export class SpotifyWidgetManager {
 
   init() {
     this.updateNowPlaying();
-    setInterval(() => this.updateNowPlaying(), 60000); // Update every 60 seconds
+    setInterval(() => this.updateNowPlaying(), this.updateInterval);
   }
 
   toggle() {
