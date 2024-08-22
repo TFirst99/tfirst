@@ -4,7 +4,9 @@ export class SpotifyWidgetManager {
     this.apiUrl = "/api/spotify";
     this.contentWidth = 19;
     this.scrollIntervals = [null, null];
-    this.updateInterval = 60000; // Update every 60 seconds
+    this.defaultUpdateInterval = 60000;
+    this.notPlayingUpdateInterval = 300000;
+    this.currentIntervalId = null;
   }
 
   async updateNowPlaying() {
@@ -15,9 +17,11 @@ export class SpotifyWidgetManager {
       }
       const spotifyData = await response.json();
       this.updateWidget(spotifyData);
+      this.adjustUpdateInterval(spotifyData.isPlaying);
     } catch (error) {
       console.error("Error fetching Spotify data:", error);
       this.updateWidget(null);
+      this.adjustUpdateInterval(false);
     }
   }
 
@@ -83,11 +87,18 @@ export class SpotifyWidgetManager {
   stopScrolling(index) {
     clearInterval(this.scrollIntervals[index]);
   }
-
+  
+  adjustUpdateInterval(isPlaying) {
+    const newInterval = isPlaying ? this.defaultUpdateInterval : this.notPlayingUpdateInterval;
+    if (this.currentIntervalId) {
+      clearInterval(this.currentIntervalId);
+    }
+    this.currentIntervalId = setInterval(() => this.updateNowPlaying(), newInterval);
+  }
+  
   init() {
     this.updateNowPlaying();
-    setInterval(() => this.updateNowPlaying(), this.updateInterval);
-  }
+    this.adjustUpdateInterval(false);  }
 
   toggle() {
     this.widgetElement.style.display =
