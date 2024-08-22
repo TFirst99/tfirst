@@ -70,10 +70,13 @@ export class SpotifyWidgetManager {
 
   startScrolling(element, content) {
     let position = 0;
-    const paddedContent = content + "     " + content;
+    const extraSpaces = "     ";
+    const paddedContent = content + extraSpaces + content;
+    const scrollLength = content.length + extraSpaces.length;
+
     this.scrollIntervals[element.dataset.line] = setInterval(() => {
       element.textContent = paddedContent.substr(position, this.contentWidth);
-      position = (position + 1) % content.length;
+      position = (position + 1) % scrollLength;
     }, 300);
   }
 
