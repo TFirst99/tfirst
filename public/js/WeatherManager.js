@@ -2,7 +2,7 @@ import weatherArt from './weatherArt/index.js';
 
 export class WeatherManager {
     constructor() {
-        this.weatherElement = document.getElementById('weather');
+        this.weatherElement = document.getElementById('weather-widget');
         this.weatherArtElement = document.getElementById('weather-art');
         this.currentWeatherType = 'clear';
         this.animationFrame = 0;
