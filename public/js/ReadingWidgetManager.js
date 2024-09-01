@@ -1,4 +1,4 @@
-import { WidgetUtil } from 'js/utils/widgetUtil.js';
+import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
 export class ReadingWidgetManager {
   constructor() {
