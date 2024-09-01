@@ -18,12 +18,13 @@ html body{
     box-sizing: border-box;
     white-space: pre;
 }
-.widget .scrolling-content {
-    display: inline-block;
-}
-.widget .content-wrapper {
+*.content-wrapper {
     display: inline-block;
     overflow: hidden;
+    vertical-align: top;
+}
+*.scrolling-content {
+    display: inline-block;
 }
 #weather-widget {
     grid-column: 6 / span 21;
