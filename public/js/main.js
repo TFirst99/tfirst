@@ -1,9 +1,9 @@
-import { ShortcutsWidgetManager } from './ShortcutsWidgetManager.js';
-import { SpotifyWidgetManager } from './SpotifyWidgetManager.js';
-import { WeatherManager } from './WeatherManager.js';
-import { TimeWidgetManager } from './TimeWidgetManager.js';
-import { ConsoleTicksManager } from './ConsoleTicksManager.js';
-import { ReadingWidgetManager } from './ReadingWidgetManager.js';
+import { ShortcutsWidgetManager } from '/js/ShortcutsWidgetManager.js';
+import { SpotifyWidgetManager } from '/js/SpotifyWidgetManager.js';
+import { WeatherManager } from '/js/WeatherManager.js';
+import { TimeWidgetManager } from '/js/TimeWidgetManager.js';
+import { ConsoleTicksManager } from '/js/ConsoleTicksManager.js';
+import { ReadingWidgetManager } from '/js/ReadingWidgetManager.js';
 
 class App {
     constructor() {
