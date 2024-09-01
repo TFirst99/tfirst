@@ -1,7 +1,7 @@
 export class ReadingWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("reading-widget");
-    this.jsonUrl = "./currently-reading.json";
+    this.jsonUrl = "/currently-reading.json";
     this.contentWidth = 19;
     this.scrollIntervals = [null, null];
   }
