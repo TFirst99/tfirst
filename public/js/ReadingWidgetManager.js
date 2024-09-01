@@ -23,7 +23,7 @@ export class ReadingWidgetManager {
   updateWidget(data) {
     if (data && data.title) {
       this.widgetElement.innerHTML = `+-------------------+
-|${this.centerText("CURRENTLY READING")}|
+|${this.centerText("READING")}|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="0">${this.formatContent(data.title)}</span></div>|
 |<div class="content-wrapper"><span class="scrolling-content" data-line="1">${this.formatContent(data.author)}</span></div>|
 +-------------------+
