@@ -1,6 +1,6 @@
 export class TimeWidgetManager {
     constructor() {
-        this.timeElement = document.getElementById('time');
+        this.timeElement = document.getElementById('time-widget');
     }
 
     init() {

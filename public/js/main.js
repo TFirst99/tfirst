@@ -3,6 +3,7 @@ import { SpotifyWidgetManager } from './SpotifyWidgetManager.js';
 import { WeatherManager } from './WeatherManager.js';
 import { TimeWidgetManager } from './TimeWidgetManager.js';
 import { ConsoleTicksManager } from './ConsoleTicksManager.js';
+import { ReadingWidgetManager } from './ReadingWidgetManager.js';
 
 class App {
     constructor() {
@@ -11,6 +12,7 @@ class App {
         this.weatherManager = new WeatherManager();
         this.timeWidgetManager = new TimeWidgetManager();
         this.consoleTicksManager = new ConsoleTicksManager();
+        this.readingWidgetManager = new ReadingWidgetManager();
     }
 
     init() {
@@ -19,6 +21,7 @@ class App {
         this.weatherManager.init();
         this.timeWidgetManager.init();
         this.consoleTicksManager.init();
+        this.readingWidgetManager.init();
     }
 }
 

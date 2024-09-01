@@ -18,13 +18,25 @@ html body{
     box-sizing: border-box;
     white-space: pre;
 }
-#weather {
+#weather-widget {
     grid-column: 6 / span 21;
     grid-row: 2 / span 5;
 }
-#time {
+#time-widget {
+    grid-column: 6 / span 21;
+    grid-row: 8 / span 5;
+}
+#reading-widget {
     grid-column: -26 / span 21;
     grid-row: 2 / span 5;
+}
+#reading-widget .content-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+}
+#reading-widget .scrolling-content {
+    display: inline-block;
 }
 #spotify-widget {
     grid-column: -26 / span 21;
