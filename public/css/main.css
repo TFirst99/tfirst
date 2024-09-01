@@ -18,6 +18,13 @@ html body{
     box-sizing: border-box;
     white-space: pre;
 }
+.widget .scrolling-content {
+    display: inline-block;
+}
+.widget .content-wrapper {
+    display: inline-block;
+    overflow: hidden;
+}
 #weather-widget {
     grid-column: 6 / span 21;
     grid-row: 2 / span 5;
@@ -30,25 +37,9 @@ html body{
     grid-column: -26 / span 21;
     grid-row: 2 / span 5;
 }
-#reading-widget .content-wrapper {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
-}
-#reading-widget .scrolling-content {
-    display: inline-block;
-}
 #spotify-widget {
     grid-column: -26 / span 21;
     grid-row: 8 / span 5;
-}
-#spotify-widget .content-wrapper {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
-}
-#spotify-widget .scrolling-content {
-    display: inline-block;
 }
 #weather-art {
     grid-column: 1 / -1;
