@@ -1,6 +1,9 @@
+import { WidgetUtil } from '/js/utils/widgetUtil.js';
+
 export class TimeWidgetManager {
     constructor() {
         this.timeElement = document.getElementById('time-widget');
+        this.widgetUtil = new WidgetUtil(this.timeElement);
     }
 
     init() {
@@ -16,16 +19,7 @@ export class TimeWidgetManager {
             month: '2-digit',
             day: '2-digit'
         });
-        const timeHtml = `+-------------------+
-|       TIME        |
-|    ${this.padRight(timeString, 11)}    |
-|     ${this.padRight(dateString, 10)}    |
-+-------------------+`;
 
-        this.timeElement.innerHTML = timeHtml;
-    }
-
-    padRight(str, length, padChar = ' ') {
-        return str + padChar.repeat(Math.max(0, length - str.length));
+        this.widgetUtil.updateWidget('TIME', timeString, dateString);
     }
 }

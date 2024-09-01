@@ -1,4 +1,5 @@
-import weatherArt from './weatherArt/index.js';
+import { WidgetUtil } from '/js/utils/widgetUtil.js';
+import weatherArt from '/js/weatherArt/index.js';
 
 export class WeatherManager {
     constructor() {
@@ -6,6 +7,7 @@ export class WeatherManager {
         this.weatherArtElement = document.getElementById('weather-art');
         this.currentWeatherType = 'clear';
         this.animationFrame = 0;
+        this.widgetUtil = new WidgetUtil(this.weatherElement);
         this.weatherConditions = {
             0: 'clear',
             1: 'clouds', 2: 'clouds', 3: 'clouds',
@@ -54,23 +56,14 @@ export class WeatherManager {
             this.updateWeather(data);
         } catch (error) {
             console.error('Error fetching weather:', error);
-            this.weatherElement.innerHTML = this.createWeatherHTML('unknown', 'N/A');
-            this.weatherArtElement.textContent = '';
+            this.updateWeather({ current_weather: { temperature: 'N/A', weathercode: 'unknown' } });
         }
     }
 
     updateWeather(data) {
         const { temperature: temp, weathercode: weatherCode } = data.current_weather;
         this.currentWeatherType = this.weatherConditions[weatherCode] || 'clear';
-        this.weatherElement.innerHTML = this.createWeatherHTML(this.currentWeatherType, temp);
-    }
-
-    createWeatherHTML(type, temp) {
-        return `+-------------------+
-|      WEATHER      |
-|      ${this.padRight(type, 12)} |
-|      ${this.padRight(temp + '°C', 12)} |
-+-------------------+`;
+        this.widgetUtil.updateWidget('WEATHER', this.currentWeatherType, `${temp}°C`);
     }
 
     startWeatherAnimation() {
@@ -91,9 +84,5 @@ export class WeatherManager {
                 reject(new Error("Geolocation is not supported by this browser."));
             }
         });
-    }
-
-    padRight(str, length, padChar = ' ') {
-        return str + padChar.repeat(Math.max(0, length - str.length));
     }
 }
