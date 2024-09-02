@@ -2,16 +2,16 @@ export async function onRequest(context) {
   const { GITHUB_KV } = context.env;
 
   try {
-    const latestCommitJson = await GITHUB_KV.get('latestCommit');
+    const githubData = await GITHUB_KV.get('latestCommit');
 
-    if (!latestCommitJson) {
+    if (!githubData) {
       return new Response(JSON.stringify({ error: 'No commit data found' }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    const latestCommit = JSON.parse(latestCommitJson);
+    const latestCommit = JSON.parse(githubData);
 
     return new Response(JSON.stringify(latestCommit), {
       status: 200,

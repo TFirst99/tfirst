@@ -23,9 +23,8 @@ export class GithubWidgetManager {
 
   updateWidget(data) {
     if (data && data.message) {
-      const shortSha = data.sha.substring(0, 7);
       const shortMessage = data.message.length > 30 ? data.message.substring(0, 27) + '...' : data.message;
-      this.widgetUtil.updateWidget("LAST COMMIT", shortMessage, `${data.repo} (${shortSha})`);
+      this.widgetUtil.updateWidget("LAST COMMIT", shortMessage, `${data.repo}`);
     } else {
       this.widgetUtil.updateWidget("LAST COMMIT", "not found", "");
     }
