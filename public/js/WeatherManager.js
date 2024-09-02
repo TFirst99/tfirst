@@ -27,12 +27,6 @@ export class WeatherManager {
         this.weatherArt = weatherArt(currentYear);
     }
 
-    init() {
-        this.fetchWeather();
-        this.startWeatherAnimation();
-        setInterval(() => this.fetchWeather(), 300000);
-    }
-
     async fetchWeather() {
         try {
             const cachedWeather = localStorage.getItem('cachedWeather');
@@ -84,5 +78,11 @@ export class WeatherManager {
                 reject(new Error("Geolocation is not supported by this browser."));
             }
         });
+    }
+    
+    init() {
+        this.fetchWeather();
+        this.startWeatherAnimation();
+        setInterval(() => this.fetchWeather(), 300000);
     }
 }
