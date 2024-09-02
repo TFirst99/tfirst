@@ -1,6 +1,6 @@
 import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
-export class GitHubWidgetManager {
+export class GithubWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("github-widget");
     this.apiUrl = "/api/github";
