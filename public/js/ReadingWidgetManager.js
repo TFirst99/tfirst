@@ -31,6 +31,5 @@ export class ReadingWidgetManager {
 
   init() {
     this.updateCurrentlyReading();
-    // Set up any intervals or additional initialization here
   }
 }

@@ -48,8 +48,4 @@ export class SpotifyWidgetManager {
     this.adjustUpdateInterval(false);
   }
 
-  toggle() {
-    this.widgetElement.style.display =
-      this.widgetElement.style.display === "none" ? "block" : "none";
-  }
 }
