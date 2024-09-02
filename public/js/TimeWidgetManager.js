@@ -6,11 +6,6 @@ export class TimeWidgetManager {
         this.widgetUtil = new WidgetUtil(this.timeElement);
     }
 
-    init() {
-        this.updateTime();
-        setInterval(() => this.updateTime(), 1000);
-    }
-
     updateTime() {
         const now = new Date();
         const timeString = now.toLocaleTimeString();
@@ -21,5 +16,10 @@ export class TimeWidgetManager {
         });
 
         this.widgetUtil.updateWidget('TIME', timeString, dateString);
+    }
+    
+    init() {
+        this.updateTime();
+        setInterval(() => this.updateTime(), 1000);
     }
 }

@@ -3,11 +3,6 @@ export class ConsoleTicksManager {
         this.promptsContainer = document.getElementById('console-ticks');
     }
 
-    init() {
-        this.updatePrompts();
-        window.addEventListener('resize', () => this.updatePrompts());
-    }
-
     updatePrompts() {
         this.promptsContainer.innerHTML = '';
         const lineHeight = 16;
@@ -21,5 +16,10 @@ export class ConsoleTicksManager {
             promptElement.textContent = '>';
             this.promptsContainer.appendChild(promptElement);
         }
+    }
+    
+    init() {
+        this.updatePrompts();
+        window.addEventListener('resize', () => this.updatePrompts());
     }
 }

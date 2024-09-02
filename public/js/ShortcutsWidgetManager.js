@@ -5,11 +5,6 @@ export class ShortcutsWidgetManager {
         this.codeIndex = 0;
     }
 
-    init() {
-        this.addKeydownListener();
-        this.checkInitialVisibility();
-    }
-
     toggleElements() {
         const isVisible = localStorage.getItem('elementsVisible') === 'true';
         this.shortcuts.style.display = isVisible ? 'none' : 'flex';
@@ -35,5 +30,10 @@ export class ShortcutsWidgetManager {
         if (localStorage.getItem('elementsVisible') === 'true') {
             this.shortcuts.style.display = 'flex';
         }
+    }
+    
+    init() {
+        this.addKeydownListener();
+        this.checkInitialVisibility();
     }
 }

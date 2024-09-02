@@ -4,6 +4,7 @@ import { WeatherManager } from '/js/WeatherManager.js';
 import { TimeWidgetManager } from '/js/TimeWidgetManager.js';
 import { ConsoleTicksManager } from '/js/ConsoleTicksManager.js';
 import { ReadingWidgetManager } from '/js/ReadingWidgetManager.js';
+import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
 
 class App {
     constructor() {
@@ -13,6 +14,7 @@ class App {
         this.timeWidgetManager = new TimeWidgetManager();
         this.consoleTicksManager = new ConsoleTicksManager();
         this.readingWidgetManager = new ReadingWidgetManager();
+        this.githubWidgetManager = new GithubWidgetManager();
     }
 
     init() {
@@ -22,6 +24,7 @@ class App {
         this.timeWidgetManager.init();
         this.consoleTicksManager.init();
         this.readingWidgetManager.init();
+        this.githubWidgetManager.init();
     }
 }
 

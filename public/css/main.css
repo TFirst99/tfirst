@@ -41,6 +41,10 @@ html body{
     grid-column: -26 / span 21;
     grid-row: 8 / span 5;
 }
+#github-widget {
+    grid-column: -26 / span 21;
+    grid-row: 14 / span 5;
+}
 #weather-art {
     grid-column: 1 / -1;
     grid-row: 7 / span 21;
