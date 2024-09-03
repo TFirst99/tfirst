@@ -7,25 +7,23 @@ export class AboutWidgetManager {
     this.widgetUtil = new WidgetUtil(this.widgetElement);
   }
 
-  async updateAboutWidget() {
+  async updateAbout() {
     try {
-      const response = await fetch(this.aboutJsonUrl);
+      const response = await fetch(this.jsonUrl);
       if (!response.ok) {
         throw new Error("Failed to fetch about data");
       }
       const aboutData = await response.json();
-      this.aboutWidget.updateWidget("ABOUT", ...aboutData.lines);
+      this.updateWidget(aboutData);
     } catch (error) {
       console.error("Error fetching about data:", error);
-      this.aboutWidget.updateWidget("ABOUT", "Error loading data");
+      this.updateWidget(null);
     }
   }
 
   updateWidget(data) {
     if (data) {
-      this.widgetUtil.updateWidget(
-        "ABOUT",
-      );
+      this.widgetUtil.updateWidget("ABOUT", ...data.lines);
     } else {
       this.widgetUtil.updateWidget("ABOUT");
     }
