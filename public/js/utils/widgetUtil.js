@@ -25,9 +25,9 @@ export class WidgetUtil {
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
   }
 
-  formatLine(text) {
+  formatLine(text, index) {
     if (typeof text === 'object' && text !== null) {
-      return `|<div class="content-wrapper"><span class="scrolling-content">${this.formatContent(text.content)}</span></div>|`;
+      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(text.content)}</span></div>|`;
     }
     return `|${this.centerText(text)}|`;
   }
@@ -48,7 +48,7 @@ export class WidgetUtil {
     this.stopAllScrolling();
     this.lines.forEach((line, index) => {
       if (typeof line === 'object' && line !== null) {
-        const element = this.widgetElement.querySelector(`.scrolling-content:nth-child(${index + 1})`);
+        const element = this.widgetElement.querySelector(`.scrolling-content[data-line="${index}"]`);
         if (element && line.content.length > this.options.width - 2) {
           this.startScrolling(element, line.content, index);
         }
