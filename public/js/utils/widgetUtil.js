@@ -21,7 +21,7 @@ export class WidgetUtil {
 
   render() {
     const visibleLines = this.isExpanded ? this.lines : this.lines.slice(0, this.options.collapsedLines);
-    const content = visibleLines.map(line => this.formatLine(line)).join('\n');
+    const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
   }
 
