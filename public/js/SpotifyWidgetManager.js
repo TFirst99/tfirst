@@ -3,7 +3,7 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 export class SpotifyWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("spotify-widget");
-    this.apiUrl = "https://api.timfirst.com/api/github";
+    this.apiUrl = "https://api.timfirst.com/api/spotify";
     this.defaultUpdateInterval = 60000
     this.notPlayingUpdateInterval = 300000;
     this.currentIntervalId = null;
@@ -39,7 +39,6 @@ export class SpotifyWidgetManager {
   updateWidget(data) {
     if (data && data.trackName !== "Not playing") {
       const status = data.isPlaying ? "LISTENING" : "LAST PLAYED";
-      console.log("Updating widget with:", data.status, data.trackName, data.artistName);
       this.widgetUtil.updateWidget(status, data.trackName, data.artistName);
     } else {
       this.widgetUtil.updateWidget("NOT PLAYING", "", "");
