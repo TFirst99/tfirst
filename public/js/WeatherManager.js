@@ -55,9 +55,13 @@ export class WeatherManager {
     }
 
     updateWeather(data) {
-        const { temperature: temp, weathercode: weatherCode } = data.current_weather;
-        this.currentWeatherType = this.weatherConditions[weatherCode] || 'clear';
-        this.widgetUtil.updateWidget('WEATHER', this.currentWeatherType, `${temp}°C`);
+      const { temperature: temp, weathercode: weatherCode } = data.current_weather;
+      this.currentWeatherType = this.weatherConditions[weatherCode] || 'clear';
+      this.widgetUtil.updateWidget(
+        'WEATHER',
+        { content: this.currentWeatherType },
+        `${temp}°C`
+      );
     }
 
     startWeatherAnimation() {

@@ -23,9 +23,13 @@ export class ReadingWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      this.widgetUtil.updateWidget("READING", data.title, data.author);
+      this.widgetUtil.updateWidget(
+        "READING",
+        { content: data.title },
+        { content: data.author }
+      );
     } else {
-      this.widgetUtil.updateWidget("NOT READING", "", "");
+      this.widgetUtil.updateWidget("NOT READING");
     }
   }
 
