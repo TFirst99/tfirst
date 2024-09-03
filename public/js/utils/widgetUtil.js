@@ -17,6 +17,7 @@ export class WidgetUtil {
     this.lines = lines;
     this.render();
     this.setupScrolling();
+    setTimeout(() => this.setupScrolling(), 0);
   }
 
   render() {
