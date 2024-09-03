@@ -39,6 +39,7 @@ export class SpotifyWidgetManager {
   updateWidget(data) {
     if (data && data.trackName !== "Not playing") {
       const status = data.isPlaying ? "LISTENING" : "LAST PLAYED";
+      console.log("Updating widget with:", status, trackName, artistName);
       this.widgetUtil.updateWidget(status, data.trackName, data.artistName);
     } else {
       this.widgetUtil.updateWidget("NOT PLAYING", "", "");
