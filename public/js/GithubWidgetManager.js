@@ -3,7 +3,7 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 export class GithubWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("github-widget");
-    this.apiUrl = "/api/github";
+    this.apiUrl = "https://api.timfirst.com/api/github";
     this.widgetUtil = new WidgetUtil(this.widgetElement);
     this.lastFetchTime = 0;
     this.cachedData = null;
