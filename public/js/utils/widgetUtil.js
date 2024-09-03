@@ -17,7 +17,6 @@ export class WidgetUtil {
     this.lines = lines;
     this.render();
     this.setupScrolling();
-    setTimeout(() => this.setupScrolling(), 0);
   }
 
   render() {
@@ -61,6 +60,8 @@ export class WidgetUtil {
     let position = 0;
     const paddedContent = content + '     ' + content;
     const scrollLength = content.length + 5;
+    
+    element.textContent = paddedContent.substr(0, this.options.width - 2);
 
     this.scrollIntervals[index] = setInterval(() => {
       element.textContent = paddedContent.substr(position, this.options.width - 2);
