@@ -66,7 +66,7 @@ export class WidgetUtil {
     this.scrollIntervals[index] = setInterval(() => {
       element.textContent = paddedContent.substr(position, this.options.width - 2);
       position = (position + 1) % scrollLength;
-    }, 300);
+    }, 500);
   }
 
   stopAllScrolling() {
