@@ -45,17 +45,17 @@ html body{
     grid-column: 6 / span 21;
     grid-row: 26 / span 5;
 }
-#about-title-widget {
+#about0-widget {
     grid-column: -26 / span 21;
     grid-row: 2 / span 3;
 }
-#about-student-widget {
+#about1-widget {
     grid-column: -26 / span 21;
     grid-row: 6 / span 6;
 }
-#about-personal-widget {
+#about2-widget {
     grid-column: -26 / span 21;
-    grid-row: 15 / span 6;
+    grid-row: 13 / span 6;
 }
 #weather-art {
     grid-column: 1 / -1;

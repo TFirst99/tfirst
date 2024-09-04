@@ -1,11 +1,11 @@
 {
-  "student": [
+  "about1": [
   "STUDENT",
-  "economics: public goods games, housing, policy  ",
-  "philosophy: metascience, statistics, language   ",
-  "mathematics: differential equations, probability"
+  "public goods games, housing, policy",
+  "metascience, statistics, language  ",
+  "differential equations, probability"
   ],
-  "personal": [
+  "about2": [
   "PERSONAL",
   "learning to code",  
   "reading stuff",

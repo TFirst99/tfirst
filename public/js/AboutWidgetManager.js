@@ -2,12 +2,12 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
 export class AboutWidgetManager {
   constructor() {
-    this.titleElement = document.getElementById("about-title-widget");
-    this.studentElement = document.getElementById("about-student-widget");
-    this.personalElement = document.getElementById("about-personal-widget");
-    this.titleWidget = new WidgetUtil(this.titleElement, { width: 21 });
-    this.studentWidget = new WidgetUtil(this.studentElement, { width: 21 });
-    this.personalWidget = new WidgetUtil(this.personalElement, { width: 21 });
+    this.about0Element = document.getElementById("about0-widget");
+    this.about1Element = document.getElementById("about1-widget");
+    this.about2Element = document.getElementById("about2-widget");
+    this.about0Widget = new WidgetUtil(this.about0Element, { width: 21 });
+    this.about1Widget = new WidgetUtil(this.about1Element, { width: 21 });
+    this.about2Widget = new WidgetUtil(this.about2Element, { width: 21 });
     this.jsonUrl = "/about.json";
   }
 
@@ -27,25 +27,23 @@ export class AboutWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      this.titleWidget.updateWidget(
+      this.about0Widget.updateWidget(
         "ABOUT ME"
       );
-      this.studentWidget.updateWidget(
-        "STUDENT",
-        ...data.student.map(line => ({ content: line })),
+      this.about1Widget.updateWidget(
+        ...data.about1.map(line => ({ content: line })),
       );
-      this.personalWidget.updateWidget(
-        "PERSONAL",
-        ...data.personal.map(line => ({ content: line }))
+      this.about2Widget.updateWidget(
+        ...data.about2.map(line => ({ content: line }))
       );
     } else {
-      this.titleWidget.updateWidget(
+      this.about0Widget.updateWidget(
         "ABOUT ME"
       );
-      this.studentWidget.updateWidget(
+      this.about1Widget.updateWidget(
         "if you're seeing this"
       );
-      this.personalWidget.updateWidget(
+      this.about2Widget.updateWidget(
         "it didn't load lol."
       );
     }
