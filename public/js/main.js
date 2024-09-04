@@ -5,7 +5,6 @@ import { TimeWidgetManager } from '/js/TimeWidgetManager.js';
 import { ConsoleTicksManager } from '/js/ConsoleTicksManager.js';
 import { ReadingWidgetManager } from '/js/ReadingWidgetManager.js';
 import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
-import { AboutWidgetManager } from './AboutWidgetManager';
 
 class App {
     constructor() {
@@ -16,7 +15,6 @@ class App {
         this.consoleTicksManager = new ConsoleTicksManager();
         this.readingWidgetManager = new ReadingWidgetManager();
         this.githubWidgetManager = new GithubWidgetManager();
-        this.aboutWidgetManager = new AboutWidgetManager();
     }
 
     init() {
@@ -27,7 +25,6 @@ class App {
         this.consoleTicksManager.init();
         this.readingWidgetManager.init();
         this.githubWidgetManager.init();
-        this.aboutWidgetManager.init();
     }
 }
 
