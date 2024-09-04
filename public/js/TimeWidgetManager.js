@@ -15,7 +15,11 @@ export class TimeWidgetManager {
             day: '2-digit'
         });
 
-        this.widgetUtil.updateWidget('TIME', timeString, dateString);
+        this.widgetUtil.updateWidget(
+          "TIME",
+          { content: timeString },
+          { content: dateString }
+        );
     }
     
     init() {
