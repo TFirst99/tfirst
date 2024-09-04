@@ -44,9 +44,9 @@ export class WidgetUtil {
     const boxWidth = Math.max(...visibleLines.map(line => line.content.length), this.options.width);
     
     this.widgetElement.innerHTML = `
-      +${'-'.repeat(boxWidth)}+
+      +${'-'.repeat(width)}+
       ${content}
-      +${'-'.repeat(boxWidth)}+
+      +${'-'.repeat(width)}+
     `;
   }
 
