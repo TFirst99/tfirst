@@ -2,9 +2,9 @@ export class WidgetUtil {
   constructor(widgetElement, options = {}) {
     this.widgetElement = widgetElement;
     this.options = {
-      width: 21,
+      width: 19,
       isExpandable: false,
-      collapsedLines: 1,
+      collapsedLines: 3,
       expandedLines: 3,
       ...options
     };
@@ -44,9 +44,9 @@ export class WidgetUtil {
     const boxWidth = Math.max(...visibleLines.map(line => line.content.length), this.options.width);
     
     this.widgetElement.innerHTML = `
-      +${'-'.repeat(boxWidth + 2)}+
+      +${'-'.repeat(width)}+
       ${content}
-      +${'-'.repeat(boxWidth + 2)}+
+      +${'-'.repeat(width)}+
     `;
   }
 
@@ -94,7 +94,7 @@ export class WidgetUtil {
       position = (position + 1) % scrollLength;
     };
 
-    scroll(); // Initial call
+    scroll();
     this.scrollIntervals.push(setInterval(scroll, 500));
   }
 
