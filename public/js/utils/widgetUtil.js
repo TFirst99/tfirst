@@ -3,14 +3,10 @@ export class WidgetUtil {
     this.widgetElement = widgetElement;
     this.options = {
       width: 21,
-      isExpandable: false,
-      collapsedLines: 1,
       ...options
     };
-    this.isExpanded = !this.options.isExpandable;
     this.lines = [];
     this.scrollIntervals = [];
-    this.setupExpandability();
   }
 
   updateWidget(...lines) {
@@ -20,7 +16,6 @@ export class WidgetUtil {
   }
 
   render() {
-    const visibleLines = this.isExpanded ? this.lines : this.lines.slice(0, this.options.collapsedLines);
     const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
   }
@@ -72,21 +67,5 @@ export class WidgetUtil {
   stopAllScrolling() {
     this.scrollIntervals.forEach(clearInterval);
     this.scrollIntervals = [];
-  }
-
-  setupExpandability() {
-    if (this.options.isExpandable) {
-      this.widgetElement.style.cursor = 'pointer';
-      this.widgetElement.addEventListener('click', () => this.toggleExpansion());
-    }
-  }
-
-  toggleExpansion() {
-    this.isExpanded = !this.isExpanded;
-    this.render();
-    this.setupScrolling();
-    this.widgetElement.dispatchEvent(new CustomEvent('widgetExpansionChanged', {
-      detail: { isExpanded: this.isExpanded }
-    }));
   }
 }
