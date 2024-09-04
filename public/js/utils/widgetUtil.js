@@ -16,7 +16,7 @@ export class WidgetUtil {
   }
 
   render() {
-    const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
+    const content = this.lines.map((line, index) => this.formatLine(line, index)).join('\n');
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
   }
 
