@@ -6,7 +6,8 @@ export class AboutWidgetManager {
     this.jsonUrl = "/about.json";
     this.widgetUtil = new WidgetUtil(this.widgetElement, {
       isExpandable: true,
-      collapsedLines: 1
+      collapsedLines: 1,
+      width: 21
     });
   }
 
@@ -26,7 +27,7 @@ export class AboutWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      const lines = ["ABOUT", { content: data.title }, ...data.content.map(line => ({ content: line }))];
+      const lines = ["ABOUT", ...data.content.map(line => ({ content: line }))];
       this.widgetUtil.updateWidget(...lines);
     } else {
       this.widgetUtil.updateWidget("ABOUT", "No information available");

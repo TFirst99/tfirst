@@ -23,9 +23,20 @@ export class WidgetUtil {
     const visibleLines = this.isExpanded ? this.lines : this.lines.slice(0, this.options.collapsedLines);
     const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
+    
+    if (this.options.isExpandable) {
+      const titleElement = this.widgetElement.querySelector('.clickable-title');
+      if (titleElement) {
+        titleElement.style.textDecoration = 'underline';
+        titleElement.style.cursor = 'pointer';
+      }
+    }
   }
 
   formatLine(text, index) {
+    if (index === 0 && this.options.isExpandable) {
+      return `|<div class="title-wrapper"><span class="clickable-title">${this.centerText(text)}</span></div>|`;
+    }
     if (typeof text === 'object' && text !== null) {
       return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(text.content)}</span></div>|`;
     }
@@ -76,8 +87,12 @@ export class WidgetUtil {
 
   setupExpandability() {
     if (this.options.isExpandable) {
-      this.widgetElement.style.cursor = 'pointer';
-      this.widgetElement.addEventListener('click', () => this.toggleExpansion());
+      this.widgetElement.addEventListener('click', (event) => {
+        const clickedElement = event.target.closest('.clickable-title');
+        if (clickedElement) {
+          this.toggleExpansion();
+        }
+      });
     }
   }
 
