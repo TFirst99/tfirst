@@ -4,13 +4,10 @@ export class AboutWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("about-widget");
     this.jsonUrl = "/about.json";
-    this.widgetUtil = new WidgetUtil(this.widgetElement, {
-      isExpandable: true,
-      collapsedLines: 1
-    });
+    this.widgetUtil = new WidgetUtil(this.widgetElement);
   }
 
-  async updateAboutInfo() {
+  async updateAbout() {
     try {
       const response = await fetch(this.jsonUrl);
       if (!response.ok) {
@@ -26,14 +23,13 @@ export class AboutWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      const lines = ["ABOUT", { content: data.title }, ...data.content.map(line => ({ content: line }))];
-      this.widgetUtil.updateWidget(...lines);
+      this.widgetUtil.updateWidget("ABOUT", ...data.lines);
     } else {
-      this.widgetUtil.updateWidget("ABOUT", "No information available");
+      this.widgetUtil.updateWidget("ABOUT");
     }
   }
 
   init() {
-    this.updateAboutInfo();
+    this.updateUpdateAbout();
   }
 }
