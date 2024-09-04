@@ -5,7 +5,7 @@ import { TimeWidgetManager } from '/js/TimeWidgetManager.js';
 import { ConsoleTicksManager } from '/js/ConsoleTicksManager.js';
 import { ReadingWidgetManager } from '/js/ReadingWidgetManager.js';
 import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
-import { AboutWidgetManager } from '/js/AboutWidgetManager.js';
+import { AboutWidgetManager } from '/js/AboutWidgetManager';
 
 class App {
     constructor() {
