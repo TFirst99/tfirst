@@ -6,8 +6,7 @@ export class AboutWidgetManager {
     this.jsonUrl = "/about.json";
     this.widgetUtil = new WidgetUtil(this.widgetElement, {
       isExpandable: true,
-      collapsedLines: 1,
-      expandedLines: 9
+      collapsedLines: 1
     });
   }
 
