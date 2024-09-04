@@ -51,11 +51,11 @@ html body{
 }
 #about1-widget {
     grid-column: -26 / span 21;
-    grid-row: 6 / span 6;
+    grid-row: 6 / span 9;
 }
 #about2-widget {
     grid-column: -26 / span 21;
-    grid-row: 13 / span 6;
+    grid-row: 16 / span 6;
 }
 #weather-art {
     grid-column: 1 / -1;
