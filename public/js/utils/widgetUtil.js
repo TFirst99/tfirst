@@ -5,40 +5,72 @@ export class WidgetUtil {
       width: 21,
       isExpandable: false,
       collapsedLines: 1,
+      expandedLines: 3,
       ...options
     };
-    this.isExpanded = !this.options.isExpandable;
+    this.isExpanded = false;
     this.lines = [];
     this.scrollIntervals = [];
-    this.setupExpandability();
+    this.setupWidget();
   }
 
-  updateWidget(...lines) {
-    this.lines = lines;
+  updateWidget(data) {
+    this.lines = this.processData(data);
     this.render();
     this.setupScrolling();
   }
 
+  processData(data) {
+    if (Array.isArray(data)) {
+      return data.map(item => this.createLine(item));
+    } else if (typeof data === 'object' && data !== null) {
+      return Object.entries(data).map(([key, value]) => this.createLine({ title: key, content: value }));
+    } else {
+      return [this.createLine(data)];
+    }
+  }
+
+  createLine(item) {
+    if (typeof item === 'string') {
+      return { content: item, isTitle: false };
+    } else {
+      return { title: item.title, content: item.content, isTitle: !!item.title };
+    }
+  }
+
   render() {
     const visibleLines = this.isExpanded ? this.lines : this.lines.slice(0, this.options.collapsedLines);
-    const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
-    this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
+    const content = visibleLines.map(line => this.formatLine(line)).join('\n');
+    const boxWidth = Math.max(...visibleLines.map(line => line.content.length), this.options.width);
+    
+    this.widgetElement.innerHTML = `
+      +${'-'.repeat(boxWidth + 2)}+
+      ${content}
+      +${'-'.repeat(boxWidth + 2)}+
+    `;
   }
 
-  formatLine(text, index) {
-    if (typeof text === 'object' && text !== null) {
-      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(text.content)}</span></div>|`;
+  formatLine(line) {
+    const { title, content, isTitle } = line;
+    const boxWidth = Math.max(...this.lines.map(l => l.content.length), this.options.width);
+    
+    if (isTitle && this.options.isExpandable) {
+      return `|${this.formatExpandableTitle(title, boxWidth)}|`;
+    } else if (content.length <= boxWidth) {
+      return `|${this.centerText(content, boxWidth)}|`;
+    } else {
+      return `|<div class="scrolling-content" data-content="${content}">${content.padEnd(boxWidth)}</div>|`;
     }
-    return `|${this.centerText(text)}|`;
   }
 
-  formatContent(text) {
-    return text.length <= this.options.width - 2 ? this.centerText(text) : text.padEnd(this.options.width - 2);
+  formatExpandableTitle(title, boxWidth) {
+    const expandSymbol = this.isExpanded ? '▼' : '▶';
+    const paddedTitle = this.centerText(title, boxWidth - 2);
+    return `<span class="expandable-title">${expandSymbol} ${paddedTitle}</span>`;
   }
 
-  centerText(text) {
-    const contentWidth = this.options.width - 2;
-    const paddingTotal = contentWidth - text.length;
+  centerText(text, width) {
+    const paddingTotal = width - text.length;
     const paddingLeft = Math.floor(paddingTotal / 2);
     const paddingRight = paddingTotal - paddingLeft;
     return ' '.repeat(paddingLeft) + text + ' '.repeat(paddingRight);
@@ -46,27 +78,24 @@ export class WidgetUtil {
 
   setupScrolling() {
     this.stopAllScrolling();
-    this.lines.forEach((line, index) => {
-      if (typeof line === 'object' && line !== null) {
-        const element = this.widgetElement.querySelector(`.scrolling-content[data-line="${index}"]`);
-        if (element && line.content.length > this.options.width - 2) {
-          this.startScrolling(element, line.content, index);
-        }
-      }
+    this.widgetElement.querySelectorAll('.scrolling-content').forEach(element => {
+      const content = element.getAttribute('data-content');
+      this.startScrolling(element, content);
     });
   }
 
-  startScrolling(element, content, index) {
+  startScrolling(element, content) {
     let position = 0;
     const paddedContent = content + '     ' + content;
     const scrollLength = content.length + 5;
     
-    element.textContent = paddedContent.substr(0, this.options.width - 2);
-
-    this.scrollIntervals[index] = setInterval(() => {
-      element.textContent = paddedContent.substr(position, this.options.width - 2);
+    const scroll = () => {
+      element.textContent = paddedContent.substr(position, element.clientWidth);
       position = (position + 1) % scrollLength;
-    }, 500);
+    };
+
+    scroll(); // Initial call
+    this.scrollIntervals.push(setInterval(scroll, 500));
   }
 
   stopAllScrolling() {
@@ -74,10 +103,13 @@ export class WidgetUtil {
     this.scrollIntervals = [];
   }
 
-  setupExpandability() {
+  setupWidget() {
     if (this.options.isExpandable) {
-      this.widgetElement.style.cursor = 'pointer';
-      this.widgetElement.addEventListener('click', () => this.toggleExpansion());
+      this.widgetElement.addEventListener('click', event => {
+        if (event.target.closest('.expandable-title')) {
+          this.toggleExpansion();
+        }
+      });
     }
   }
 
