@@ -32,11 +32,11 @@ export class AboutWidgetManager {
       );
       this.studentWidget.updateWidget(
         "STUDENT",
-        ...data.student.slice(2).map(line => ({ content: line }))
+        ...data.student.map(line => ({ content: line })),
       );
       this.personalWidget.updateWidget(
         "PERSONAL",
-        ...data.personal.slice(2).map(line => ({ content: line }))
+        ...data.personal.map(line => ({ content: line }))
       );
     } else {
       this.titleWidget.updateWidget(
