@@ -11,8 +11,23 @@ export class WidgetUtil {
     this.lines = [];
     this.scrollIntervals = [];
     this.setupExpandability();
+    this.addStyles();
   }
 
+  addStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .clickable-title {
+        cursor: pointer;
+        transition: text-decoration 0.3s ease;
+      }
+      .clickable-title:hover {
+        text-decoration: underline;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
   updateWidget(...lines) {
     this.lines = lines;
     this.render();
@@ -23,14 +38,6 @@ export class WidgetUtil {
     const visibleLines = this.isExpanded ? this.lines : this.lines.slice(0, this.options.collapsedLines);
     const content = visibleLines.map((line, index) => this.formatLine(line, index)).join('\n');
     this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
-    
-    if (this.options.isExpandable) {
-      const titleElement = this.widgetElement.querySelector('.clickable-title');
-      if (titleElement) {
-        titleElement.style.textDecoration = 'underline';
-        titleElement.style.cursor = 'pointer';
-      }
-    }
   }
 
   formatLine(text, index) {
