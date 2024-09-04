@@ -1,9 +1,9 @@
 {
   "title": "About Me",
   "content": [
-    "student"
-    "economics"
-    "philosophy"
+    "student",
+    "economics",
+    "philosophy",
     "math"
   ]
 }
