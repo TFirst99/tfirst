@@ -1,8 +1,16 @@
 {
-  "student": {
-    "content": "STUDENT\neconomics: public goods games, housing, taxes\nphilosophy: metascience, statistics, language\nmath: linear algebra, analysis"
-  },
-  "personal": {
-    "content": "PERSONAL\nlearning to code\nreading about policy\nrunning"
-  }
+  "student": [
+  " ",
+  "STUDENT",
+  "economics: public goods games, housing, taxes",
+  "philosophy: metascience, statistics, language",
+  "math: linear algebra, analysis"
+  ],
+  "personal": [
+  " ",
+  "PERSONAL",
+  "learning to code",  
+  "reading about policy",
+  "running"
+  ]
 }

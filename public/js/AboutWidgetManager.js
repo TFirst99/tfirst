@@ -25,8 +25,8 @@ export class AboutWidgetManager {
     if (data) {
       this.widgetUtil.updateWidget(
         "ABOUT ME",
-        { content: data.student },
-        { content: data.personal }
+        ...data.student.map(line => ({ content: line })),
+        ...data.personal.map(line => ({ content: line }))
       );
     } else {
       this.widgetUtil.updateWidget(
