@@ -2,9 +2,13 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
 export class AboutWidgetManager {
   constructor() {
-    this.widgetElement = document.getElementById("about-widget");
+    this.about0Element = document.getElementById("about0-widget");
+    this.about1Element = document.getElementById("about1-widget");
+    this.about2Element = document.getElementById("about2-widget");
+    this.about0Widget = new WidgetUtil(this.about0Element, { width: 21 });
+    this.about1Widget = new WidgetUtil(this.about1Element, { width: 21 });
+    this.about2Widget = new WidgetUtil(this.about2Element, { width: 21 });
     this.jsonUrl = "/about.json";
-    this.widgetUtil = new WidgetUtil(this.widgetElement);
   }
 
   async updateAboutData() {
@@ -23,16 +27,24 @@ export class AboutWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      this.widgetUtil.updateWidget(
-        "ABOUT ME",
-        ...data.student.map(line => ({ content: line })),
-        ...data.personal.map(line => ({ content: line }))
+      this.about0Widget.updateWidget(
+        "ABOUT ME"
+      );
+      this.about1Widget.updateWidget(
+        ...data.about1.map(line => ({ content: line })),
+      );
+      this.about2Widget.updateWidget(
+        ...data.about2.map(line => ({ content: line }))
       );
     } else {
-      this.widgetUtil.updateWidget(
-        "ABOUT ME",
-        " ",
-        "No data available."
+      this.about0Widget.updateWidget(
+        "ABOUT ME"
+      );
+      this.about1Widget.updateWidget(
+        "if you're seeing this"
+      );
+      this.about2Widget.updateWidget(
+        "it didn't load lol."
       );
     }
   }

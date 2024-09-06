@@ -45,9 +45,17 @@ html body{
     grid-column: 6 / span 21;
     grid-row: 26 / span 5;
 }
-#about-widget {
+#about0-widget {
     grid-column: -26 / span 21;
-    grid-row: 2 / span 11;
+    grid-row: 2 / span 3;
+}
+#about1-widget {
+    grid-column: -26 / span 21;
+    grid-row: 6 / span 9;
+}
+#about2-widget {
+    grid-column: -26 / span 21;
+    grid-row: 16 / span 6;
 }
 #weather-art {
     grid-column: 1 / -1;
