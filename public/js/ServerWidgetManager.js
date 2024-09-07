@@ -10,7 +10,7 @@ export class ServerWidgetManager {
     this.updateInterval = 1 * 60 * 1000;
   }
 
-  async updateWidget() {
+  async updateServerStats() {
     const now = Date.now();
     if (now - this.lastFetchTime < this.updateInterval && this.cachedData) {
       this.updateWidget(this.cachedData);
@@ -50,7 +50,7 @@ export class ServerWidgetManager {
   }
 
   init() {
-    this.updateWidget();
-    setInterval(() => this.updateWidget(), this.updateInterval);
+    this.updateServerStats();
+    setInterval(() => this.updateServerStats(), this.updateInterval);
   }
 }
