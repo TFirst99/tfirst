@@ -34,10 +34,11 @@ export class ServerWidgetManager {
 
   updateWidget(data) {
     if (data && data.cpuUsage && data.memoryUsage && data.networkInbound && data.networkOutbound) {
-      const networkInfo = `In: ${data.networkInbound} | Out: ${data.networkOutbound}`;
+      const hardwareInfo = `CPU:${data.cpuUsage} MEM:${data.memoryUsage}`;
+      const networkInfo = `IN:${data.networkInbound} OUT:${data.networkOutbound}`;
       this.widgetUtil.updateWidget(
         "SERVER STATS",
-        { content: `CPU: ${data.cpuUsage} | MEM: ${data.memoryUsage}` },
+        { content: hardwareInfo },
         { content: networkInfo }
       );
     } else {
@@ -48,6 +49,8 @@ export class ServerWidgetManager {
       );
     }
   }
+
+
 
   init() {
     this.updateServerStats();
