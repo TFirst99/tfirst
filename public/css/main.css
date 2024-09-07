@@ -45,7 +45,7 @@ html body{
     grid-column: 6 / span 21;
     grid-row: 26 / span 5;
 }
-#server-wodget {
+#server-widget {
     grid-column: 6 / span 21;
     grid-row: 32 / span 5;
 }
