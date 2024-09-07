@@ -6,7 +6,7 @@ import { ConsoleTicksManager } from '/js/ConsoleTicksManager.js';
 import { ReadingWidgetManager } from '/js/ReadingWidgetManager.js';
 import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
 import { AboutWidgetManager } from '/js/AboutWidgetManager.js';
-import { ServerWidgetManager } from './ServerWidgetManager';
+import { ServerWidgetManager } from './ServerWidgetManager.js';
 
 class App {
     constructor() {
