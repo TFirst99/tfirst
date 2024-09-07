@@ -33,7 +33,8 @@ export class ServerWidgetManager {
   }
 
   updateWidget(data) {
-    if (data && data.cpuUsage && data.memoryUsage) {
+    if (data && data.cpuUsage && data.memoryUsage && data.networkInbound && data.networkOutbound) {
+      const networkInfo = `In: ${data.networkInbound} | Out: ${data.networkOutbound}`;
       this.widgetUtil.updateWidget(
         "SERVER STATS",
         { content: `CPU: ${data.cpuUsage} | MEM: ${data.memoryUsage}` },
