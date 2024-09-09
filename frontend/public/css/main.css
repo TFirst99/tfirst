@@ -44,10 +44,10 @@ html body {
     grid-row: 1;
 }
 
-/*very small screens*/
-/*at this size the left and right widgets collide*/
-/*center the about section and hide the left side widgets*/
-@media (max-width: 437px) {
+/*tiny screens*/
+/*at this size the small title goes off the screen*/
+/*removes the title, moves the about elements up*/
+@media (max-width: 385) {
     #weather-widget {
         display: none;
     }
@@ -79,6 +79,55 @@ html body {
     #about2-widget {
         grid-column: 1 / -1;
         grid-row: 16 / span 6;
+        justify-self: center;
+    }
+    #weather-art {
+        display: none;
+    }
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: hidden;
+    }
+}
+
+/*very small screens*/
+/*at this size the left and right widgets collide*/
+/*center the about section and hide the left side widgets*/
+@media (min-width: 386) and (max-width: 437px) {
+    #weather-widget {
+        display: none;
+    }
+    #time-widget {
+        display: none;
+    }
+    #reading-widget {
+        display: none;
+    }
+    #spotify-widget {
+        display: none;
+    }
+    #github-widget {
+        display: none;
+    }
+    #server-widget {
+        display: none;
+    }
+    #about0-widget {
+        grid-column: 1 / -1;
+        grid-row: 8 / span 3;
+        justify-self: center;
+    }
+    #about1-widget {
+        grid-column: 1 / -1;
+        grid-row: 12 / span 9;
+        justify-self: center;
+    }
+    #about2-widget {
+        grid-column: 1 / -1;
+        grid-row: 22 / span 6;
         justify-self: center;
     }
     #weather-art {
