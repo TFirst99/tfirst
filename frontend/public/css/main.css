@@ -47,7 +47,7 @@ html body {
 /*tiny screens*/
 /*at this size the small title goes off the screen*/
 /*removes the title, moves the about elements up*/
-@media (max-width: 385) {
+@media (max-width: 385px) {
     #weather-widget {
         display: none;
     }
@@ -96,7 +96,7 @@ html body {
 /*very small screens*/
 /*at this size the left and right widgets collide*/
 /*center the about section and hide the left side widgets*/
-@media (min-width: 386) and (max-width: 437px) {
+@media (min-width: 386px) and (max-width: 437px) {
     #weather-widget {
         display: none;
     }
