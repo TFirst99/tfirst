@@ -8,6 +8,7 @@ html body {
     height: 100%;
     overflow: hidden;
 }
+/*setup grid system*/
 #terminal {
     display: grid;
     grid-template-columns: repeat(auto-fill, 1ch);
@@ -17,6 +18,8 @@ html body {
     box-sizing: border-box;
     white-space: pre;
 }
+
+/*scrolling content utilities*/
 *.content-wrapper {
     display: inline-block;
     overflow: hidden;
@@ -25,106 +28,328 @@ html body {
 *.scrolling-content {
     display: inline-block;
 }
-#weather-widget {
-    grid-column: 6 / span 21;
-    grid-row: 2 / span 5;
-}
-#time-widget {
-    grid-column: 6 / span 21;
-    grid-row: 8 / span 5;
-}
-#reading-widget {
-    grid-column: 6 / span 21;
-    grid-row: 14 / span 5;
-}
-#spotify-widget {
-    grid-column: 6 / span 21;
-    grid-row: 20 / span 5;
-}
-#github-widget {
-    grid-column: 6 / span 21;
-    grid-row: 26 / span 5;
-}
-#server-widget {
-    grid-column: 6 / span 21;
-    grid-row: 32 / span 5;
-}
-#about0-widget {
-    grid-column: -26 / span 21;
-    grid-row: 2 / span 3;
-}
-#about1-widget {
-    grid-column: -26 / span 21;
-    grid-row: 6 / span 9;
-}
-#about2-widget {
-    grid-column: -26 / span 21;
-    grid-row: 16 / span 6;
-}
-#weather-art {
-    grid-column: 1 / -1;
-    grid-row: 8 / span 21;
-    justify-self: center;
-}
+
+/*title setup*/
 #title-widget {
     grid-column: 1 / -1;
     grid-row: 2 / span 5;
     justify-self: center;
+    display: grid;
 }
 
-@media (max-width: 991px) {
+.main-title,
+.small-title {
+    justify-self: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+/*tiny screens*/
+/*at this size the small title goes off the screen*/
+/*removes the title, moves the about elements up*/
+@media (max-width: 385px) {
     #weather-widget {
+        display: none;
+    }
+    #time-widget {
+        display: none;
+    }
+    #reading-widget {
+        display: none;
+    }
+    #spotify-widget {
+        display: none;
+    }
+    #github-widget {
+        display: none;
+    }
+    #server-widget {
+        display: none;
+    }
+    #about0-widget {
+        grid-column: 1 / -1;
+        grid-row: 2 / span 3;
+        justify-self: center;
+    }
+    #about1-widget {
+        grid-column: 1 / -1;
+        grid-row: 6 / span 9;
+        justify-self: center;
+    }
+    #about2-widget {
+        grid-column: 1 / -1;
+        grid-row: 16 / span 6;
+        justify-self: center;
+    }
+    #weather-art {
+        display: none;
+    }
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: hidden;
+    }
+}
+
+/*very small screens*/
+/*at this size the left and right widgets collide*/
+/*center the about section and hide the left side widgets*/
+@media (min-width: 386px) and (max-width: 437px) {
+    #weather-widget {
+        display: none;
+    }
+    #time-widget {
+        display: none;
+    }
+    #reading-widget {
+        display: none;
+    }
+    #spotify-widget {
+        display: none;
+    }
+    #github-widget {
+        display: none;
+    }
+    #server-widget {
+        display: none;
+    }
+    #about0-widget {
+        grid-column: 1 / -1;
+        grid-row: 8 / span 3;
+        justify-self: center;
+    }
+    #about1-widget {
+        grid-column: 1 / -1;
+        grid-row: 12 / span 9;
+        justify-self: center;
+    }
+    #about2-widget {
+        grid-column: 1 / -1;
+        grid-row: 22 / span 6;
+        justify-self: center;
+    }
+    #weather-art {
+        display: none;
+    }
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: visible;
+    }
+}
+
+/*small screens*/
+/*at this size the title goes off the screen*/
+/*swap to a smaller title*/
+@media (min-width: 438px) and (max-width: 553px) {
+    #weather-widget {
+        grid-column: 6 / span 21;
         grid-row: 8 / span 5;
     }
     #time-widget {
+        grid-column: 6 / span 21;
         grid-row: 14 / span 5;
     }
     #reading-widget {
+        grid-column: 6 / span 21;
         grid-row: 20 / span 5;
     }
     #spotify-widget {
+        grid-column: 6 / span 21;
         grid-row: 26 / span 5;
     }
     #github-widget {
+        grid-column: 6 / span 21;
         grid-row: 32 / span 5;
     }
     #server-widget {
+        grid-column: 6 / span 21;
         grid-row: 38 / span 5;
     }
     #about0-widget {
+        grid-column: -26 / span 21;
         grid-row: 8 / span 3;
     }
     #about1-widget {
+        grid-column: -26 / span 21;
         grid-row: 12 / span 9;
     }
     #about2-widget {
+        grid-column: -26 / span 21;
         grid-row: 22 / span 6;
+    }
+    #weather-art {
+        display: none;
+    }
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: visible;
     }
 }
 
-.shortcuts {
-    grid-column: 1 / -1;
-    grid-row: -3 / span 1;
-    justify-self: center;
-    overflow: hidden;
-    display: none;
+/*medium screens*/
+/*at this size the weather art is overlapped by the widgets*/
+/*hide the weather art*/
+@media (min-width: 554px) and (max-width: 721px) {
+    #weather-widget {
+        grid-column: 6 / span 21;
+        grid-row: 8 / span 5;
+    }
+    #time-widget {
+        grid-column: 6 / span 21;
+        grid-row: 14 / span 5;
+    }
+    #reading-widget {
+        grid-column: 6 / span 21;
+        grid-row: 20 / span 5;
+    }
+    #spotify-widget {
+        grid-column: 6 / span 21;
+        grid-row: 26 / span 5;
+    }
+    #github-widget {
+        grid-column: 6 / span 21;
+        grid-row: 32 / span 5;
+    }
+    #server-widget {
+        grid-column: 6 / span 21;
+        grid-row: 38 / span 5;
+    }
+    #about0-widget {
+        grid-column: -26 / span 21;
+        grid-row: 8 / span 3;
+    }
+    #about1-widget {
+        grid-column: -26 / span 21;
+        grid-row: 12 / span 9;
+    }
+    #about2-widget {
+        grid-column: -26 / span 21;
+        grid-row: 22 / span 6;
+    }
+    #weather-art {
+        display: none;
+    }
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
+    }
 }
-a {
-    color: #ffffff;
-    text-decoration: none;
+
+/*medium-large screens*/
+/*at this size the widgets collide with the title*/
+/*move the widgets down 6 rows*/
+@media (min-width: 722px) and (max-width: 991px) {
+    #weather-widget {
+        grid-column: 6 / span 21;
+        grid-row: 8 / span 5;
+    }
+    #time-widget {
+        grid-column: 6 / span 21;
+        grid-row: 14 / span 5;
+    }
+    #reading-widget {
+        grid-column: 6 / span 21;
+        grid-row: 20 / span 5;
+    }
+    #spotify-widget {
+        grid-column: 6 / span 21;
+        grid-row: 26 / span 5;
+    }
+    #github-widget {
+        grid-column: 6 / span 21;
+        grid-row: 32 / span 5;
+    }
+    #server-widget {
+        grid-column: 6 / span 21;
+        grid-row: 38 / span 5;
+    }
+    #about0-widget {
+        grid-column: -26 / span 21;
+        grid-row: 8 / span 3;
+    }
+    #about1-widget {
+        grid-column: -26 / span 21;
+        grid-row: 12 / span 9;
+    }
+    #about2-widget {
+        grid-column: -26 / span 21;
+        grid-row: 22 / span 6;
+    }
+    #weather-art {
+        grid-column: 1 / -1;
+        grid-row: 8 / span 21;
+        justify-self: center;
+    }
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
+    }
 }
-a:hover {
-    text-decoration: underline;
-}
-#console-ticks {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-}
-.console-tick {
-    position: absolute;
-    color: #ffffff;
+
+/*large screens*/
+/*at this size everything fits properly*/
+/*display everything normally*/
+@media (min-width: 992px) {
+    #weather-widget {
+        grid-column: 6 / span 21;
+        grid-row: 2 / span 5;
+    }
+    #time-widget {
+        grid-column: 6 / span 21;
+        grid-row: 8 / span 5;
+    }
+    #reading-widget {
+        grid-column: 6 / span 21;
+        grid-row: 14 / span 5;
+    }
+    #spotify-widget {
+        grid-column: 6 / span 21;
+        grid-row: 20 / span 5;
+    }
+    #github-widget {
+        grid-column: 6 / span 21;
+        grid-row: 26 / span 5;
+    }
+    #server-widget {
+        grid-column: 6 / span 21;
+        grid-row: 32 / span 5;
+    }
+    #about0-widget {
+        grid-column: -26 / span 21;
+        grid-row: 2 / span 3;
+    }
+    #about1-widget {
+        grid-column: -26 / span 21;
+        grid-row: 6 / span 9;
+    }
+    #about2-widget {
+        grid-column: -26 / span 21;
+        grid-row: 16 / span 6;
+    }
+    #weather-art {
+        grid-column: 1 / -1;
+        grid-row: 8 / span 21;
+        justify-self: center;
+    }
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
+    }
 }
