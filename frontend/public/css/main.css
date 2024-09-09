@@ -63,7 +63,7 @@ html body {
 }
 #weather-art {
     grid-column: 1 / -1;
-    grid-row: 7 / span 21;
+    grid-row: 8 / span 21;
     justify-self: center;
 }
 #title-widget {
@@ -71,6 +71,37 @@ html body {
     grid-row: 2 / span 5;
     justify-self: center;
 }
+
+@media (max-width: 991px) {
+    #weather-widget {
+        grid-row: 8 / span 5;
+    }
+    #time-widget {
+        grid-row: 14 / span 5;
+    }
+    #reading-widget {
+        grid-row: 20 / span 5;
+    }
+    #spotify-widget {
+        grid-row: 26 / span 5;
+    }
+    #github-widget {
+        grid-row: 32 / span 5;
+    }
+    #server-widget {
+        grid-row: 38 / span 5;
+    }
+    #about0-widget {
+        grid-row: 6 / span 3;
+    }
+    #about1-widget {
+        grid-row: 12 / span 9;
+    }
+    #about2-widget {
+        grid-row: 22 / span 6;
+    }
+}
+
 .shortcuts {
     grid-column: 1 / -1;
     grid-row: -3 / span 1;
