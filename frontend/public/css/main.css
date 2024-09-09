@@ -29,9 +29,23 @@ html body {
     display: inline-block;
 }
 
+/*title setup*/
+#title-widget {
+    grid-column: 1 / -1;
+    grid-row: 2 / span 5;
+    justify-self: center;
+    display: grid;
+}
+
+.main-title,
+.small-title {
+    grid-column: 1;
+    grid-row: 1;
+}
+
 /*very small screens*/
 /*at this size the left and right widgets collide*/
-/*center the about section and hide everything else*/
+/*center the about section and hide the left side widgets*/
 @media (max-width: 437px) {
     #weather-widget {
         display: none;
@@ -69,56 +83,64 @@ html body {
     #weather-art {
         display: none;
     }
-    #title-widget {
-        display: none;
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: visible;
     }
 }
 
 /*small screens*/
 /*at this size the title goes off the screen*/
-/* hide the title and move elements back up*/
+/*swap to a smaller title*/
 @media (min-width: 438px) and (max-width: 553px) {
     #weather-widget {
         grid-column: 6 / span 21;
-        grid-row: 2 / span 5;
+        grid-row: 8 / span 5;
     }
     #time-widget {
         grid-column: 6 / span 21;
-        grid-row: 8 / span 5;
+        grid-row: 14 / span 5;
     }
     #reading-widget {
         grid-column: 6 / span 21;
-        grid-row: 14 / span 5;
+        grid-row: 20 / span 5;
     }
     #spotify-widget {
         grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
+        grid-row: 26 / span 5;
     }
     #github-widget {
         grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
+        grid-row: 32 / span 5;
     }
     #server-widget {
         grid-column: 6 / span 21;
-        grid-row: 32 / span 5;
+        grid-row: 38 / span 5;
     }
     #about0-widget {
         grid-column: -26 / span 21;
-        grid-row: 2 / span 3;
+        grid-row: 8 / span 3;
     }
     #about1-widget {
         grid-column: -26 / span 21;
-        grid-row: 6 / span 9;
+        grid-row: 12 / span 9;
     }
     #about2-widget {
         grid-column: -26 / span 21;
-        grid-row: 16 / span 6;
+        grid-row: 22 / span 6;
     }
     #weather-art {
         display: none;
     }
-    #title-widget {
-        display: none;
+    .main-title {
+        visibility: hidden;
+    }
+
+    .small-title {
+        visibility: visible;
     }
 }
 
@@ -165,10 +187,12 @@ html body {
     #weather-art {
         display: none;
     }
-    #title-widget {
-        grid-column: 1 / -1;
-        grid-row: 2 / span 5;
-        justify-self: center;
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
     }
 }
 
@@ -217,10 +241,12 @@ html body {
         grid-row: 8 / span 21;
         justify-self: center;
     }
-    #title-widget {
-        grid-column: 1 / -1;
-        grid-row: 2 / span 5;
-        justify-self: center;
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
     }
 }
 
@@ -269,9 +295,11 @@ html body {
         grid-row: 8 / span 21;
         justify-self: center;
     }
-    #title-widget {
-        grid-column: 1 / -1;
-        grid-row: 2 / span 5;
-        justify-self: center;
+    .main-title {
+        visibility: visible;
+    }
+
+    .small-title {
+        visibility: hidden;
     }
 }
