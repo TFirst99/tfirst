@@ -3,12 +3,13 @@ const fs = require('fs').promises;
 const path = require('path');
 const cors = require('cors');
 const winston = require('winston');
-const port = process.env.PORT
 
+require ('dotenv').config();
 require('./github-worker/github-worker');
 require('./spotify-worker/spotify-worker');
 require('./server-worker/server-worker');
 
+const port = process.env.PORT;
 const app = express();
 
 const logger = winston.createLogger({
