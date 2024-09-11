@@ -8,7 +8,7 @@ export class AboutWidgetManager {
     this.about0Widget = new WidgetUtil(this.about0Element, { width: 21 });
     this.about1Widget = new WidgetUtil(this.about1Element, { width: 21 });
     this.about2Widget = new WidgetUtil(this.about2Element, { width: 21 });
-    this.jsonUrl = "/about.json";
+    this.jsonUrl = "/json/about.json";
   }
 
   async updateAboutData() {

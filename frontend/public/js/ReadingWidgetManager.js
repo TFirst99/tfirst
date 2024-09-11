@@ -3,7 +3,7 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 export class ReadingWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("reading-widget");
-    this.jsonUrl = "/currently-reading.json";
+    this.jsonUrl = "/json/currently-reading.json";
     this.widgetUtil = new WidgetUtil(this.widgetElement);
   }
 
