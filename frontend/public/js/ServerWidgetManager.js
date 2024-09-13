@@ -8,9 +8,13 @@ export class ServerWidgetManager {
     this.lastFetchTime = 0;
     this.cachedData = null;
     this.updateInterval = 1 * 60 * 1000;
+    this.intervalId = null;
+    this.paused = false;
   }
 
   async updateServerStats() {
+    if (this.paused) return;
+
     const now = Date.now();
     if (now - this.lastFetchTime < this.updateInterval && this.cachedData) {
       this.updateWidget(this.cachedData);
@@ -50,10 +54,27 @@ export class ServerWidgetManager {
     }
   }
 
+  pause() {
+    this.paused = true;
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
 
+  resume() {
+    this.paused = false;
+    if (!this.intervalId) {
+      this.init();
+    }
+  }
+
+  stop() {
+    this.pause();
+  }
 
   init() {
     this.updateServerStats();
-    setInterval(() => this.updateServerStats(), this.updateInterval);
+    this.intervalId = setInterval(() => this.updateServerStats(), this.updateInterval);
   }
 }

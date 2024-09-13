@@ -4,17 +4,19 @@ export class SpotifyWidgetManager {
   constructor() {
     this.widgetElement = document.getElementById("spotify-widget");
     this.apiUrl = "https://api.timfirst.com/api/spotify";
-    this.defaultUpdateInterval = 60000
-    this.notPlayingUpdateInterval = 300000;
-    this.currentIntervalId = null;
+    this.updateInterval = 60000;
     this.widgetUtil = new WidgetUtil(this.widgetElement);
     this.lastFetchTime = 0;
     this.cachedData = null;
+    this.intervalId = null;
+    this.paused = false;
   }
 
   async updateNowPlaying() {
+    if (this.paused) return;
+
     const now = Date.now();
-    if (now - this.lastFetchTime < this.defaultUpdateInterval && this.cachedData) {
+    if (now - this.lastFetchTime < this.updateInterval && this.cachedData) {
       this.updateWidget(this.cachedData);
       return;
     }
@@ -28,11 +30,9 @@ export class SpotifyWidgetManager {
       this.cachedData = spotifyData;
       this.lastFetchTime = now;
       this.updateWidget(spotifyData);
-      this.adjustUpdateInterval(spotifyData.isPlaying);
     } catch (error) {
       console.error("Error fetching Spotify data:", error);
       this.updateWidget(null);
-      this.adjustUpdateInterval(false);
     }
   }
 
@@ -53,17 +53,27 @@ export class SpotifyWidgetManager {
     }
   }
 
-  adjustUpdateInterval(isPlaying) {
-    const newInterval = isPlaying ? this.defaultUpdateInterval : this.notPlayingUpdateInterval;
-    if (this.currentIntervalId) {
-      clearInterval(this.currentIntervalId);
+  pause() {
+    this.paused = true;
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
     }
-    this.currentIntervalId = setInterval(() => this.updateNowPlaying(), newInterval);
   }
 
+  resume() {
+    this.paused = false;
+    if (!this.intervalId) {
+      this.init();
+    }
+  }
+
+  stop() {
+    this.pause();
+  }
+  
   init() {
-    this.updateNowPlaying();
-    this.adjustUpdateInterval(false);
-  }
-
+      this.updateNowPlaying();
+      this.intervalId = setInterval(() => this.updateNowPlaying(), this.updateInterval);
+    }
 }
