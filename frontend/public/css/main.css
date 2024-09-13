@@ -353,3 +353,18 @@ html body {
         visibility: hidden;
     }
 }
+#next-page-button {
+    grid-column: 1 / -1;
+    grid-row: -5 / span 3;
+    justify-self: center;
+    align-self: center;
+}
+
+#next-page-button a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#next-page-button a:hover {
+    color: #00ff00;
+}
