@@ -25,9 +25,14 @@ export class WeatherManager {
 
         const currentYear = new Date().getFullYear().toString();
         this.weatherArt = weatherArt(currentYear);
+        this.fetchIntervalId = null;
+        this.animationIntervalId = null;
+        this.paused = false;
     }
 
     async fetchWeather() {
+        if (this.paused) return;
+
         try {
             const cachedWeather = localStorage.getItem('cachedWeather');
             const cachedTime = localStorage.getItem('cachedWeatherTime');
@@ -65,10 +70,12 @@ export class WeatherManager {
     }
 
     startWeatherAnimation() {
-        setInterval(() => this.updateWeatherAnimation(), 500);
+        this.animationIntervalId = setInterval(() => this.updateWeatherAnimation(), 500);
     }
 
     updateWeatherAnimation() {
+        if (this.paused) return;
+
         const currentArt = this.weatherArt[this.currentWeatherType][this.animationFrame % this.weatherArt[this.currentWeatherType].length];
         this.weatherArtElement.textContent = currentArt;
         this.animationFrame++;
@@ -79,14 +86,37 @@ export class WeatherManager {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(resolve, reject);
             } else {
-                reject(new Error("Geolocation is not supported by this browser."));
+                reject(new Error("geolocation is not supported by this browser."));
             }
         });
+    }
+
+    pause() {
+        this.paused = true;
+    }
+
+    resume() {
+        this.paused = false;
+        if (!this.fetchIntervalId || !this.animationIntervalId) {
+            this.init();
+        }
+    }
+
+    stop() {
+        this.pause();
+        if (this.fetchIntervalId) {
+            clearInterval(this.fetchIntervalId);
+            this.fetchIntervalId = null;
+        }
+        if (this.animationIntervalId) {
+            clearInterval(this.animationIntervalId);
+            this.animationIntervalId = null;
+        }
     }
     
     init() {
         this.fetchWeather();
         this.startWeatherAnimation();
-        setInterval(() => this.fetchWeather(), 300000);
+        this.fetchIntervalId = setInterval(() => this.fetchWeather(), 300000);
     }
 }

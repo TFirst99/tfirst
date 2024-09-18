@@ -8,9 +8,13 @@ export class GithubWidgetManager {
     this.lastFetchTime = 0;
     this.cachedData = null;
     this.updateInterval = 15 * 60 * 1000;
+    this.intervalId = null;
+    this.paused = false;
   }
 
   async updateLatestCommit() {
+    if (this.paused) return;
+
     const now = Date.now();
     if (now - this.lastFetchTime < this.updateInterval && this.cachedData) {
       this.updateWidget(this.cachedData);
@@ -49,8 +53,27 @@ export class GithubWidgetManager {
     }
   }
 
+  pause() {
+    this.paused = true;
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
+  resume() {
+    this.paused = false;
+    if (!this.intervalId) {
+      this.init();
+    }
+  }
+
+  stop() {
+    this.pause();
+  }
+
   init() {
     this.updateLatestCommit();
-    setInterval(() => this.updateLatestCommit(), this.updateInterval);
+    this.intervalId = setInterval(() => this.updateLatestCommit(), this.updateInterval);
   }
 }

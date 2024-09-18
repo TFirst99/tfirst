@@ -4,9 +4,13 @@ export class TimeWidgetManager {
     constructor() {
         this.timeElement = document.getElementById('time-widget');
         this.widgetUtil = new WidgetUtil(this.timeElement);
+        this.intervalId = null;
+        this.paused = false;
     }
 
     updateTime() {
+        if (this.paused) return;
+
         const now = new Date();
         const timeString = now.toLocaleTimeString();
         const dateString = now.toLocaleDateString('en-US', {
@@ -21,9 +25,25 @@ export class TimeWidgetManager {
           { content: dateString }
         );
     }
+
+    pause() {
+        this.paused = true;
+    }
+
+    resume() {
+        this.paused = false;
+    }
+
+    stop() {
+        this.pause();
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+    }
     
     init() {
         this.updateTime();
-        setInterval(() => this.updateTime(), 1000);
+        this.intervalId = setInterval(() => this.updateTime(), 1000);
     }
 }
