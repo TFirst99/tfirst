@@ -48,12 +48,6 @@ html body {
 /*at this size the small title goes off the screen*/
 /*removes the title, moves the about elements up*/
 @media (max-width: 385px) {
-    #weather-widget {
-        display: none;
-    }
-    #time-widget {
-        display: none;
-    }
     #reading-widget {
         display: none;
     }
@@ -97,12 +91,6 @@ html body {
 /*at this size the left and right widgets collide*/
 /*center the about section and hide the left side widgets*/
 @media (min-width: 386px) and (max-width: 437px) {
-    #weather-widget {
-        display: none;
-    }
-    #time-widget {
-        display: none;
-    }
     #reading-widget {
         display: none;
     }
@@ -146,29 +134,21 @@ html body {
 /*at this size the title goes off the screen*/
 /*swap to a smaller title*/
 @media (min-width: 438px) and (max-width: 553px) {
-    #weather-widget {
+    #reading-widget {
         grid-column: 6 / span 21;
         grid-row: 8 / span 5;
     }
-    #time-widget {
+    #spotify-widget {
         grid-column: 6 / span 21;
         grid-row: 14 / span 5;
     }
-    #reading-widget {
+    #github-widget {
         grid-column: 6 / span 21;
         grid-row: 20 / span 5;
     }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 32 / span 5;
-    }
     #server-widget {
         grid-column: 6 / span 21;
-        grid-row: 38 / span 5;
+        grid-row: 26 / span 5;
     }
     #about0-widget {
         grid-column: -26 / span 21;
@@ -198,29 +178,21 @@ html body {
 /*at this size the weather art is overlapped by the widgets*/
 /*hide the weather art*/
 @media (min-width: 554px) and (max-width: 721px) {
-    #weather-widget {
+    #reading-widget {
         grid-column: 6 / span 21;
         grid-row: 8 / span 5;
     }
-    #time-widget {
+    #spotify-widget {
         grid-column: 6 / span 21;
         grid-row: 14 / span 5;
     }
-    #reading-widget {
+    #github-widget {
         grid-column: 6 / span 21;
         grid-row: 20 / span 5;
     }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 32 / span 5;
-    }
     #server-widget {
         grid-column: 6 / span 21;
-        grid-row: 38 / span 5;
+        grid-row: 26 / span 5;
     }
     #about0-widget {
         grid-column: -26 / span 21;
@@ -250,29 +222,21 @@ html body {
 /*at this size the widgets collide with the title*/
 /*move the widgets down 6 rows*/
 @media (min-width: 722px) and (max-width: 991px) {
-    #weather-widget {
+    #reading-widget {
         grid-column: 6 / span 21;
         grid-row: 8 / span 5;
     }
-    #time-widget {
+    #spotify-widget {
         grid-column: 6 / span 21;
         grid-row: 14 / span 5;
     }
-    #reading-widget {
+    #github-widget {
         grid-column: 6 / span 21;
         grid-row: 20 / span 5;
     }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 32 / span 5;
-    }
     #server-widget {
         grid-column: 6 / span 21;
-        grid-row: 38 / span 5;
+        grid-row: 26 / span 5;
     }
     #about0-widget {
         grid-column: -26 / span 21;
@@ -304,29 +268,21 @@ html body {
 /*at this size everything fits properly*/
 /*display everything normally*/
 @media (min-width: 992px) {
-    #weather-widget {
+    #reading-widget {
         grid-column: 6 / span 21;
         grid-row: 2 / span 5;
     }
-    #time-widget {
+    #spotify-widget {
         grid-column: 6 / span 21;
         grid-row: 8 / span 5;
     }
-    #reading-widget {
+    #github-widget {
         grid-column: 6 / span 21;
         grid-row: 14 / span 5;
     }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
     #server-widget {
         grid-column: 6 / span 21;
-        grid-row: 32 / span 5;
+        grid-row: 20 / span 5;
     }
     #about0-widget {
         grid-column: -26 / span 21;
