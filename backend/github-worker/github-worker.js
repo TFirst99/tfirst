@@ -46,6 +46,7 @@ async function fetchAndStoreLatestCommit() {
   }
 
   if (latestCommit) {
+    latestCommit.message = latestCommit.message.split('\n')[0].trim();
     console.log('Latest commit:', latestCommit);
     await fs.writeFile(path.join(__dirname, '..', 'github-data.json'), JSON.stringify(latestCommit));
   } else {
