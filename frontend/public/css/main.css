@@ -36,6 +36,8 @@ html body {
     grid-row: 2 / span 5;
     justify-self: center;
     display: grid;
+    justify-items: center;
+    align-items: center;
 }
 
 #title-container .large-title,
@@ -60,7 +62,7 @@ html body {
 }
 
 #projects-container .small-title {
-    visibility: hidden;
+    display: none;
 }
 
 /*tiny screens*/
@@ -98,11 +100,11 @@ html body {
         display: none;
     }
     #title-container .large-title {
-        visibility: hidden;
+        display: none;
     }
 
     #title-container .small-title {
-        visibility: hidden;
+        display: none;
     }
 }
 
@@ -141,11 +143,11 @@ html body {
         display: none;
     }
     #title-container .large-title {
-        visibility: hidden;
+        display: none;
     }
 
     #title-container .small-title {
-        visibility: visible;
+        display: block;
     }
 }
 
@@ -185,11 +187,11 @@ html body {
         display: none;
     }
     #title-container .large-title {
-        visibility: hidden;
+        display: none;
     }
 
     #title-container .small-title {
-        visibility: visible;
+        display: block;
     }
 }
 
@@ -229,11 +231,11 @@ html body {
         display: none;
     }
     #title-container .large-title {
-        visibility: visible;
+        display: block;
     }
 
     #title-container .small-title {
-        visibility: hidden;
+        display: none;
     }
 }
 
@@ -275,11 +277,11 @@ html body {
         justify-self: center;
     }
     #title-container .large-title {
-        visibility: visible;
+        display: block;
     }
 
     #title-container .small-title {
-        visibility: hidden;
+        display: none;
     }
 }
 
@@ -321,10 +323,10 @@ html body {
         justify-self: center;
     }
     #title-container .large-title {
-        visibility: visible;
+        display: block;
     }
 
     #title-container .small-title {
-        visibility: hidden;
+        display: none;
     }
 }
