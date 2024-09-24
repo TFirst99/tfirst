@@ -6,6 +6,9 @@ html body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -13,9 +16,9 @@ html body {
 /*setup grid system*/
 #terminal {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 1ch);
+    grid-template-columns: repeat(80, 1ch);
     grid-auto-rows: 1lh;
-    width: 100%;
+    max-width: 80ch;
     box-sizing: border-box;
     white-space: pre;
 }
@@ -47,9 +50,14 @@ html body {
     grid-row: 1;
 }
 
+#title-container .small-title {
+    display: none;
+}
+
+/*project title setup*/
 #projects-container {
     grid-column: 1 / -1;
-    grid-row: 31 / span 5;
+    grid-row: 56 / span 5;
     justify-self: center;
     display: grid;
 }
@@ -65,268 +73,26 @@ html body {
     display: none;
 }
 
-/*tiny screens*/
-/*at this size the small title goes off the screen*/
-/*removes the title, moves the about elements up*/
-@media (max-width: 385px) {
-    #reading-widget {
-        display: none;
-    }
-    #spotify-widget {
-        display: none;
-    }
-    #github-widget {
-        display: none;
-    }
-    #server-widget {
-        display: none;
-    }
-    #about0-widget {
-        grid-column: 1 / -1;
-        grid-row: 2 / span 5;
-        justify-self: center;
-    }
-    #about1-widget {
-        grid-column: 1 / -1;
-        grid-row: 8 / span 9;
-        justify-self: center;
-    }
-    #about2-widget {
-        grid-column: 1 / -1;
-        grid-row: 18 / span 6;
-        justify-self: center;
-    }
-    #weather-art {
-        display: none;
-    }
-    #title-container .large-title {
-        display: none;
-    }
-
-    #title-container .small-title {
-        display: none;
-    }
+#widget-container {
+    grid-column: 1 / -1;
+    grid-row: 30 / span auto;
+    display: grid;
+    grid-template-columns: 21ch 1ch 21ch;
+    justify-content: center;
+    grid-auto-flow: column dense;
+    align-items: start;
+    gap: 1lh;
 }
 
-/*very small screens*/
-/*at this size the left and right widgets collide*/
-/*center the about section and hide the left side widgets*/
-@media (min-width: 386px) and (max-width: 437px) {
-    #reading-widget {
-        display: none;
-    }
-    #spotify-widget {
-        display: none;
-    }
-    #github-widget {
-        display: none;
-    }
-    #server-widget {
-        display: none;
-    }
-    #about0-widget {
-        grid-column: 1 / -1;
-        grid-row: 8 / span 5;
-        justify-self: center;
-    }
-    #about1-widget {
-        grid-column: 1 / -1;
-        grid-row: 14 / span 9;
-        justify-self: center;
-    }
-    #about2-widget {
-        grid-column: 1 / -1;
-        grid-row: 24 / span 6;
-        justify-self: center;
-    }
-    #weather-art {
-        display: none;
-    }
-    #title-container .large-title {
-        display: none;
-    }
-
-    #title-container .small-title {
-        display: block;
-    }
+#reading-widget,
+#spotify-widget,
+#github-widget,
+#server-widget {
+    grid-column: 1;
 }
 
-/*small screens*/
-/*at this size the title goes off the screen*/
-/*swap to a smaller title*/
-@media (min-width: 438px) and (max-width: 553px) {
-    #reading-widget {
-        grid-column: 6 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 14 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
-    }
-    #server-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #about0-widget {
-        grid-column: -26 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #about1-widget {
-        grid-column: -26 / span 21;
-        grid-row: 14 / span 9;
-    }
-    #about2-widget {
-        grid-column: -26 / span 21;
-        grid-row: 24 / span 6;
-    }
-    #weather-art {
-        display: none;
-    }
-    #title-container .large-title {
-        display: none;
-    }
-
-    #title-container .small-title {
-        display: block;
-    }
-}
-
-/*medium screens*/
-/*at this size the weather art is overlapped by the widgets*/
-/*hide the weather art*/
-@media (min-width: 554px) and (max-width: 721px) {
-    #reading-widget {
-        grid-column: 6 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 14 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
-    }
-    #server-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #about0-widget {
-        grid-column: -26 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #about1-widget {
-        grid-column: -26 / span 21;
-        grid-row: 14 / span 9;
-    }
-    #about2-widget {
-        grid-column: -26 / span 21;
-        grid-row: 24 / span 6;
-    }
-    #weather-art {
-        display: none;
-    }
-    #title-container .large-title {
-        display: block;
-    }
-
-    #title-container .small-title {
-        display: none;
-    }
-}
-
-/*medium-large screens*/
-/*at this size the widgets collide with the title*/
-/*move the widgets down 6 rows*/
-@media (min-width: 722px) and (max-width: 991px) {
-    #reading-widget {
-        grid-column: 6 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 14 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
-    }
-    #server-widget {
-        grid-column: 6 / span 21;
-        grid-row: 26 / span 5;
-    }
-    #about0-widget {
-        grid-column: -26 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #about1-widget {
-        grid-column: -26 / span 21;
-        grid-row: 14 / span 9;
-    }
-    #about2-widget {
-        grid-column: -26 / span 21;
-        grid-row: 24 / span 6;
-    }
-    #weather-art {
-        grid-column: 1 / -1;
-        grid-row: 8 / span 21;
-        justify-self: center;
-    }
-    #title-container .large-title {
-        display: block;
-    }
-
-    #title-container .small-title {
-        display: none;
-    }
-}
-
-/*large screens*/
-/*at this size everything fits properly*/
-/*display everything normally*/
-@media (min-width: 992px) {
-    #reading-widget {
-        grid-column: 6 / span 21;
-        grid-row: 2 / span 5;
-    }
-    #spotify-widget {
-        grid-column: 6 / span 21;
-        grid-row: 8 / span 5;
-    }
-    #github-widget {
-        grid-column: 6 / span 21;
-        grid-row: 14 / span 5;
-    }
-    #server-widget {
-        grid-column: 6 / span 21;
-        grid-row: 20 / span 5;
-    }
-    #about0-widget {
-        grid-column: -26 / span 21;
-        grid-row: 2 / span 5;
-    }
-    #about1-widget {
-        grid-column: -26 / span 21;
-        grid-row: 8 / span 9;
-    }
-    #about2-widget {
-        grid-column: -26 / span 21;
-        grid-row: 18 / span 6;
-    }
-    #weather-art {
-        grid-column: 1 / -1;
-        grid-row: 8 / span 21;
-        justify-self: center;
-    }
-    #title-container .large-title {
-        display: block;
-    }
-
-    #title-container .small-title {
-        display: none;
-    }
+#about0-widget,
+#about1-widget,
+#about2-widget {
+    grid-column: 3;
 }
