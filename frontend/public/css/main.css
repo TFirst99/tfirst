@@ -63,7 +63,7 @@ html body {
 
 #widget-container {
     grid-column: 1 / -1;
-    grid-row: 56 / span auto;
+    grid-row: 31 / span auto;
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
     justify-content: center;
