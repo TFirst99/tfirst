@@ -16,8 +16,8 @@ export class WidgetUtil {
   }
 
   render() {
-    const content = this.lines.map((line, index) => this.formatLine(line, index)).join('\n');
-    this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+\n${content}\n+${'-'.repeat(this.options.width - 2)}+`;
+      const content = this.lines.map((line, index) => this.formatLine(line, index)).join('<br>');
+      this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+<br>${content}<br>+${'-'.repeat(this.options.width - 2)}+`;
   }
 
   formatLine(text, index) {
