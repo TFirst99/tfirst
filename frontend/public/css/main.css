@@ -29,10 +29,14 @@ html body {
         font-size: 10px;
     }
 }
-
-@media (max-width: 480px) {
+@media (min-width: 385px) and (max-width: 480px) {
     html body {
         font-size: 8px;
+    }
+}
+@media (max-width: 384px) {
+    html body {
+        font-size: 6px;
     }
 }
 
