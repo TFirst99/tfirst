@@ -5,8 +5,9 @@ html body {
     color: #ffffff;
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /*setup grid system*/
@@ -14,12 +15,9 @@ html body {
     display: grid;
     grid-template-columns: repeat(auto-fill, 1ch);
     grid-auto-rows: 1lh;
-    height: 100%;
     width: 100%;
     box-sizing: border-box;
     white-space: pre;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 /*scrolling content utilities*/
