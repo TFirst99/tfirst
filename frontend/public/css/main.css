@@ -67,15 +67,15 @@ html body {
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
     justify-content: center;
-    gap: 1lh;
 }
 
+/* left side widgets*/
 #reading-widget {
     grid-column: 1;
     grid-row: 1 / span 5;
 }
 #spotify-widget {
-    grid-column: 3;
+    grid-column: 1;
     grid-row: 7 / span 5;
 }
 
@@ -84,12 +84,13 @@ html body {
     grid-row: 13 / span 5;
 }
 #server-widget {
-    grid-column: 3;
+    grid-column: 1;
     grid-row: 19 / span 5;
 }
 
+/* right side widgets*/
 #about0-widget {
-    grid-column: 1;
+    grid-column: 3;
     grid-row: 1 / span 5;
 }
 #about1-widget {
