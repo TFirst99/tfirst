@@ -66,6 +66,7 @@ html body {
     grid-row: 31 / span 23;
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
+    grid-template-rows: repeat(23, 1lh);
     justify-content: center;
 }
 
