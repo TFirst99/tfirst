@@ -31,10 +31,10 @@ export class TitleWidgetManager {
 
     Object.entries(data).forEach(([key, value]) => {
       if (key !== 'id') {
-        const titlePre = document.createElement('pre');
-        titlePre.className = `${key}-title`;
-        titlePre.textContent = value;
-        titleElement.appendChild(titlePre);
+        const titleDiv = document.createElement('div');
+        titleDiv.className = `${key}-title`;
+        titleDiv.textContent = value;
+        titleElement.appendChild(titleDiv);
       }
     });
 

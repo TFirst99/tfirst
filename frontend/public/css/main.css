@@ -46,15 +46,20 @@ html body {
 
 #projects-container {
     grid-column: 1 / -1;
-    grid-row: 70 / span 5;
+    grid-row: 30 / span 5;
     justify-self: center;
     display: grid;
 }
 
-#projects-container .large-title {
+#projects-container .large-title,
+#projects-container .small-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
+}
+
+#projects-container .small-title {
+    visibility: hidden;
 }
 
 /*tiny screens*/
