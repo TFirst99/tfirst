@@ -30,15 +30,28 @@ html body {
 }
 
 /*title setup*/
-#title-widget {
+#title-container {
     grid-column: 1 / -1;
     grid-row: 2 / span 5;
     justify-self: center;
     display: grid;
 }
 
-.main-title,
-.small-title {
+#title-container .large-title,
+#title-container .small-title {
+    justify-self: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#projects-container {
+    grid-column: 1 / -1;
+    grid-row: 70 / span 5;
+    justify-self: center;
+    display: grid;
+}
+
+#projects-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
@@ -78,11 +91,11 @@ html body {
     #weather-art {
         display: none;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: hidden;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: hidden;
     }
 }
@@ -121,11 +134,11 @@ html body {
     #weather-art {
         display: none;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: hidden;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: visible;
     }
 }
@@ -165,11 +178,11 @@ html body {
     #weather-art {
         display: none;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: hidden;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: visible;
     }
 }
@@ -209,11 +222,11 @@ html body {
     #weather-art {
         display: none;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: visible;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: hidden;
     }
 }
@@ -255,11 +268,11 @@ html body {
         grid-row: 8 / span 21;
         justify-self: center;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: visible;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: hidden;
     }
 }
@@ -301,11 +314,11 @@ html body {
         grid-row: 8 / span 21;
         justify-self: center;
     }
-    .main-title {
+    #title-container .large-title {
         visibility: visible;
     }
 
-    .small-title {
+    #title-container .small-title {
         visibility: hidden;
     }
 }
