@@ -63,7 +63,7 @@ html body {
 
 #widget-container {
     grid-column: 1 / -1;
-    grid-row: 31 / span 43;
+    grid-row: 31 / span 23;
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
     justify-content: center;
@@ -78,7 +78,6 @@ html body {
     grid-column: 1;
     grid-row: 7 / span 5;
 }
-
 #github-widget {
     grid-column: 1;
     grid-row: 13 / span 5;
