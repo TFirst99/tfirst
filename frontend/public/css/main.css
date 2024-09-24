@@ -13,15 +13,26 @@ html body {
     overflow-y: auto;
 }
 
-@media (min-width: 376px) and (max-width: 768px) {
+@media (min-width: 673px) and (max-width: 768px) {
     html body {
         font-size: 14px;
     }
 }
 
-@media (max-width: 375px) {
+@media (min-width: 577px) and (max-width: 672px) {
     html body {
         font-size: 12px;
+    }
+}
+@media (min-width: 481px) and (max-width: 576px) {
+    html body {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    html body {
+        font-size: 8px;
     }
 }
 
