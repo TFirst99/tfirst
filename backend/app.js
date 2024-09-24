@@ -10,6 +10,7 @@ require('./spotify-worker/spotify-worker');
 require('./server-worker/server-worker');
 
 const port = process.env.PORT;
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',');
 const app = express();
 
 const logger = winston.createLogger({
@@ -26,10 +27,26 @@ const logger = winston.createLogger({
 
 app.use(cors({
   origin: function (origin, callback) {
-    logger.info(origin);
-    if (!origin || process.env.ALLOWED_ORIGINS.split(',').indexOf(origin) !== -1) {
+    logger.info(`Checking origin: ${origin}`);
+    if (!origin) {
       return callback(null, true);
     }
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (allowedOrigin === origin) {
+        return true;
+      }
+      if (allowedOrigin.includes('*')) {
+        const pattern = allowedOrigin.replace('*', '[^.]+');
+        const regex = new RegExp(`^${pattern}$`);
+        return regex.test(origin);
+      }
+      return false;
+    });
+    if (isAllowed) {
+      logger.info(`Origin ${origin} is allowed`);
+      return callback(null, true);
+    }
+    logger.info(`Origin ${origin} is not allowed`);
     callback(new Error('Not allowed by CORS'));
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
