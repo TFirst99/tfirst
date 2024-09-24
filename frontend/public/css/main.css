@@ -13,7 +13,7 @@ html body {
     overflow-y: auto;
 }
 
-/*shrink the font as the grid goes off the screen*/
+/*font size media queries*/
 @media (min-width: 631px) and (max-width: 672px) {
     html body {
         font-size: 15px;
@@ -55,7 +55,7 @@ html body {
     }
 }
 
-/*setup grid system*/
+/*grid setup*/
 #terminal {
     display: grid;
     grid-template-columns: repeat(70, 1ch);
@@ -85,15 +85,10 @@ html body {
     align-items: center;
 }
 
-#title-container .large-title,
-#title-container .small-title {
+#title-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
-}
-
-#title-container .small-title {
-    display: none;
 }
 
 /*weather art*/
@@ -147,18 +142,13 @@ html body {
 /*project title setup*/
 #projects-container {
     grid-column: 1 / -1;
-    grid-row: 56 / span 5;
+    grid-row: 58 / span 5;
     justify-self: center;
     display: grid;
 }
 
-#projects-container .large-title,
-#projects-container .small-title {
+#projects-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
-}
-
-#projects-container .small-title {
-    display: none;
 }
