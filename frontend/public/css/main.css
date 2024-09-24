@@ -67,21 +67,38 @@ html body {
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
     justify-content: center;
-    grid-auto-flow: column dense;
     gap: 1lh;
 }
 
-#reading-widget,
-#spotify-widget,
-#github-widget,
-#server-widget {
+#reading-widget {
     grid-column: 1;
+    grid-row: 1 / span 5;
+}
+#spotify-widget {
+    grid-column: 3;
+    grid-row: 7 / span 5;
 }
 
-#about0-widget,
-#about1-widget,
+#github-widget {
+    grid-column: 1;
+    grid-row: 13 / span 5;
+}
+#server-widget {
+    grid-column: 3;
+    grid-row: 19 / span 5;
+}
+
+#about0-widget {
+    grid-column: 1;
+    grid-row: 1 / span 5;
+}
+#about1-widget {
+    grid-column: 3;
+    grid-row: 7 / span 9;
+}
 #about2-widget {
     grid-column: 3;
+    grid-row: 17 / span 6;
 }
 
 /*project title setup*/
