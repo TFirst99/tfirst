@@ -54,28 +54,16 @@ html body {
     display: none;
 }
 
-/*project title setup*/
-#projects-container {
+/*weather art*/
+#weather-art {
     grid-column: 1 / -1;
-    grid-row: 56 / span 5;
+    grid-row: 8 / span 21;
     justify-self: center;
-    display: grid;
-}
-
-#projects-container .large-title,
-#projects-container .small-title {
-    justify-self: center;
-    grid-column: 1;
-    grid-row: 1;
-}
-
-#projects-container .small-title {
-    display: none;
 }
 
 #widget-container {
     grid-column: 1 / -1;
-    grid-row: 30 / span auto;
+    grid-row: 56 / span auto;
     display: grid;
     grid-template-columns: 21ch 1ch 21ch;
     justify-content: center;
@@ -95,4 +83,23 @@ html body {
 #about1-widget,
 #about2-widget {
     grid-column: 3;
+}
+
+/*project title setup*/
+#projects-container {
+    grid-column: 1 / -1;
+    grid-row: 56 / span 5;
+    justify-self: center;
+    display: grid;
+}
+
+#projects-container .large-title,
+#projects-container .small-title {
+    justify-self: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#projects-container .small-title {
+    display: none;
 }
