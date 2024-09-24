@@ -13,39 +13,54 @@ html body {
     overflow-y: auto;
 }
 
-@media (min-width: 673px) and (max-width: 768px) {
+/*shrink the font as the grid goes off the screen*/
+@media (min-width: calc(14*42+1px)) and (max-width: calc(15*42px)) {
+    html body {
+        font-size: 15px;
+    }
+}
+@media (min-width: calc(13*42+1px)) and (max-width: calc(14*42px)) {
     html body {
         font-size: 14px;
     }
 }
-
-@media (min-width: 577px) and (max-width: 672px) {
+@media (min-width: calc(12*42+1px)) and (max-width: calc(13*42px)) {
+    html body {
+        font-size: 13px;
+    }
+}
+@media (min-width: calc(11*42+1px)) and (max-width: calc(12*42px)) {
     html body {
         font-size: 12px;
     }
 }
-@media (min-width: 481px) and (max-width: 576px) {
+@media (min-width: calc(10*42+1px)) and (max-width: calc(11*42px)) {
+    html body {
+        font-size: 11px;
+    }
+}
+@media (min-width: calc(9*42+1px)) and (max-width: calc(10*42px)) {
     html body {
         font-size: 10px;
     }
 }
-@media (min-width: 385px) and (max-width: 480px) {
+@media (min-width: calc(8*42+1px)) and (max-width: calc(9*42px)) {
     html body {
-        font-size: 8px;
+        font-size: 9px;
     }
 }
-@media (max-width: 384px) {
+@media (max-width: calc(8*42px)) {
     html body {
-        font-size: 6px;
+        font-size: 8px;
     }
 }
 
 /*setup grid system*/
 #terminal {
     display: grid;
-    grid-template-columns: repeat(80, 1ch);
+    grid-template-columns: repeat(70, 1ch);
     grid-auto-rows: 1lh;
-    max-width: 80ch;
+    max-width: 70ch;
     box-sizing: border-box;
     white-space: pre;
 }
