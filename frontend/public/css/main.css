@@ -13,7 +13,7 @@ html body {
     overflow-y: auto;
 }
 
-@media (min-widgth: 376px) and (max-width: 768px) {
+@media (min-width: 376px) and (max-width: 768px) {
     html body {
         font-size: 14px;
     }
