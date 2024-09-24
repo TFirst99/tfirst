@@ -28,7 +28,7 @@ export class AboutWidgetManager {
   updateWidget(data) {
     if (data) {
       this.about0Widget.updateWidget(
-        "ABOUT ME"
+        ...data.about0.map(line => ({ content: line })),
       );
       this.about1Widget.updateWidget(
         ...data.about1.map(line => ({ content: line })),
@@ -38,7 +38,7 @@ export class AboutWidgetManager {
       );
     } else {
       this.about0Widget.updateWidget(
-        "ABOUT ME"
+        "oops"
       );
       this.about1Widget.updateWidget(
         "if you're seeing this"

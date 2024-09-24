@@ -1,35 +1,67 @@
 export class TitleWidgetManager {
   constructor() {
-  this.container = document.getElementById('title-widget');
-//figlet title
-  this.titleText =
-` _____ ___ __  __ _____ ___ ____  ____ _____                    
-|_   _|_ _|  \\/  |  ___|_ _|  _ \\/ ___|_   _|___ ___  _ __ ___  
-  | |  | || |\\/| | |_   | || |_) \\___ \\ | | / __/ _ \\| '_ \` _ \\ 
-  | |  | || |  | |  _|  | ||  _ < ___) || || (_| (_) | | | | | |
-  |_| |___|_|  |_|_|   |___|_| \\_\\____/ |_(_)___\\___/|_| |_| |_|`;
-  
-  this.smallTitleText =
-` _____ ___ __  __ _____ ___ ____  ____ _____ 
-|_   _|_ _|  \\/  |  ___|_ _|  _ \\/ ___|_   _|
-  | |  | || |\\/| | |_   | || |_) \\___ \\ | |  
-  | |  | || |  | |  _|  | ||  _ < ___) || |  
-  |_| |___|_|  |_|_|   |___|_| \\_\\____/ |_|  `;
-  
+    this.titles = new Map();
+    this.container = document.getElementById('title-widget');
   }
-  init() {
-    //main title
-    const mainTitleContainer = document.createElement('div');
-    mainTitleContainer.className = 'main-title';
-    mainTitleContainer.innerHTML = this.titleText;
 
-    //small title
-    const smallTitleContainer = document.createElement('div');
-    smallTitleContainer.className = 'small-title';
-    smallTitleContainer.textContent = this.smallTitleText;
+  async init() {
+    await this.loadTitles('/json/titles');
+    this.addAllTitlesToContainers();
+  }
 
-    //append to container
-    this.container.appendChild(mainTitleContainer);
-    this.container.appendChild(smallTitleContainer);
+  async loadTitles(folderPath) {
+    try {
+      const response = await fetch(`${folderPath}/index.json`);
+      const fileList = await response.json();
+
+      for (const file of fileList) {
+        const titleResponse = await fetch(`${folderPath}/${file}`);
+        const titleData = await titleResponse.json();
+        this.createTitle(titleData.id, titleData);
+      }
+    } catch (error) {
+      console.error('Error loading titles:', error);
+    }
+  }
+
+  createTitle(id, data) {
+    const titleElement = document.createElement('div');
+    titleElement.id = id;
+    titleElement.className = 'title-widget';
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (key !== 'id') {
+        const titleDiv = document.createElement('div');
+        titleDiv.className = `${key}-title`;
+        titleDiv.textContent = value;
+        titleElement.appendChild(titleDiv);
+      }
+    });
+
+    this.titles.set(id, titleElement);
+    return titleElement;
+  }
+
+  addAllTitlesToContainers() {
+    this.titles.forEach((titleElement, id) => {
+      const containerId = `${id}-container`;
+      this.addTitleToContainer(id, containerId);
+    });
+  }
+
+  addTitleToContainer(id, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+      console.error(`Container with id ${containerId} not found`);
+      return;
+    }
+
+    const titleElement = this.titles.get(id);
+    if (!titleElement) {
+      console.error(`Title with id ${id} not found`);
+      return;
+    }
+
+    container.appendChild(titleElement);
   }
 }
