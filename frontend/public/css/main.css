@@ -14,42 +14,42 @@ html body {
 }
 
 /*shrink the font as the grid goes off the screen*/
-@media (min-width: calc(14*42+1px)) and (max-width: calc(15*42px)) {
+@media (min-width: 631px) and (max-width: 672px) {
     html body {
         font-size: 15px;
     }
 }
-@media (min-width: calc(13*42+1px)) and (max-width: calc(14*42px)) {
+@media (min-width: 589px) and (max-width: 630px) {
     html body {
         font-size: 14px;
     }
 }
-@media (min-width: calc(12*42+1px)) and (max-width: calc(13*42px)) {
+@media (min-width: 547px) and (max-width: 588px) {
     html body {
         font-size: 13px;
     }
 }
-@media (min-width: calc(11*42+1px)) and (max-width: calc(12*42px)) {
+@media (min-width: 505px) and (max-width: 546px) {
     html body {
         font-size: 12px;
     }
 }
-@media (min-width: calc(10*42+1px)) and (max-width: calc(11*42px)) {
+@media (min-width: 463px) and (max-width: 504px) {
     html body {
         font-size: 11px;
     }
 }
-@media (min-width: calc(9*42+1px)) and (max-width: calc(10*42px)) {
+@media (min-width: 421px) and (max-width: 462px) {
     html body {
         font-size: 10px;
     }
 }
-@media (min-width: calc(8*42+1px)) and (max-width: calc(9*42px)) {
+@media (min-width: 379px) and (max-width: 420px) {
     html body {
         font-size: 9px;
     }
 }
-@media (max-width: calc(8*42px)) {
+@media (max-width: 378px) {
     html body {
         font-size: 8px;
     }
