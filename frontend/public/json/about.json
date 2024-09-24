@@ -1,4 +1,9 @@
 {
+  "about0": [
+    "ABOUT ME",
+    "22 years old",
+    "student"
+  ],
   "about1": [
   "STUDENT",
   "econometrics",
@@ -12,6 +17,7 @@
   "PERSONAL",
   "learning to code",  
   "reading stuff",
-  "running"
+  "running",
+  "cooking"
   ]
 }
