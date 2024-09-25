@@ -7,6 +7,7 @@ body {
 
 body {
     font-family: "Courier New", monospace;
+    font-size: clamp(8px, 2.5vw, 16px);
     background-color: #2c2c2c;
     color: #ffffff;
     display: flex;
@@ -15,16 +16,8 @@ body {
     overflow-y: auto;
 }
 
+/*grid setup*/
 #terminal {
-    --min-font-size: 8px;
-    --max-font-size: 16px;
-    --viewport-width: 100vw;
-
-    font-size: clamp(
-        var(--min-font-size),
-        calc(var(--viewport-width) / 80),
-        var(--max-font-size)
-    );
     display: grid;
     grid-template-columns: repeat(70, 1ch);
     grid-auto-rows: 1lh;
@@ -32,6 +25,14 @@ body {
     max-width: 100%;
     box-sizing: border-box;
     white-space: pre;
+    padding: 20px;
+    transform-origin: top center;
+}
+
+@media (max-width: 70ch) {
+    #terminal {
+        transform: scale(calc(100vw / 70ch));
+    }
 }
 
 /*scrolling content utilities*/
