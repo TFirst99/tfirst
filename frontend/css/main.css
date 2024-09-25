@@ -1,58 +1,19 @@
-html body {
-    font-family: "Courier New", monospace;
-    font-size: 16px;
-    background-color: #2c2c2c;
-    color: #ffffff;
+html,
+body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: 100%;
 }
 
-/*font size media queries*/
-@media (min-width: 631px) and (max-width: 672px) {
-    html body {
-        font-size: 15px;
-    }
-}
-@media (min-width: 589px) and (max-width: 630px) {
-    html body {
-        font-size: 14px;
-    }
-}
-@media (min-width: 547px) and (max-width: 588px) {
-    html body {
-        font-size: 13px;
-    }
-}
-@media (min-width: 505px) and (max-width: 546px) {
-    html body {
-        font-size: 12px;
-    }
-}
-@media (min-width: 463px) and (max-width: 504px) {
-    html body {
-        font-size: 11px;
-    }
-}
-@media (min-width: 421px) and (max-width: 462px) {
-    html body {
-        font-size: 10px;
-    }
-}
-@media (min-width: 379px) and (max-width: 420px) {
-    html body {
-        font-size: 9px;
-    }
-}
-@media (max-width: 378px) {
-    html body {
-        font-size: 8px;
-    }
+body {
+    font-family: "Courier New", monospace;
+    font-size: clamp(8px, 2.5vw, 16px);
+    background-color: #2c2c2c;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /*grid setup*/
@@ -60,9 +21,18 @@ html body {
     display: grid;
     grid-template-columns: repeat(70, 1ch);
     grid-auto-rows: 1lh;
-    max-width: 70ch;
+    width: 70ch;
+    max-width: 100%;
     box-sizing: border-box;
     white-space: pre;
+    padding: 20px;
+    transform-origin: top center;
+}
+
+@media (max-width: 70ch) {
+    #terminal {
+        transform: scale(calc(100vw / 70ch));
+    }
 }
 
 /*scrolling content utilities*/
