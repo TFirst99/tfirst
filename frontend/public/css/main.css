@@ -112,31 +112,27 @@ html body {
     grid-column: 1;
     grid-row: 1 / span 5;
 }
-#spotify-widget {
+#github-widget {
     grid-column: 1;
     grid-row: 7 / span 5;
 }
-#github-widget {
+#about2-widget {
     grid-column: 1;
-    grid-row: 13 / span 5;
-}
-#server-widget {
-    grid-column: 1;
-    grid-row: 19 / span 5;
+    grid-row: 13 / span 6;
 }
 
 /* right side widgets*/
-#about0-widget {
+#spotify-widget {
     grid-column: 3;
     grid-row: 1 / span 5;
 }
+#server-widget {
+    grid-column: 3;
+    grid-row: 7 / span 5;
+}
 #about1-widget {
     grid-column: 3;
-    grid-row: 7 / span 9;
-}
-#about2-widget {
-    grid-column: 3;
-    grid-row: 17 / span 6;
+    grid-row: 13 / span 9;
 }
 
 /*project title setup*/
