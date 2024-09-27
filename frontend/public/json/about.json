@@ -1,23 +1,16 @@
 {
-  "about0": [
-    "ABOUT ME",
-    "22 years old",
-    "student"
-  ],
   "about1": [
-  "STUDENT",
-  "econometrics",
-  "public goods games",
-  "housing policy",
-  "metascience",
-  "ordinary language",
-  "diff eq"
+    "ABOUT ME",
+    "undergrad student",  
+    "22 years old",
+    "learning to code",
+    "reading & writing"
   ],
   "about2": [
-  "PERSONAL",
-  "learning to code",  
-  "reading stuff",
-  "running",
-  "cooking"
+  "INTERESTS",
+  "public goods games",
+  "cooperation & trust",
+  "econometrics",
+  "ordinary langauge"
   ]
 }
