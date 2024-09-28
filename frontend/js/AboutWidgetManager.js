@@ -2,10 +2,8 @@ import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
 export class AboutWidgetManager {
   constructor() {
-    this.about0Element = document.getElementById("about0-widget");
     this.about1Element = document.getElementById("about1-widget");
     this.about2Element = document.getElementById("about2-widget");
-    this.about0Widget = new WidgetUtil(this.about0Element, { width: 21 });
     this.about1Widget = new WidgetUtil(this.about1Element, { width: 21 });
     this.about2Widget = new WidgetUtil(this.about2Element, { width: 21 });
     this.jsonUrl = "/json/about.json";
@@ -27,9 +25,6 @@ export class AboutWidgetManager {
 
   updateWidget(data) {
     if (data) {
-      this.about0Widget.updateWidget(
-        ...data.about0.map(line => ({ content: line })),
-      );
       this.about1Widget.updateWidget(
         ...data.about1.map(line => ({ content: line })),
       );
@@ -37,9 +32,6 @@ export class AboutWidgetManager {
         ...data.about2.map(line => ({ content: line }))
       );
     } else {
-      this.about0Widget.updateWidget(
-        "oops"
-      );
       this.about1Widget.updateWidget(
         "if you're seeing this"
       );
