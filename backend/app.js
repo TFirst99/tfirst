@@ -28,9 +28,11 @@ const logger = winston.createLogger({
 app.use(cors({
   origin: function (origin, callback) {
     logger.info(`Checking origin: ${origin}`);
+    
     if (!origin) {
       return callback(null, true);
     }
+    
     const isAllowed = allowedOrigins.some(allowedOrigin => {
       if (allowedOrigin === origin) {
         return true;
@@ -42,10 +44,12 @@ app.use(cors({
       }
       return false;
     });
+
     if (isAllowed) {
       logger.info(`Origin ${origin} is allowed`);
       return callback(null, true);
     }
+    
     logger.info(`Origin ${origin} is not allowed`);
     callback(new Error('Not allowed by CORS'));
   },
