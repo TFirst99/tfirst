@@ -20,11 +20,14 @@ export class WidgetUtil {
       this.widgetElement.innerHTML = `+${'-'.repeat(this.options.width - 2)}+<br>${content}<br>+${'-'.repeat(this.options.width - 2)}+`;
   }
 
-  formatLine(text, index) {
-    if (typeof text === 'object' && text !== null) {
-      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(text.content)}</span></div>|`;
+  formatLine(line, index) {
+    if (typeof line === 'object' && line !== null) {
+      if (line.url) {
+        return `|<div class="content-wrapper"><a href="${line.url}" target="_blank" class="scrolling-content" data-line="${index}">${this.formatContent(line.content)}</a></div>|`;
+      }
+      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(line.content)}</span></div>|`;
     }
-    return `|${this.centerText(text)}|`;
+    return `|${this.centerText(line)}|`;
   }
 
   formatContent(text) {
