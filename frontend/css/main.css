@@ -166,6 +166,17 @@ html body {
 }
 
 /*styles for clickable links in widgets*/
-#polling-project-widget a .link-text {
+.link-wrapper {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.widget-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.widget-link:hover {
     text-decoration: underline;
 }

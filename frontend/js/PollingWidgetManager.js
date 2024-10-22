@@ -26,8 +26,8 @@ export class PollingWidgetManager {
       this.pollingProjectWidget.updateWidget(
         ...data.project.map(line => ({ content: line })),
         { 
-          content: '<span class="link-text">VIEW ON GITHUB</span>', 
-          url: data.url,
+          content: 'VIEW ON GITHUB', 
+          url: data.url
         }
       );
     } else {

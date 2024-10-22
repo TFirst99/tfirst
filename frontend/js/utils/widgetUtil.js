@@ -22,11 +22,11 @@ export class WidgetUtil {
 
   formatLine(line, index) {
     if (typeof line === 'object' && line !== null) {
+      const content = this.formatContent(line.content);
       if (line.url) {
-        const style = line.style ? ` style="${line.style}"` : '';
-        return `|<div class="content-wrapper"><a href="${line.url}" target="_blank" class="scrolling-content"${style} data-line="${index}">${line.content}</a></div>|`;
+        return `|<div class="content-wrapper"><span class="link-wrapper">${content.replace(line.content, `<a href="${line.url}" target="_blank" class="widget-link" data-line="${index}">${line.content}</a>`)}</span></div>|`;
       }
-      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(line.content)}</span></div>|`;
+      return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${content}</span></div>|`;
     }
     return `|${this.centerText(line)}|`;
   }
