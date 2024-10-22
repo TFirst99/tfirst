@@ -5,6 +5,7 @@ import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
 import { AboutWidgetManager } from '/js/AboutWidgetManager.js';
 import { ServerWidgetManager } from '/js/ServerWidgetManager.js';
 import { TitleWidgetManager } from '/js/TitleWidgetManager.js';
+import { PollingWidgetManager } from './PollingWidgetManager';}
 
 class App {
     constructor() {
@@ -15,6 +16,7 @@ class App {
         this.aboutWidgetManager = new AboutWidgetManager();
         this.serverWidgetManager = new ServerWidgetManager();
         this.titleWidgetManager = new TitleWidgetManager();
+        this.pollingWidgetManager = new PollingWidgetManager();
     }
 
     init() {
@@ -25,6 +27,7 @@ class App {
         this.aboutWidgetManager.init();
         this.serverWidgetManager.init();
         this.titleWidgetManager.init();
+        this.pollingWidgetManager.init();
     }
 }
 
