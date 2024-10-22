@@ -1,8 +1,11 @@
 {
   "project": [
     "POLLING AVERAGE MODEl",
+    "",
     "python program that uses election polling",
-    "data to create a polling average."
+    "data to create a polling average and",
+    "showcases the different weighting techniques",
+    ""
   ],
   "url": "https://github.com/tfirst99/firstpollingmodel"
 }

@@ -152,7 +152,7 @@ html body {
 /*projects*/
 #projects-widget-container {
     grid-column: 1 / -1;
-    grid-row: 59 / span 23;
+    grid-row: 59 / span 15;
     grid-template-columns: 46ch;
     grid-template-rows: repeat(23, 1lh);
     justify-self: center;
@@ -161,7 +161,7 @@ html body {
 
 #polling-project-widget {
     grid-column: 1 / -1;
-    grid-row: 1 / span 6;
+    grid-row: 1 / span 8;
     justify-self: center;
 }
 
@@ -174,7 +174,7 @@ html body {
 
 .widget-link {
     color: #ffffff;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .widget-link:hover {
