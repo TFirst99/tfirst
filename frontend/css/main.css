@@ -138,7 +138,7 @@ html body {
 /*project title setup*/
 #projects-title-container {
     grid-column: 1 / -1;
-    grid-row: 50 / span 5;
+    grid-row: 52 / span 5;
     justify-self: center;
     display: grid;
 }
@@ -152,7 +152,7 @@ html body {
 /*projects*/
 #projects-widget-container {
     grid-column: 1 / -1;
-    grid-row: 57 / span 23;
+    grid-row: 59 / span 23;
     grid-template-columns: 46ch;
     grid-template-rows: repeat(23, 1lh);
     justify-self: center;
