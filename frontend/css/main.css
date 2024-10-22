@@ -170,16 +170,6 @@ html body {
     color: inherit;
     text-decoration: none;
 }
-
 .scrolling-content a:hover {
     text-decoration: underline;
-    cursor: pointer;
-}
-
-/*add a subtle visual indicator for links*/
-.scrolling-content a::after {
-    content: "↗";
-    font-size: 0.8em;
-    vertical-align: super;
-    margin-left: 2px;
 }
