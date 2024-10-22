@@ -4,7 +4,7 @@
     "",
     "python program that uses election polling",
     "data to create a polling average and",
-    "showcases the different weighting techniques",
+    "showcases different ways of weighting polls",
     ""
   ],
   "url": "https://github.com/tfirst99/firstpollingmodel"

@@ -1,29 +1,29 @@
 import { WidgetUtil } from '/js/utils/widgetUtil.js';
 
-export class PollingWidgetManager {
+export class WebsiteProjectManager {
   constructor() {
-    this.pollingProjectElement = document.getElementById("polling-project-widget");
-    this.pollingProjectWidget = new WidgetUtil(this.pollingProjectElement, { width: 46 });
-    this.jsonUrl = "/json/polling-project.json";
+    this.websiteProjectElement = document.getElementById("website-project-widget");
+    this.websiteProjectWidget = new WidgetUtil(this.websiteProjectElement, { width: 46 });
+    this.jsonUrl = "/json/website-project.json";
   }
 
-  async updatePollingData() {
+  async updateWebsiteData() {
     try {
       const response = await fetch(this.jsonUrl);
       if (!response.ok) {
-        throw new Error("Failed to fetch polling project");
+        throw new Error("Failed to fetch website project");
       }
       const data = await response.json();
       this.updateWidget(data);
     } catch (error) {
-      console.error("Error fetching polling project:", error);
+      console.error("Error fetching website project:", error);
       this.updateWidget(null);
     }
   }
 
   updateWidget(data) {
     if (data) {
-      this.pollingProjectWidget.updateWidget(
+      this.websiteProjectWidget.updateWidget(
         ...data.project.map(line => ({ content: line })),
         { 
           content: 'VIEW ON GITHUB', 
@@ -31,13 +31,13 @@ export class PollingWidgetManager {
         }
       );
     } else {
-      this.pollingProjectWidget.updateWidget(
+      this.websiteProjectWidget.updateWidget(
         { content: "error loading link" }
       );
     }
   }
 
   init() {
-    this.updatePollingData();
+    this.updateWebsiteData();
   }
 }
