@@ -76,7 +76,7 @@ html body {
 }
 
 /*title setup*/
-#title-container {
+#timfirst-title-container {
     grid-column: 1 / -1;
     grid-row: 2 / span 5;
     justify-self: center;
@@ -85,7 +85,7 @@ html body {
     align-items: center;
 }
 
-#title-container .large-title {
+#timfirst-title-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
@@ -136,15 +136,50 @@ html body {
 }
 
 /*project title setup*/
-#projects-container {
+#projects-title-container {
     grid-column: 1 / -1;
     grid-row: 58 / span 5;
     justify-self: center;
     display: grid;
 }
 
-#projects-container .large-title {
+#projects-title-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
+}
+
+/*projects*/
+#projects-widget-container {
+    grid-column: 1 / -1;
+    grid-row: 65 / span 23;
+    grid-template-columns: 46ch;
+    grid-template-rows: repeat(23, 1lh);
+    justify-self: center;
+    display: grid;
+}
+
+#polling-project-widget {
+    grid-column: 1 / -1;
+    grid-row: 1 / span 5;
+    justify-self: center;
+}
+
+/*styles for clickable links in widgets*/
+.scrolling-content a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.scrolling-content a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*add a subtle visual indicator for links*/
+.scrolling-content a::after {
+    content: "↗";
+    font-size: 0.8em;
+    vertical-align: super;
+    margin-left: 2px;
 }
