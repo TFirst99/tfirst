@@ -152,7 +152,7 @@ html body {
 /*projects*/
 #projects-widget-container {
     grid-column: 1 / -1;
-    grid-row: 59 / span 15;
+    grid-row: 59 / span 20;
     grid-template-columns: 46ch;
     grid-template-rows: repeat(23, 1lh);
     justify-self: center;
@@ -167,7 +167,7 @@ html body {
 
 #polling-project-widget {
     grid-column: 1 / -1;
-    grid-row: 10 / span 8;
+    grid-row: 11 / span 8;
     justify-self: center;
 }
 
