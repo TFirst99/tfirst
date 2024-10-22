@@ -166,14 +166,14 @@ html body {
 }
 
 /*styles for clickable links in widgets*/
-.scrolling-content a,
-.scrolling-content a:link,
-.scrolling-content a:visited {
+#terminal .scrolling-content a,
+#terminal .scrolling-content a:link,
+#terminal .scrolling-content a:visited {
     color: inherit;
     text-decoration: none;
 }
 
-.scrolling-content a:hover,
-.scrolling-content a:active {
+#terminal .scrolling-content a:hover,
+#terminal .scrolling-content a:active {
     text-decoration: underline;
 }
