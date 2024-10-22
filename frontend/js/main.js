@@ -5,7 +5,7 @@ import { GithubWidgetManager } from '/js/GithubWidgetManager.js';
 import { AboutWidgetManager } from '/js/AboutWidgetManager.js';
 import { ServerWidgetManager } from '/js/ServerWidgetManager.js';
 import { TitleWidgetManager } from '/js/TitleWidgetManager.js';
-import { PollingWidgetManager } from './PollingWidgetManager';}
+import { PollingWidgetManager } from '/js/PollingWidgetManager.js';
 
 class App {
     constructor() {
