@@ -23,7 +23,8 @@ export class WidgetUtil {
   formatLine(line, index) {
     if (typeof line === 'object' && line !== null) {
       if (line.url) {
-        return `|<div class="content-wrapper"><a href="${line.url}" target="_blank" class="scrolling-content" data-line="${index}">${this.formatContent(line.content)}</a></div>|`;
+        const style = line.style ? ` style="${line.style}"` : '';
+        return `|<div class="content-wrapper"><a href="${line.url}" target="_blank" class="scrolling-content"${style} data-line="${index}">${line.content}</a></div>|`;
       }
       return `|<div class="content-wrapper"><span class="scrolling-content" data-line="${index}">${this.formatContent(line.content)}</span></div>|`;
     }

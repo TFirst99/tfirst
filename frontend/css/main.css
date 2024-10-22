@@ -166,11 +166,6 @@ html body {
 }
 
 /*styles for clickable links in widgets*/
-#terminal
-    #projects-widget-container
-    #polling-project-widget
-    .scrolling-content
-    a {
-    color: #ffffff !important;
-    text-decoration: underline !important;
+#polling-project-widget a .link-text {
+    text-decoration: underline;
 }

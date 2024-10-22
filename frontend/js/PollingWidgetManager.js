@@ -25,11 +25,14 @@ export class PollingWidgetManager {
     if (data) {
       this.pollingProjectWidget.updateWidget(
         ...data.project.map(line => ({ content: line })),
-        { content: "View on GitHub", url: data.url }
+        { 
+          content: '<span class="link-text">VIEW ON GITHUB</span>', 
+          url: data.url,
+        }
       );
     } else {
       this.pollingProjectWidget.updateWidget(
-        { content: "Error loading project" }
+        { content: "error loading link" }
       );
     }
   }
