@@ -76,7 +76,7 @@ html body {
 }
 
 /*title setup*/
-#title-container {
+#timfirst-title-container {
     grid-column: 1 / -1;
     grid-row: 2 / span 5;
     justify-self: center;
@@ -85,7 +85,7 @@ html body {
     align-items: center;
 }
 
-#title-container .large-title {
+#timfirst-title-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
@@ -136,15 +136,53 @@ html body {
 }
 
 /*project title setup*/
-#projects-container {
+#projects-title-container {
     grid-column: 1 / -1;
-    grid-row: 58 / span 5;
+    grid-row: 52 / span 5;
     justify-self: center;
     display: grid;
 }
 
-#projects-container .large-title {
+#projects-title-container .large-title {
     justify-self: center;
     grid-column: 1;
     grid-row: 1;
+}
+
+/*projects*/
+#projects-widget-container {
+    grid-column: 1 / -1;
+    grid-row: 59 / span 20;
+    grid-template-columns: 46ch;
+    grid-template-rows: repeat(23, 1lh);
+    justify-self: center;
+    display: grid;
+}
+
+#website-project-widget {
+    grid-column: 1 / -1;
+    grid-row: 1 / span 8;
+    justify-self: center;
+}
+
+#polling-project-widget {
+    grid-column: 1 / -1;
+    grid-row: 11 / span 8;
+    justify-self: center;
+}
+
+/*styles for clickable links in widgets*/
+.link-wrapper {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.widget-link {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.widget-link:hover {
+    text-decoration: underline;
 }
